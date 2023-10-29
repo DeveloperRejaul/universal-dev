@@ -13,6 +13,7 @@ export default function index() {
   return (
       <View style={{flex:1}}>
         <Header/>
+        
         <Button title='Goto Details' onPress={()=>router.push("/(tab)/(one)/details")}/>
         <Button title='Goto demo' onPress={()=>router.push("/(stack)/demo")}/>
         <Button title='Logout' onPress={()=>router.replace("/")}/>
