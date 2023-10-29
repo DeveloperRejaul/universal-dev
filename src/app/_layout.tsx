@@ -9,12 +9,12 @@ export default function () {
   return (
     <Provider store={store}>
       <AppContext>
-        <SafeAreaView style={{flex:1}}>
-        <Stack screenOptions={{headerShown:false}}>
-            <Stack.Screen name='index' options={{title:"Login"}}/>
-            <Stack.Screen name='(tab)' options={{headerShown:false}}/>
-        </Stack>
-        </SafeAreaView>
+          <SafeAreaView style={{flex:1}}>
+            <Stack screenOptions={{headerShown:false}}>
+                <Stack.Screen name='index' options={{title:"Login"}}/>
+                <Stack.Screen name='(tab)' options={{headerShown:false}}/>
+            </Stack>
+          </SafeAreaView>
       </AppContext>
     </Provider>
   )
