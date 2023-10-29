@@ -2,11 +2,19 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "baseUrl": ".",
+   "paths": {
+    "@components": ["src/components/index"],
+    "@tabs": ["src/platform/tab/index"],
+    "@drawer*": ["src/platform/drawer/index"],
+    "@platform-components":["src/platform/components/index"],
+    "@hooks*":["src/hooks*"]
+    }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+  ],
 }

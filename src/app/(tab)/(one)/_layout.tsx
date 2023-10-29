@@ -3,7 +3,7 @@ import React from 'react'
 import { Stack } from 'expo-router'
 
 export default function () {
-  return <Stack>
+  return <Stack screenOptions={{headerShown:false}}>
     <Stack.Screen name='one'/>
   </Stack>
 }
