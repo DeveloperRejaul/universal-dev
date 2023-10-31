@@ -1,3 +1,3 @@
 import {Header} from "./header/Header"
-
-export {Header}
+import SimpleLogin from "./login/SimpleLogin"
+export {Header,SimpleLogin}
