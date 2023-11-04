@@ -17,7 +17,7 @@ type appProps = {
   handleSignUP?: () => void;
 };
 
-export default function SimpleLogin({
+export default function SimpleSignUp({
   handleLogin,
   title,
   setEmail,
@@ -26,7 +26,6 @@ export default function SimpleLogin({
   passwordLabel,
   emailPlaceholder,
   passwordPlaceholder,
-  onCheck,
   handleSignUP,
 }: appProps) {
   return (
@@ -44,7 +43,7 @@ export default function SimpleLogin({
         w={'90%'}
         sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
         <Text fontSize={'$2xl'} color='$trueGray800' fontWeight='$semibold'>
-          {title ? title : 'Login'}
+          {title ? title : 'Sign Up'}
         </Text>
         <Input
           label={emailLabel ? emailLabel : 'Email'}
@@ -58,12 +57,7 @@ export default function SimpleLogin({
           }
           onChangeText={setPassword}
         />
-        <HStack
-          alignItems='center'
-          sx={{ _web: { columnGap: 2, marginLeft: -4 }, columnGap: rw(2) }}>
-          <Checkbox background='#ed5684' size={1.3} onCheck={onCheck} />
-          <Text> Remember me ? </Text>
-        </HStack>
+        <HStack />
         <Pressable
           bg='#ed5684'
           justifyContent='center'
@@ -73,17 +67,15 @@ export default function SimpleLogin({
             _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
           }}
           paddingVertical={'$2'}
-          onPress={handleLogin}>
+          onPress={handleSignUP}>
           <Text
             color='$trueGray900'
             fontWeight='$semibold'
             fontSize={rf(2.2)}
-            sx={{ _web: { fontSize: rf(1.2) } }}>
-            Login
+            textTransform='uppercase'
+            sx={{ _web: { fontSize: rf(1.2), fontWeight: '$bold' } }}>
+            Sing up
           </Text>
-        </Pressable>
-        <Pressable>
-          <Text textAlign='right'>Forgot password?</Text>
         </Pressable>
 
         <HStack w={'100%'} justifyContent='center' alignItems='center'>
@@ -141,12 +133,12 @@ export default function SimpleLogin({
         </HStack>
         <HStack justifyContent='center' columnGap={'$1.5'}>
           <Text>Need an account?</Text>
-          <Pressable onPress={handleSignUP}>
+          <Pressable onPress={handleLogin}>
             <Text
               textTransform='uppercase'
               textDecorationLine='underline'
               fontWeight='$medium'>
-              Sing up
+              Login
             </Text>
           </Pressable>
         </HStack>
