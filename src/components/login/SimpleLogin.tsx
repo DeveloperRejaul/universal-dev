@@ -32,6 +32,11 @@ export default function SimpleLogin({
   return (
     <Box
       bg='$light100'
+      shadowColor='$black'
+      shadowOffset={{ height: 5, width: 5 }}
+      shadowOpacity={'$10'}
+      shadowRadius={'$5'}
+      elevation={'$5'}
       sx={{
         '@base': { width: '100%', height: '100%' },
         '@md': { width: '60%', height: '90%', borderRadius: '$md' },

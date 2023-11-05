@@ -6,11 +6,7 @@ export default function register() {
   const router = useRouter();
 
   return (
-    <Center
-      justifyContent='center'
-      alignItems='center'
-      bg='$blueGray500'
-      flex={1}>
+    <Center justifyContent='center' alignItems='center' bg='$light100' flex={1}>
       <SimpleSingUp handleLogin={() => router.push('/')} />
     </Center>
   );
