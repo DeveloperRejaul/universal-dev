@@ -1,9 +1,10 @@
-.input{
- border: 1px solid #949494;
- border-radius: 5px;
- padding: 5px 10px 5px 10px;
+.input {
+  border: 1px solid #949494;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  width: 93%;
 }
-.input:focus{
-    outline: none;
-    border-color:#656565 ;
+.input:focus {
+  outline: none;
+  border-color: #656565;
 }

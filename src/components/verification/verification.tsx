@@ -1,35 +1,20 @@
-import { rf, rh, rw } from 'src/constants/dimensions';
-import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
-import { Checkbox, Input } from '@platform-components';
+import { rf, rh } from 'src/constants/dimensions';
+import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
+import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 type appProps = {
   handleLogin?: () => void;
-  title?: string;
   setEmail?: (value: string) => void;
-  emailLabel?: string;
-  passwordLabel?: string;
-  setPassword?: (value: string) => void;
   emailPlaceholder?: string;
-  passwordPlaceholder?: string;
-  onChange?: (value: boolean) => void;
-  onCheck?: (value: boolean) => void;
   handleSignUP?: () => void;
-  handleForgotPassword?: () => void;
+  handleSend?: () => void;
 };
 
-export default function SimpleLogin({
-  handleLogin,
-  title,
+export default function Verification({
   setEmail,
-  setPassword,
-  emailLabel,
-  passwordLabel,
-  emailPlaceholder,
-  passwordPlaceholder,
-  onCheck,
   handleSignUP,
-  handleForgotPassword,
+  handleSend,
 }: appProps) {
   return (
     <Box
@@ -50,51 +35,45 @@ export default function SimpleLogin({
         rowGap={rh(2)}
         w={'90%'}
         sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
-        <Text fontSize={'$2xl'} color='$trueGray800' fontWeight='$semibold'>
-          {title ? title : 'Login'}
+        <Text
+          fontWeight='$semibold'
+          color='$coolGray800'
+          fontSize={'$lg'}
+          textAlign='center'>
+          Enter Verification Code
         </Text>
-
-        <Input
-          label={passwordLabel ? passwordLabel : 'Email'}
-          placeholder={emailPlaceholder ? passwordPlaceholder : 'Enter email'}
-          onChangeText={setEmail}
-        />
-
-        <Input
-          label={passwordLabel ? passwordLabel : 'Password'}
-          placeholder={
-            passwordPlaceholder ? passwordPlaceholder : 'Enter password'
-          }
-          onChangeText={setPassword}
-        />
-        <HStack
-          alignItems='center'
-          w={'100%'}
-          sx={{ _web: { columnGap: 2, marginLeft: -4 }, columnGap: rw(2) }}>
-          <Checkbox background='#ed5684' size={1.3} onCheck={onCheck} />
-          <Text> Remember me ? </Text>
+        <Input onChangeText={setEmail} />
+        <HStack justifyContent='center' columnGap={'$1'}>
+          <Text
+            fontSize={'$sm'}
+            fontWeight='$normal'
+            color='$coolGray500'
+            textAlign='center'>
+            If you don't resive code
+          </Text>
+          <Pressable>
+            <Text fontWeight='$semibold' color='#ed5684'>
+              Resend
+            </Text>
+          </Pressable>
         </HStack>
         <Pressable
           bg='#ed5684'
           justifyContent='center'
           alignItems='center'
           borderRadius={5}
-          w={'100%'}
           sx={{
             _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
           }}
           paddingVertical={'$2'}
-          onPress={handleLogin}>
+          onPress={handleSend}>
           <Text
             color='$trueGray900'
             fontWeight='$semibold'
             fontSize={rf(2.2)}
             sx={{ _web: { fontSize: rf(1.5), fontWeight: '$bold' } }}>
-            Login
+            Send
           </Text>
-        </Pressable>
-        <Pressable onPress={handleForgotPassword}>
-          <Text textAlign='right'>Forgot password?</Text>
         </Pressable>
 
         <HStack w={'100%'} justifyContent='center' alignItems='center'>
@@ -151,7 +130,7 @@ export default function SimpleLogin({
           </Pressable>
         </HStack>
         <HStack justifyContent='center' columnGap={'$1.5'}>
-          <Text>Need an account?</Text>
+          <Text>Do you have an account?</Text>
           <Pressable onPress={handleSignUP}>
             <Text
               textTransform='uppercase'

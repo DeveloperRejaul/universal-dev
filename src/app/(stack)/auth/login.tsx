@@ -11,6 +11,7 @@ export default function index() {
         handleLogin={() => router.replace('/(drawer)/(tab)/home/main')}
         handleSignUP={() => router.push('/(stack)/auth/register')}
         onCheck={(value) => {}}
+        handleForgotPassword={() => router.push('/auth/forgotPassword')}
       />
     </Center>
   );
