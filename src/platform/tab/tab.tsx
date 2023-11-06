@@ -1,19 +1,45 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Tabs } from 'expo-router'
-import Icon from "@expo/vector-icons/Ionicons"
+import { Ionicons } from '@expo/vector-icons';
+import { Text } from '@gluestack-ui/themed';
+import { Tabs } from 'expo-router';
+import { rf } from 'src/constants/dimensions';
 
-
-export default function () {
-  return <Tabs screenOptions={{headerShown:false}} > 
-  <Tabs.Screen name='index' options={{href:null}}/>
-  <Tabs.Screen name='(one)' options={{
-    title:"Home",
-     tabBarIcon:({focused})=><Icon name='home' size={25}/>
-    }}/>
-  <Tabs.Screen name='(two)' options={{
-    title:"Setting",
-     tabBarIcon:({focused})=><Icon name='settings' size={25}/>
-    }}/>
-</Tabs>
-}
+export default () => {
+  return (
+    <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs.Screen
+        name='home'
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name='home'
+              size={rf(2.5)}
+              color={focused ? '#2196f3' : 'black'}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text fontSize={'$sm'} color={focused ? '#2196f3' : 'black'}>
+              Home
+            </Text>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='notification'
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <Ionicons
+              name='notifications'
+              size={rf(2.5)}
+              color={focused ? '#2196f3' : 'black'}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text fontSize={'$sm'} color={focused ? '#2196f3' : 'black'}>
+              Notification
+            </Text>
+          ),
+        }}
+      />
+    </Tabs>
+  );
+};
