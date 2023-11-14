@@ -3,9 +3,20 @@ import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { rf, rw } from 'src/constants/dimensions';
 import { useNavigation } from 'expo-router';
 import Logo from '../../../assets/images/logo.png';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+
+type RootStackParamList = {
+  Drawer: undefined;
+  Details: { itemId: number };
+};
+
+type DrawerScreenNavigationProp = DrawerNavigationProp<
+  RootStackParamList,
+  'Drawer'
+>;
 
 export default function () {
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<DrawerScreenNavigationProp>();
   return (
     <Box
       px={'$3'}

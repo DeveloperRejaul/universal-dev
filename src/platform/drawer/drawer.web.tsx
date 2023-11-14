@@ -3,9 +3,10 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
+  DrawerContentComponentProps,
 } from '@react-navigation/drawer';
 
-const CustomDrawer = (props) => {
+const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />

@@ -7,7 +7,6 @@ export default function DrawerLayout() {
       screenOptions={{ headerShown: false }}
       drawerContent={(props) => <CustomDrawer {...props} />}>
       <Drawer.Screen name='(tab)' options={{ title: 'Home' }} />
-      <Drawer.Screen name='setting' />
     </Drawer>
   );
 }
