@@ -1,58 +1,37 @@
-import { Box, FlatList, Text } from '@gluestack-ui/themed';
-import React from 'react';
-import { rh, rw } from 'src/constants/dimensions';
+import { Dimensions } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { ScrollView, Box, Text } from '@gluestack-ui/themed';
 
-type ListItems = {
-  id: string;
-  title: string;
-};
-
-const DATA: ListItems[] = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Third Item',
-  },
-];
-
-type ItemProps = { title: string };
-function Item({ title }: ItemProps) {
-  return (
-    <Box
-      width={rw(90)}
-      justifyContent='center'
-      height={'$full'}
-      backgroundColor='$red400'
-      borderRadius={'$md'}
-      alignItems='center'
-      marginHorizontal={rw(2.5)}>
-      <Text>{title}</Text>
-    </Box>
-  );
-}
-
+const data = new Array(100).fill(0).map((d, i) => i);
+const { width, height } = Dimensions.get('window');
 export default function SimpleCarousal() {
-  const onScroll = (event) => {};
+  const scrollView = useRef();
+
+  useEffect(() => {
+    scrollView.current.scrollTo({ x: width * 3, y: 0, animated: true });
+  }, []);
 
   return (
-    <Box height={'$40'}>
-      <FlatList
-        pagingEnabled
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        onScroll={onScroll}
+    <Box height={'$40'} borderRadius={'$md'}>
+      <ScrollView
+        ref={scrollView}
         horizontal
-        data={DATA}
-        renderItem={({ item }: { item: any }) => <Item title={item.title} />}
-        keyExtractor={(item: any) => item.id}
-      />
+        showsHorizontalScrollIndicator={false}>
+        <Box flexDirection='row' columnGap={'$2'} width={width} h={'$full'}>
+          {data.map((d, i) => (
+            <Box
+              backgroundColor='$red500'
+              borderRadius={'$md'}
+              key={i}
+              w={width * 0.8}
+              h='$full'
+              justifyContent='center'
+              alignItems='center'>
+              <Text fontSize={'$4xl'}>{d}</Text>
+            </Box>
+          ))}
+        </Box>
+      </ScrollView>
     </Box>
   );
 }
