@@ -1,7 +1,8 @@
 import { rf, rh } from 'src/constants/dimensions';
-import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
+import { Box, Center, HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { useEffect, useRef, useState } from 'react';
 
 type appProps = {
   handleLogin?: () => void;
@@ -11,11 +12,15 @@ type appProps = {
   handleSend?: () => void;
 };
 
+const otp = ['', '', '', ''];
+
 export default function Verification({
   setEmail,
   handleSignUP,
   handleSend,
 }: appProps) {
+  const [count, setCount] = useState(0);
+
   return (
     <Box
       bg='$light100'
@@ -42,7 +47,20 @@ export default function Verification({
           textAlign='center'>
           Enter Verification Code
         </Text>
-        <Input onChangeText={setEmail} />
+        <Center flexDirection='row' columnGap={'$10'}>
+          {otp.map((o, i) => (
+            <Input
+              autoFocus={i === count}
+              key={i}
+              onChangeText={(text) => {
+                setCount((pre) => pre + 1);
+              }}
+              maxLength={1}
+              containerStyle={{ width: 40 }}
+              inputStyle={{ textAlign: 'center' }}
+            />
+          ))}
+        </Center>
         <HStack justifyContent='center' columnGap={'$1'}>
           <Text
             fontSize={'$sm'}

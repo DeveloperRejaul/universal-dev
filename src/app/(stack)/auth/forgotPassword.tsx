@@ -5,11 +5,15 @@ import { useRouter } from 'expo-router';
 
 export default function () {
   const router = useRouter();
+  const handleSend = (values:object)=>{
+    alert(JSON.stringify(values))
+    router.push('/(stack)/auth/verification')
+  }
 
   return (
     <Center bg='$light100' alignItems='center' flex={1}>
       <ForgotPassword
-        handleSend={() => router.push('/(stack)/auth/verification')}
+        handleSend={handleSend}
         handleLogin={() => router.push('/auth/login')}
         handleSignUP={() => router.push('/auth/register')}
       />

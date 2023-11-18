@@ -1,36 +1,51 @@
 import { rf, rh, rw } from 'src/constants/dimensions';
-import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed';
+import {
+  Box,
+  HStack,
+  Pressable,
+  Text,
+} from '@gluestack-ui/themed';
 import { Checkbox, Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+ 
+ const validationSchema = Yup.object().shape({
+   email: Yup.string().email("Must be a valid email").required('Required'),
+   password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Required'),
+   isRemember:Yup.boolean()
+ });
 type appProps = {
-  handleLogin?: () => void;
   title?: string;
-  setEmail?: (value: string) => void;
   emailLabel?: string;
   passwordLabel?: string;
-  setPassword?: (value: string) => void;
   emailPlaceholder?: string;
   passwordPlaceholder?: string;
-  onChange?: (value: boolean) => void;
-  onCheck?: (value: boolean) => void;
   handleSignUP?: () => void;
+  handleLogin?: (values:object) => any;
   handleForgotPassword?: () => void;
 };
 
 export default function SimpleLogin({
-  handleLogin,
   title,
-  setEmail,
-  setPassword,
   emailLabel,
   passwordLabel,
   emailPlaceholder,
   passwordPlaceholder,
-  onCheck,
   handleSignUP,
   handleForgotPassword,
+  handleLogin
 }: appProps) {
+  const formik = useFormik({
+    initialValues: { email: '', password: '' , isRemember:false},
+    validationSchema,
+    onSubmit:handleLogin
+  });
+  const setEmail = (email: string) => formik.setFieldValue('email', email);
+  const setPassword = (password: string) => formik.setFieldValue('password', password);
+  const setIsRemember = (isRemember: boolean) => formik.setFieldValue('isRemember', isRemember);
+
+  const {errors, touched} = formik
   return (
     <Box
       bg='$light100'
@@ -55,23 +70,29 @@ export default function SimpleLogin({
         </Text>
 
         <Input
-          label={passwordLabel ? passwordLabel : 'Email'}
-          placeholder={emailPlaceholder ? passwordPlaceholder : 'Enter email'}
+          value={formik.values.email}
           onChangeText={setEmail}
+          label={emailLabel ? emailLabel : 'Email'}
+          placeholder={emailPlaceholder ? passwordPlaceholder : 'Enter email'}
+          error={errors.email&& touched.email ? errors.email:""}
         />
 
         <Input
-          label={passwordLabel ? passwordLabel : 'Password'}
-          placeholder={
-            passwordPlaceholder ? passwordPlaceholder : 'Enter password'
-          }
+          value={formik.values.password}
           onChangeText={setPassword}
+          label={passwordLabel ? passwordLabel : 'Password'}
+          placeholder={ passwordPlaceholder ? passwordPlaceholder : 'Enter password'}
+          error={errors.password&&touched.password ? errors.password:""}
+          type='password'
         />
         <HStack
           alignItems='center'
           w={'100%'}
-          sx={{ _web: { columnGap: 2, marginLeft: -4 }, columnGap: rw(2) }}>
-          <Checkbox background='#ed5684' size={1.3} onCheck={onCheck} />
+          sx={{
+            _web: { columnGap: 2, marginLeft: -4 },
+            columnGap: rw(2),
+          }}>
+          <Checkbox background='#ed5684' size={1.3} onCheck={setIsRemember} />
           <Text> Remember me ? </Text>
         </HStack>
         <Pressable
@@ -84,7 +105,7 @@ export default function SimpleLogin({
             _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
           }}
           paddingVertical={'$2'}
-          onPress={handleLogin}>
+          onPress={formik.handleSubmit}>
           <Text
             color='$trueGray900'
             fontWeight='$semibold'

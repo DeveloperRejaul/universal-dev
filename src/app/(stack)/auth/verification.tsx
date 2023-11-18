@@ -8,6 +8,7 @@ export default function verification() {
   return (
     <Center flex={1} bg='$light100'>
       <Verification
+      
         handleSend={() => router.push('/auth/confirmPassword')}
         handleSignUP={() => router.push('/auth/register')}
       />

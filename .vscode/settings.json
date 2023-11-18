@@ -1,15 +1,22 @@
 {
-    "files.autoSave": "onFocusChange",
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[javascript]": {
-      "editor.formatOnSave": false
-    },
-    "[javascriptreact]": {
-      "editor.formatOnSave": false
-    },
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true
-    },
-    "eslint.validate": ["javascript", "javasriptreact", "javascriptreactnative","typescript", "typesriptreact", "typescriptreactnative"],
-    "editor.formatOnSave": true
-  }
+  "files.autoSave": "onFocusChange",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "javasriptreact",
+    "javascriptreactnative",
+    "typescript",
+    "typesriptreact",
+    "typescriptreactnative"
+  ],
+  "editor.formatOnSave": true
+}

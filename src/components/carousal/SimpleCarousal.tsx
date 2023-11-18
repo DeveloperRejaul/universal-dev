@@ -5,7 +5,7 @@ import { ScrollView, Box, Text } from '@gluestack-ui/themed';
 const data = new Array(100).fill(0).map((d, i) => i);
 const { width, height } = Dimensions.get('window');
 export default function SimpleCarousal() {
-  const scrollView = useRef();
+  const scrollView = useRef<ScrollView>(null);
 
   useEffect(() => {
     scrollView.current.scrollTo({ x: width * 3, y: 0, animated: true });

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Input, InputField, Text, Box, Pressable } from '@gluestack-ui/themed';
+import React, { useState, forwardRef, Ref } from 'react';
+import { Text, Box, Pressable } from '@gluestack-ui/themed';
 import { colors } from 'src/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { rf } from 'src/constants/dimensions';
-import { TextInput } from 'react-native';
+import { TextInput, TextStyle, ViewStyle } from 'react-native';
 
 type appProps = {
   label?: string;
@@ -11,6 +11,13 @@ type appProps = {
   labelStyle?: object;
   onChangeText?: (value: string) => void;
   type?: 'search' | 'text' | 'password';
+  value?: string;
+  onBlur?: (value: boolean) => void;
+  error?: string;
+  containerStyle?: ViewStyle;
+  inputStyle?: TextStyle;
+  maxLength?: number;
+  autoFocus?: boolean;
 };
 
 export default function ({
@@ -19,9 +26,18 @@ export default function ({
   onChangeText,
   labelStyle,
   type,
+  value,
+  onBlur,
+  error,
+  containerStyle,
+  maxLength,
+  inputStyle,
+  autoFocus,
 }: appProps) {
+  const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
+
   return (
-    <>
+    <Box style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
       <Box
         borderColor={colors.gray_100}
@@ -33,16 +49,35 @@ export default function ({
         alignItems='center'
         paddingVertical={'$1'}>
         <TextInput
-          style={{ flex: 1 }}
+          autoFocus={autoFocus}
+          maxLength={maxLength}
+          onBlur={onBlur}
+          style={{ flex: 1, ...inputStyle }}
           onChangeText={onChangeText}
           placeholder={placeholder}
+          value={value}
+          secureTextEntry={type === 'password' && passwordHidden}
         />
         {type === 'search' ? (
           <Pressable>
             <Ionicons name='search' size={rf(3)} color={colors.gray_100} />
           </Pressable>
         ) : null}
+        {type === 'password' ? (
+          <Pressable onPress={() => setPasswordHidden((pre) => !pre)}>
+            <Ionicons
+              name={passwordHidden ? 'eye-off' : 'eye'}
+              size={rf(3)}
+              color={colors.gray_100}
+            />
+          </Pressable>
+        ) : null}
       </Box>
-    </>
+      {error && (
+        <Text fontSize={'$sm'} color='$warning500'>
+          {error}
+        </Text>
+      )}
+    </Box>
   );
 }

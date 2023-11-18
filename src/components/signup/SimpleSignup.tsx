@@ -1,33 +1,58 @@
-import { rf, rh, rw } from 'src/constants/dimensions';
+import { rf, rh, } from 'src/constants/dimensions';
 import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
-import { Checkbox, Input } from '@platform-components';
+import {  Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
 
 type appProps = {
   handleLogin?: () => void;
   title?: string;
-  setEmail?: (value: string) => void;
   emailLabel?: string;
-  passwordLabel?: string;
-  setPassword?: (value: string) => void;
   emailPlaceholder?: string;
+  passwordLabel?: string;
   passwordPlaceholder?: string;
+  confirmPasswordLabel?:string;
+  confirmPasswordPlaceholder?:string;
+  nameLabel?:string;
+  namePlaceholder?:string;
   onChange?: (value: boolean) => void;
-  onCheck?: (value: boolean) => void;
-  handleSignUP?: () => void;
+  handleSignUP?: (values:any) => void;
 };
+
+const validationSchema = Yup.object().shape({
+  name:Yup.string().required("Name is required"),
+  email:Yup.string().email("Must be a valid email").required("Email is required"),
+  password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
+  confirmPassword:Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
+})
 
 export default function SimpleSignUp({
   handleLogin,
   title,
-  setEmail,
-  setPassword,
   emailLabel,
-  passwordLabel,
   emailPlaceholder,
+  passwordLabel,
   passwordPlaceholder,
+  confirmPasswordLabel,
+  confirmPasswordPlaceholder,
+  nameLabel,
+  namePlaceholder,
   handleSignUP,
 }: appProps) {
+
+const {setFieldValue, handleSubmit, errors, touched} =  useFormik({
+  initialValues:{email:"", password:"", confirmPassword:"", name:"" }, 
+  validationSchema,
+  onSubmit:handleSignUP
+})
+
+const setName = (name:string)=>setFieldValue("name", name)
+const setEmail = (email:string)=> setFieldValue("email", email);
+const setPassword = (password:string)=>setFieldValue("password", password);
+const setConfirmPassword = (confirmPassword:string)=>setFieldValue("confirmPassword", confirmPassword);
+
+
   return (
     <Box
       bg='$light100'
@@ -51,16 +76,30 @@ export default function SimpleSignUp({
           {title ? title : 'Sign Up'}
         </Text>
         <Input
+          label={nameLabel ? nameLabel : 'Full name'}
+          placeholder={namePlaceholder ? namePlaceholder : 'Enter full name'}
+          onChangeText={setName}
+          error={errors.name && touched.name ? errors.name :""}
+        /> 
+        <Input
           label={emailLabel ? emailLabel : 'Email'}
           placeholder={emailPlaceholder ? passwordPlaceholder : 'Enter email'}
           onChangeText={setEmail}
+          error={errors.email && touched.email ? errors.email :""}
         />
         <Input
           label={passwordLabel ? passwordLabel : 'Password'}
-          placeholder={
-            passwordPlaceholder ? passwordPlaceholder : 'Enter password'
-          }
+          placeholder={ passwordPlaceholder ? passwordPlaceholder : 'Enter password' }
           onChangeText={setPassword}
+          type='password'
+          error={errors.password && touched.password ? errors.password :""}
+        />
+        <Input
+          label={confirmPasswordLabel ? confirmPasswordLabel : 'Confirm Password'}
+          placeholder={ confirmPasswordPlaceholder ? confirmPasswordPlaceholder : 'Enter password' }
+          onChangeText={setConfirmPassword}
+          error={errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword :""}
+          type='password'
         />
         <HStack />
         <Pressable
@@ -72,7 +111,7 @@ export default function SimpleSignUp({
             _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
           }}
           paddingVertical={'$2'}
-          onPress={handleSignUP}>
+          onPress={handleSubmit}>
           <Text
             color='$trueGray900'
             fontWeight='$semibold'

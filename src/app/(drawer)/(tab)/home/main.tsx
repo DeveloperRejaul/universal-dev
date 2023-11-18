@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'expo-router';
-import { Box } from '@gluestack-ui/themed';
+import { Box, View } from '@gluestack-ui/themed';
 import { Header, Input } from '@platform-components';
 import { SimpleCarousal } from '@components';
 
@@ -11,7 +11,16 @@ export default function Home() {
     <>
       <Header />
       <Box flex={1} px={'$3'}>
-        <Input placeholder='Search for products' type='search' />
+        <View>
+          <Input
+            placeholder='Search for products'
+            type='search'
+            onChangeText={(text) => {
+              console.log(text);
+            }}
+          />
+        </View>
+
         <SimpleCarousal />
       </Box>
     </>
