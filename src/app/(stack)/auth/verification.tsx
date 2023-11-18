@@ -5,11 +5,19 @@ import { useRouter } from 'expo-router';
 
 export default function verification() {
   const router = useRouter();
+
+  const handleSend = (values: object) => {
+    alert(JSON.stringify(values));
+    router.push('/auth/confirmPassword');
+  };
+
+  const handleResend = () => {};
+
   return (
     <Center flex={1} bg='$light100'>
       <Verification
-      
-        handleSend={() => router.push('/auth/confirmPassword')}
+        handleResend={handleResend}
+        handleSend={handleSend}
         handleSignUP={() => router.push('/auth/register')}
       />
     </Center>

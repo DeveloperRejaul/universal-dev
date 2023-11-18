@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, Ref } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { Text, Box, Pressable } from '@gluestack-ui/themed';
 import { colors } from 'src/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,20 +20,23 @@ type appProps = {
   autoFocus?: boolean;
 };
 
-export default function ({
-  label,
-  placeholder,
-  onChangeText,
-  labelStyle,
-  type,
-  value,
-  onBlur,
-  error,
-  containerStyle,
-  maxLength,
-  inputStyle,
-  autoFocus,
-}: appProps) {
+export default forwardRef(function (
+  {
+    label,
+    placeholder,
+    onChangeText,
+    labelStyle,
+    type,
+    value,
+    onBlur,
+    error,
+    containerStyle,
+    maxLength,
+    inputStyle,
+    autoFocus,
+  }: appProps,
+  ref: React.ForwardedRef<any>,
+) {
   const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
 
   return (
@@ -49,6 +52,7 @@ export default function ({
         alignItems='center'
         paddingVertical={'$1'}>
         <TextInput
+          ref={ref}
           autoFocus={autoFocus}
           maxLength={maxLength}
           onBlur={onBlur}
@@ -80,4 +84,4 @@ export default function ({
       )}
     </Box>
   );
-}
+});

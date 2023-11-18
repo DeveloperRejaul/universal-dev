@@ -4,6 +4,7 @@ import SimpleLogin from './login/SimpleLogin';
 import SimpleSingUp from './signup/SimpleSignup';
 import Verification from './verification/verification';
 import SimpleCarousal from './carousal/SimpleCarousal';
+
 export {
   SimpleLogin,
   SimpleSingUp,

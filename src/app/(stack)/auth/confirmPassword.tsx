@@ -6,9 +6,12 @@ import { useRouter } from 'expo-router';
 
 export default function () {
   const router = useRouter();
+  const handleSend = () => {
+    router.push('/auth/login');
+  };
   return (
     <Center flex={1} bg='$light100'>
-      <ConfirmPassword handleSend={() => router.push('/auth/login')} />
+      <ConfirmPassword handleSend={handleSend} />
     </Center>
   );
 }
