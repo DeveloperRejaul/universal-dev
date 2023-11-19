@@ -1,9 +1,10 @@
-import { rf, rh, } from 'src/constants/dimensions';
+import { rf, rh } from 'src/constants/dimensions';
 import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
-import {  Input } from '@platform-components';
+import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
-import * as Yup from 'yup'
+import * as Yup from 'yup';
+import { Button } from '@components';
 
 type appProps = {
   handleLogin?: () => void;
@@ -12,20 +13,28 @@ type appProps = {
   emailPlaceholder?: string;
   passwordLabel?: string;
   passwordPlaceholder?: string;
-  confirmPasswordLabel?:string;
-  confirmPasswordPlaceholder?:string;
-  nameLabel?:string;
-  namePlaceholder?:string;
+  confirmPasswordLabel?: string;
+  confirmPasswordPlaceholder?: string;
+  nameLabel?: string;
+  namePlaceholder?: string;
   onChange?: (value: boolean) => void;
-  handleSignUP?: (values:any) => void;
+  handleSignUP?: (values: any) => void;
+  isLoading?: boolean;
 };
 
 const validationSchema = Yup.object().shape({
-  name:Yup.string().required("Name is required"),
-  email:Yup.string().email("Must be a valid email").required("Email is required"),
-  password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
-  confirmPassword:Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
-})
+  name: Yup.string().required('Name is required'),
+  email: Yup.string()
+    .email('Must be a valid email')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
+});
 
 export default function SimpleSignUp({
   handleLogin,
@@ -39,19 +48,19 @@ export default function SimpleSignUp({
   nameLabel,
   namePlaceholder,
   handleSignUP,
+  isLoading,
 }: appProps) {
+  const { setFieldValue, handleSubmit, errors, touched } = useFormik({
+    initialValues: { email: '', password: '', confirmPassword: '', name: '' },
+    validationSchema,
+    onSubmit: handleSignUP,
+  });
 
-const {setFieldValue, handleSubmit, errors, touched} =  useFormik({
-  initialValues:{email:"", password:"", confirmPassword:"", name:"" }, 
-  validationSchema,
-  onSubmit:handleSignUP
-})
-
-const setName = (name:string)=>setFieldValue("name", name)
-const setEmail = (email:string)=> setFieldValue("email", email);
-const setPassword = (password:string)=>setFieldValue("password", password);
-const setConfirmPassword = (confirmPassword:string)=>setFieldValue("confirmPassword", confirmPassword);
-
+  const setName = (name: string) => setFieldValue('name', name);
+  const setEmail = (email: string) => setFieldValue('email', email);
+  const setPassword = (password: string) => setFieldValue('password', password);
+  const setConfirmPassword = (confirmPassword: string) =>
+    setFieldValue('confirmPassword', confirmPassword);
 
   return (
     <Box
@@ -79,48 +88,42 @@ const setConfirmPassword = (confirmPassword:string)=>setFieldValue("confirmPassw
           label={nameLabel ? nameLabel : 'Full name'}
           placeholder={namePlaceholder ? namePlaceholder : 'Enter full name'}
           onChangeText={setName}
-          error={errors.name && touched.name ? errors.name :""}
-        /> 
+          error={errors.name && touched.name ? errors.name : ''}
+        />
         <Input
           label={emailLabel ? emailLabel : 'Email'}
           placeholder={emailPlaceholder ? passwordPlaceholder : 'Enter email'}
           onChangeText={setEmail}
-          error={errors.email && touched.email ? errors.email :""}
+          error={errors.email && touched.email ? errors.email : ''}
         />
         <Input
           label={passwordLabel ? passwordLabel : 'Password'}
-          placeholder={ passwordPlaceholder ? passwordPlaceholder : 'Enter password' }
+          placeholder={
+            passwordPlaceholder ? passwordPlaceholder : 'Enter password'
+          }
           onChangeText={setPassword}
           type='password'
-          error={errors.password && touched.password ? errors.password :""}
+          error={errors.password && touched.password ? errors.password : ''}
         />
         <Input
-          label={confirmPasswordLabel ? confirmPasswordLabel : 'Confirm Password'}
-          placeholder={ confirmPasswordPlaceholder ? confirmPasswordPlaceholder : 'Enter password' }
+          label={
+            confirmPasswordLabel ? confirmPasswordLabel : 'Confirm Password'
+          }
+          placeholder={
+            confirmPasswordPlaceholder
+              ? confirmPasswordPlaceholder
+              : 'Enter password'
+          }
           onChangeText={setConfirmPassword}
-          error={errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword :""}
+          error={
+            errors.confirmPassword && touched.confirmPassword
+              ? errors.confirmPassword
+              : ''
+          }
           type='password'
         />
         <HStack />
-        <Pressable
-          bg='#ed5684'
-          justifyContent='center'
-          alignItems='center'
-          borderRadius={5}
-          sx={{
-            _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
-          }}
-          paddingVertical={'$2'}
-          onPress={handleSubmit}>
-          <Text
-            color='$trueGray900'
-            fontWeight='$semibold'
-            fontSize={rf(2.2)}
-            textTransform='uppercase'
-            sx={{ _web: { fontSize: rf(1.2), fontWeight: '$bold' } }}>
-            Sing up
-          </Text>
-        </Pressable>
+        <Button text=' Sing up' onPress={handleSubmit} isLoading={isLoading} />
 
         <HStack w={'100%'} justifyContent='center' alignItems='center'>
           <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
