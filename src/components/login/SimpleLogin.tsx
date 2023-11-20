@@ -4,6 +4,7 @@ import { Checkbox, Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { Button } from '@components';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -22,8 +23,9 @@ type appProps = {
   emailPlaceholder?: string;
   passwordPlaceholder?: string;
   handleSignUP?: () => void;
-  handleLogin?: (values: object) => any;
+  handleLogin?: (values: any) => object;
   handleForgotPassword?: () => void;
+  isLoading?: boolean;
 };
 
 export default function SimpleLogin({
@@ -35,6 +37,7 @@ export default function SimpleLogin({
   handleSignUP,
   handleForgotPassword,
   handleLogin,
+  isLoading,
 }: appProps) {
   const formik = useFormik({
     initialValues: { email: '', password: '', isRemember: false },
@@ -99,25 +102,11 @@ export default function SimpleLogin({
           <Checkbox background='#ed5684' size={1.3} onCheck={setIsRemember} />
           <Text> Remember me ? </Text>
         </HStack>
-        <Pressable
-          bg='#ed5684'
-          justifyContent='center'
-          alignItems='center'
-          borderRadius={5}
-          w={'100%'}
-          sx={{
-            _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
-          }}
-          paddingVertical={'$2'}
-          onPress={formik.handleSubmit}>
-          <Text
-            color='$trueGray900'
-            fontWeight='$semibold'
-            fontSize={rf(2.2)}
-            sx={{ _web: { fontSize: rf(1.5), fontWeight: '$bold' } }}>
-            Login
-          </Text>
-        </Pressable>
+        <Button
+          onPress={formik.handleSubmit}
+          text='Login'
+          isLoading={isLoading}
+        />
         <Pressable onPress={handleForgotPassword}>
           <Text textAlign='right'>Forgot password?</Text>
         </Pressable>

@@ -3,31 +3,37 @@ import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
-import * as Yup from 'yup'
-
+import * as Yup from 'yup';
+import { Button } from '@components';
 
 type appProps = {
   emailPlaceholder?: string;
   setEmail?: (value: string) => void;
   handleLogin?: () => void;
   handleSignUP?: () => void;
-  handleSend?: (values:any) => void;
+  handleSend?: (values: any) => void;
+  isLoading?: boolean;
 };
 
 const validationSchema = Yup.object().shape({
-  email:Yup.string().email("Must be a valid email").required("Email is required"),
-})
+  email: Yup.string()
+    .email('Must be a valid email')
+    .required('Email is required'),
+});
 
 export default function ForgotPassword({
- 
+  isLoading,
   emailPlaceholder,
   handleLogin,
   handleSignUP,
   handleSend,
 }: appProps) {
-
- const {setFieldValue , handleSubmit, errors, touched} = useFormik({initialValues:{email:""}, validationSchema, onSubmit:handleSend})
-const  setEmail = (email:string)=>setFieldValue("email", email);
+  const { setFieldValue, handleSubmit, errors, touched } = useFormik({
+    initialValues: { email: '' },
+    validationSchema,
+    onSubmit: handleSend,
+  });
+  const setEmail = (email: string) => setFieldValue('email', email);
 
   return (
     <Box
@@ -58,7 +64,7 @@ const  setEmail = (email:string)=>setFieldValue("email", email);
         <Input
           placeholder={emailPlaceholder ? emailPlaceholder : 'Enter email'}
           onChangeText={setEmail}
-          error={errors.email && touched.email ? errors.email :""}
+          error={errors.email && touched.email ? errors.email : ''}
         />
         <Pressable onPress={handleLogin}>
           <Text
@@ -69,25 +75,7 @@ const  setEmail = (email:string)=>setFieldValue("email", email);
             Back to login
           </Text>
         </Pressable>
-        <Pressable
-          bg='#ed5684'
-          justifyContent='center'
-          alignItems='center'
-          borderRadius={5}
-          sx={{
-            _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
-          }}
-          paddingVertical={'$2'}
-          onPress={handleSubmit}>
-          <Text
-            color='$trueGray900'
-            fontWeight='$semibold'
-            fontSize={rf(2.2)}
-            sx={{ _web: { fontSize: rf(1.5), fontWeight: '$bold' } }}>
-            Send
-          </Text>
-        </Pressable>
-
+        <Button onPress={handleSubmit} text='Send' isLoading={isLoading} />
         <HStack w={'100%'} justifyContent='center' alignItems='center'>
           <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
           <Box

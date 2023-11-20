@@ -1,5 +1,14 @@
 import { api } from './api';
 
+type loginData = {
+  email: string;
+  password: string;
+};
+
+type forgetPassData = {
+  email: string;
+};
+
 export const userApi = api.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
@@ -13,7 +22,42 @@ export const userApi = api.injectEndpoints({
         };
       },
     }),
+    login: builder.mutation({
+      query: (data: loginData) => {
+        return {
+          url: '/auth/user/login',
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' },
+        };
+      },
+    }),
+    forgetPassword: builder.mutation({
+      query: (data: forgetPassData) => {
+        return {
+          url: '/auth/user/forgot-password',
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' },
+        };
+      },
+    }),
+    passwordVerification: builder.mutation({
+      query: (data: forgetPassData) => {
+        return {
+          url: '/auth/user/forgot-password',
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' },
+        };
+      },
+    }),
   }),
 });
 
-export const { useSignupMutation } = userApi;
+export const {
+  useSignupMutation,
+  useLoginMutation,
+  useForgetPasswordMutation,
+  usePasswordVerificationMutation,
+} = userApi;

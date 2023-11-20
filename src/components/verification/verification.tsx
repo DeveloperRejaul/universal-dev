@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useToast from '@hooks/useToast';
+import { Button } from '@components';
 
 let timeout: any;
 let interval: any;
@@ -13,6 +14,7 @@ type appProps = {
   handleSignUP?: () => void;
   handleSend?: (values: object) => void;
   handleResend?: () => void;
+  isLoading?: boolean;
 };
 
 const validationSchema = Yup.object().shape({
@@ -26,6 +28,7 @@ export default function Verification({
   handleSignUP,
   handleSend,
   handleResend,
+  isLoading,
 }: appProps) {
   const { handleSubmit, setFieldValue, isValid } = useFormik({
     initialValues: { otp1: '', otp2: '', otp3: '', otp4: '' },
@@ -148,15 +151,7 @@ export default function Verification({
           </Pressable>
           {resend && <Text ml={'$2'}>{time}</Text>}
         </HStack>
-        <Pressable
-          bg='#ed5684'
-          justifyContent='center'
-          alignItems='center'
-          borderRadius={5}
-          sx={{
-            _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
-          }}
-          paddingVertical={'$2'}
+        <Button
           onPress={() => {
             handleSubmit?.();
             if (!isValid)
@@ -165,15 +160,10 @@ export default function Verification({
                 title: 'Warning',
                 action: 'error',
               });
-          }}>
-          <Text
-            color='$trueGray900'
-            fontWeight='$semibold'
-            fontSize={rf(2.2)}
-            sx={{ _web: { fontSize: rf(1.5), fontWeight: '$bold' } }}>
-            Send
-          </Text>
-        </Pressable>
+          }}
+          text='Send'
+          isLoading={isLoading}
+        />
 
         <HStack w={'100%'} justifyContent='center' alignItems='center'>
           <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
