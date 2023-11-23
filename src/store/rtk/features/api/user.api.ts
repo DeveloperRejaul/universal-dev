@@ -9,6 +9,16 @@ type forgetPassData = {
   email: string;
 };
 
+type verificationPassword = {
+  code: number;
+  token: string;
+};
+
+type addNewPassword = {
+  password: string;
+  token: string;
+};
+
 export const userApi = api.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
@@ -27,7 +37,7 @@ export const userApi = api.injectEndpoints({
         return {
           url: '/auth/user/login',
           method: 'POST',
-          body: JSON.stringify(data),
+          body: data,
           headers: { 'Content-Type': 'application/json' },
         };
       },
@@ -43,9 +53,19 @@ export const userApi = api.injectEndpoints({
       },
     }),
     passwordVerification: builder.mutation({
-      query: (data: forgetPassData) => {
+      query: (data: verificationPassword) => {
         return {
-          url: '/auth/user/forgot-password',
+          url: '/auth/user/code-check',
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' },
+        };
+      },
+    }),
+    addNewPassword: builder.mutation({
+      query: (data: addNewPassword) => {
+        return {
+          url: '/auth/user/new-password',
           method: 'POST',
           body: JSON.stringify(data),
           headers: { 'Content-Type': 'application/json' },
@@ -60,4 +80,5 @@ export const {
   useLoginMutation,
   useForgetPasswordMutation,
   usePasswordVerificationMutation,
+  useAddNewPasswordMutation,
 } = userApi;

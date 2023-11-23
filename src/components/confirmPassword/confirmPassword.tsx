@@ -1,17 +1,17 @@
-import { rf, rh } from 'src/constants/dimensions';
-import { Box, Pressable, Text } from '@gluestack-ui/themed';
+import { rh } from 'src/constants/dimensions';
+import { Box } from '@gluestack-ui/themed';
 import { Input } from '@platform-components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { Button } from '@components';
 
 type appProps = {
-  setConfirmPassword?: (value: string) => void;
   passwordConfirmLabel?: string;
   passwordLabel?: string;
-  setPassword?: (value: string) => void;
   passwordConfirmPlaceholder?: string;
   passwordPlaceholder?: string;
-  handleSend?: (values: object) => void;
+  handleSend?: (values: { password: string }) => void;
+  isLoading: boolean;
 };
 
 const validationSchema = Yup.object().shape({
@@ -30,6 +30,7 @@ export default function ConfirmPassword({
   handleSend,
   passwordConfirmLabel,
   passwordConfirmPlaceholder,
+  isLoading,
 }: appProps) {
   const { setFieldValue, handleSubmit, errors, touched } = useFormik({
     initialValues: { password: '', confirmPassword: '' },
@@ -86,25 +87,7 @@ export default function ConfirmPassword({
               : ''
           }
         />
-        <Pressable
-          bg='#ed5684'
-          justifyContent='center'
-          alignItems='center'
-          borderRadius={5}
-          w={'100%'}
-          sx={{
-            _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
-          }}
-          paddingVertical={'$2'}
-          onPress={handleSubmit}>
-          <Text
-            color='$trueGray900'
-            fontWeight='$semibold'
-            fontSize={rf(2.2)}
-            sx={{ _web: { fontSize: rf(1.5), fontWeight: '$bold' } }}>
-            Send
-          </Text>
-        </Pressable>
+        <Button isLoading={isLoading} text='Send' onPress={handleSubmit} />
       </Box>
     </Box>
   );

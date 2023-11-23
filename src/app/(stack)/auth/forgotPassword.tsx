@@ -8,12 +8,14 @@ import useToast from '@hooks/useToast';
 export default function () {
   const router = useRouter();
   const { showToast } = useToast();
-  const [forgetPass, { isError, isLoading, isSuccess, error }] =
+  const [forgetPass, { isError, isLoading, isSuccess, error, data }] =
     useForgetPasswordMutation();
 
   const handleSend = async ({ email }: { email: string }) => {
     await forgetPass({ email });
   };
+
+  console.log(isError, isLoading, isSuccess, error, data);
 
   useEffect(() => {
     if (isError)
@@ -30,7 +32,7 @@ export default function () {
       });
 
       setTimeout(() => {
-        router.push('/(stack)/auth/verification');
+        router.push({ pathname: '/(stack)/auth/verification', params: data });
       }, 1000);
     }
   }, [isError, isSuccess]);
