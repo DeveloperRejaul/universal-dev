@@ -1,9 +1,9 @@
-import { rh } from 'src/constants/dimensions';
 import { Box } from '@gluestack-ui/themed';
 import { Input } from '@platform-components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@components';
+import { rh } from 'src/constants/dimensions';
 
 type appProps = {
   passwordConfirmLabel?: string;

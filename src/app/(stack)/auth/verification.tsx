@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { Center } from '@gluestack-ui/themed';
-import { Verification } from '@components';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { usePasswordVerificationMutation } from 'src/store/rtk/features/api/user.api';
 import useToast from '@hooks/useToast';
+import Verification from 'src/features/authentication/screens/verification';
+import { usePasswordVerificationMutation } from 'src/features/authentication/api';
 
 type codeType = {
   otp1: number;

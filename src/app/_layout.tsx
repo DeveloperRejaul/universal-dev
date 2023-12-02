@@ -4,7 +4,7 @@ import AppContext from 'src/store/context/AppContext';
 import { Provider } from 'react-redux';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { config } from '../../config/gluestack-ui.config';
-import { store } from 'src/store/rtk/store/store';
+import { store } from 'src/store/rtk/store';
 
 export default function () {
   return (

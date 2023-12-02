@@ -1,4 +1,4 @@
-import { rf, rh, rw } from 'src/constants/dimensions';
+import { rh, rw } from 'src/constants/dimensions';
 import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { Checkbox, Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
@@ -25,6 +25,9 @@ type appProps = {
   handleSignUP?: () => void;
   handleLogin?: (values: any) => object;
   handleForgotPassword?: () => void;
+  handleGoogleLogin?: () => void;
+  handleFacebookLogin?: () => void;
+  handleGithubLogin?: () => void;
   isLoading?: boolean;
 };
 
@@ -38,6 +41,9 @@ export default function SimpleLogin({
   handleForgotPassword,
   handleLogin,
   isLoading,
+  handleFacebookLogin,
+  handleGithubLogin,
+  handleGoogleLogin,
 }: appProps) {
   const formik = useFormik({
     initialValues: { email: '', password: '', isRemember: false },
@@ -51,6 +57,7 @@ export default function SimpleLogin({
     formik.setFieldValue('isRemember', isRemember);
 
   const { errors, touched } = formik;
+
   return (
     <Box
       bg='$light100'
@@ -128,6 +135,7 @@ export default function SimpleLogin({
 
         <HStack justifyContent='center' columnGap='$7' marginTop={'$1'}>
           <Pressable
+            onPress={handleGoogleLogin}
             sx={{
               height: '$8',
               width: '$8',
@@ -140,6 +148,7 @@ export default function SimpleLogin({
             <AntDesign name='google' size={20} color='#b30d18' />
           </Pressable>
           <Pressable
+            onPress={handleFacebookLogin}
             sx={{
               height: '$8',
               width: '$8',
@@ -152,16 +161,17 @@ export default function SimpleLogin({
             <FontAwesome name='facebook-f' size={20} color='#304b7a' />
           </Pressable>
           <Pressable
+            onPress={handleGithubLogin}
             sx={{
               height: '$8',
               width: '$8',
               borderRadius: '$full',
               borderWidth: 3,
-              borderColor: '#245493',
+              borderColor: '#000000',
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <FontAwesome name='linkedin' size={18} color='#245493' />
+            <FontAwesome name='github' size={18} color='#000000' />
           </Pressable>
         </HStack>
         <HStack justifyContent='center' columnGap={'$1.5'}>

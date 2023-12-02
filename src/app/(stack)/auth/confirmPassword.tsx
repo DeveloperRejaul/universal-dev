@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { Center } from '@gluestack-ui/themed';
-import { ConfirmPassword } from '@components';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import useToast from '@hooks/useToast';
-import { useAddNewPasswordMutation } from 'src/store/rtk/features/api/user.api';
+import ConfirmPassword from 'src/features/authentication/screens/confirmpassword';
+import { useAddNewPasswordMutation } from 'src/features/authentication/api';
 
 export default function () {
   const router = useRouter();

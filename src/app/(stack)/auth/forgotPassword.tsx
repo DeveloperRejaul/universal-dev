@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { ForgotPassword } from '@components';
 import { Center } from '@gluestack-ui/themed';
 import { useRouter } from 'expo-router';
-import { useForgetPasswordMutation } from 'src/store/rtk/features/api/user.api';
 import useToast from '@hooks/useToast';
+import ForgotPassword from 'src/features/authentication/screens/forgotPassword';
+import { useForgetPasswordMutation } from 'src/features/authentication/api';
 
 export default function () {
   const router = useRouter();

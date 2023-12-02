@@ -1,8 +1,9 @@
-import { api } from './api';
+import { api } from 'src/store/rtk/api';
 
 type loginData = {
   email: string;
   password: string;
+  isRemember: boolean;
 };
 
 type forgetPassData = {

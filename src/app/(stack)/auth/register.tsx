@@ -1,9 +1,9 @@
 import { Center } from '@gluestack-ui/themed';
-import { SimpleSingUp } from '@components';
 import { useRouter } from 'expo-router';
-import { useSignupMutation } from 'src/store/rtk/features/api/user.api';
 import { useEffect } from 'react';
 import useToast from '@hooks/useToast';
+import SimpleSignUp from 'src/features/authentication/screens/signup';
+import { useSignupMutation } from 'src/features/authentication/api';
 
 type signUpParams = {
   name: string;
@@ -46,7 +46,7 @@ export default function register() {
 
   return (
     <Center justifyContent='center' alignItems='center' bg='$light100' flex={1}>
-      <SimpleSingUp
+      <SimpleSignUp
         handleSignUP={handleSignUp}
         handleLogin={() => router.push('/')}
         isLoading={isLoading}

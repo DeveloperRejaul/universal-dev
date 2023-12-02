@@ -1,4 +1,4 @@
-import { rf, rh } from 'src/constants/dimensions';
+import { rh } from 'src/constants/dimensions';
 import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
@@ -7,42 +7,69 @@ import * as Yup from 'yup';
 import { Button } from '@components';
 
 type appProps = {
-  emailPlaceholder?: string;
-  setEmail?: (value: string) => void;
   handleLogin?: () => void;
-  handleSignUP?: () => void;
-  handleSend?: (values: any) => void;
+  title?: string;
+  emailLabel?: string;
+  emailPlaceholder?: string;
+  passwordLabel?: string;
+  passwordPlaceholder?: string;
+  confirmPasswordLabel?: string;
+  confirmPasswordPlaceholder?: string;
+  nameLabel?: string;
+  namePlaceholder?: string;
+  onChange?: (value: boolean) => void;
+  handleSignUP?: (values: any) => void;
   isLoading?: boolean;
 };
 
 const validationSchema = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
   email: Yup.string()
     .email('Must be a valid email')
     .required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
 });
 
-export default function ForgotPassword({
-  isLoading,
-  emailPlaceholder,
+export default function SimpleSignUp({
   handleLogin,
+  title,
+  emailLabel,
+  emailPlaceholder,
+  passwordLabel,
+  passwordPlaceholder,
+  confirmPasswordLabel,
+  confirmPasswordPlaceholder,
+  nameLabel,
+  namePlaceholder,
   handleSignUP,
-  handleSend,
+  isLoading,
 }: appProps) {
   const { setFieldValue, handleSubmit, errors, touched } = useFormik({
-    initialValues: { email: '' },
+    initialValues: { email: '', password: '', confirmPassword: '', name: '' },
     validationSchema,
-    onSubmit: handleSend,
+    onSubmit: handleSignUP,
   });
+
+  const setName = (name: string) => setFieldValue('name', name);
   const setEmail = (email: string) => setFieldValue('email', email);
+  const setPassword = (password: string) => setFieldValue('password', password);
+  const setConfirmPassword = (confirmPassword: string) =>
+    setFieldValue('confirmPassword', confirmPassword);
 
   return (
     <Box
       bg='$light100'
       shadowColor='$black'
-      shadowOffset={{ height: 5, width: 5 }}
+      shadowOffset={{ height: 1, width: 1 }}
       shadowOpacity={'$10'}
-      shadowRadius={'$5'}
-      elevation={'$5'}
+      shadowRadius={'$10'}
+      elevation={'$10'}
       sx={{
         '@base': { width: '100%', height: '100%' },
         '@md': { width: '60%', height: '90%', borderRadius: '$md' },
@@ -54,28 +81,50 @@ export default function ForgotPassword({
         rowGap={rh(2)}
         w={'90%'}
         sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
-        <Text
-          fontWeight='$semibold'
-          color='$coolGray800'
-          fontSize={'$lg'}
-          textAlign='center'>
-          Enter Email Address
+        <Text fontSize={'$2xl'} color='$trueGray800' fontWeight='$semibold'>
+          {title ? title : 'Sign Up'}
         </Text>
         <Input
-          placeholder={emailPlaceholder ? emailPlaceholder : 'Enter email'}
+          label={nameLabel ? nameLabel : 'Full name'}
+          placeholder={namePlaceholder ? namePlaceholder : 'Enter full name'}
+          onChangeText={setName}
+          error={errors.name && touched.name ? errors.name : ''}
+        />
+        <Input
+          label={emailLabel ? emailLabel : 'Email'}
+          placeholder={emailPlaceholder ? passwordPlaceholder : 'Enter email'}
           onChangeText={setEmail}
           error={errors.email && touched.email ? errors.email : ''}
         />
-        <Pressable onPress={handleLogin}>
-          <Text
-            fontSize={'$sm'}
-            fontWeight='$normal'
-            color='$coolGray500'
-            textAlign='center'>
-            Back to login
-          </Text>
-        </Pressable>
-        <Button onPress={handleSubmit} text='Send' isLoading={isLoading} />
+        <Input
+          label={passwordLabel ? passwordLabel : 'Password'}
+          placeholder={
+            passwordPlaceholder ? passwordPlaceholder : 'Enter password'
+          }
+          onChangeText={setPassword}
+          type='password'
+          error={errors.password && touched.password ? errors.password : ''}
+        />
+        <Input
+          label={
+            confirmPasswordLabel ? confirmPasswordLabel : 'Confirm Password'
+          }
+          placeholder={
+            confirmPasswordPlaceholder
+              ? confirmPasswordPlaceholder
+              : 'Enter password'
+          }
+          onChangeText={setConfirmPassword}
+          error={
+            errors.confirmPassword && touched.confirmPassword
+              ? errors.confirmPassword
+              : ''
+          }
+          type='password'
+        />
+        <HStack />
+        <Button text=' Sing up' onPress={handleSubmit} isLoading={isLoading} />
+
         <HStack w={'100%'} justifyContent='center' alignItems='center'>
           <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
           <Box
@@ -130,13 +179,13 @@ export default function ForgotPassword({
           </Pressable>
         </HStack>
         <HStack justifyContent='center' columnGap={'$1.5'}>
-          <Text>Do you have an account?</Text>
-          <Pressable onPress={handleSignUP}>
+          <Text>Need an account?</Text>
+          <Pressable onPress={handleLogin}>
             <Text
               textTransform='uppercase'
               textDecorationLine='underline'
               fontWeight='$medium'>
-              Sing up
+              Login
             </Text>
           </Pressable>
         </HStack>
