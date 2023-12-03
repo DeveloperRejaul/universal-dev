@@ -36,7 +36,7 @@ export const userApi = api.injectEndpoints({
     login: builder.mutation({
       query: (data: loginData) => {
         return {
-          url: '/auth/user/login',
+          url: '/user/login/',
           method: 'POST',
           body: data,
           headers: { 'Content-Type': 'application/json' },

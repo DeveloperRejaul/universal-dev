@@ -1,37 +1,94 @@
-import { Dimensions } from 'react-native';
-import React, { useEffect, useRef } from 'react';
-import { ScrollView, Box, Text } from '@gluestack-ui/themed';
+import { Box, Text, Image, ScrollView } from '@gluestack-ui/themed';
+import React, { useEffect, useState } from 'react';
+import image01 from '../../assets/images/slide01.jpg';
+import image02 from '../../assets/images/slide02.jpg';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
 
-const data = new Array(100).fill(0).map((d, i) => i);
-const { width, height } = Dimensions.get('window');
+let interval;
+const slides = [image01, image02];
+const INDICATOR_SIZE = 10;
+const INDICATOR_RADIUS = INDICATOR_SIZE / 2;
+const INDICATOR_GAP = 10;
+const SLIDES_GAP = 20;
+const AnimatedBox = Animated.createAnimatedComponent(Box);
+
 export default function SimpleCarousal() {
-  const scrollView = useRef<ScrollView>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [cardWidth, setCardWidth] = useState(null);
+
+  const translate = useSharedValue(0);
+
+  const handleLayout = (event) => {
+    const cardWidth = event.nativeEvent.layout.width;
+    setCardWidth(cardWidth);
+  };
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: -translate.value }],
+    };
+  });
 
   useEffect(() => {
-    scrollView.current.scrollTo({ x: width * 3, y: 0, animated: true });
-  }, []);
+    interval = setInterval(() => {
+      if (slides.length - 1 === activeIndex) {
+        setActiveIndex(0);
+      } else {
+        setActiveIndex((pre) => pre + 1);
+      }
+    }, 5000);
+    translate.value = withSpring((cardWidth + SLIDES_GAP) * activeIndex);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [activeIndex]);
 
   return (
-    <Box height={'$40'} borderRadius={'$md'}>
-      <ScrollView
-        ref={scrollView}
-        horizontal
-        showsHorizontalScrollIndicator={false}>
-        <Box flexDirection='row' columnGap={'$2'} width={width} h={'$full'}>
-          {data.map((d, i) => (
+    <>
+      <Box>
+        <AnimatedBox
+          style={[animatedStyle]}
+          flexDirection='row'
+          columnGap={SLIDES_GAP}>
+          {slides.map((d, i) => (
             <Box
-              backgroundColor='$red500'
-              borderRadius={'$md'}
-              key={i}
-              w={width * 0.8}
-              h='$full'
-              justifyContent='center'
-              alignItems='center'>
-              <Text fontSize={'$4xl'}>{d}</Text>
+              sx={{ _web: { cursor: 'pointer' } }}
+              onLayout={handleLayout}
+              key={Math.random()}
+              height={'$72'}
+              width={'$full'}
+              overflow='hidden'
+              my={'$2'}>
+              <Image source={d} h={'$full'} w={'$full'} resizeMode='cover' />
             </Box>
           ))}
+        </AnimatedBox>
+        <Box
+          bottom={'$5'}
+          left={'$1/2'}
+          position='absolute'
+          flexDirection='row'
+          columnGap={INDICATOR_GAP}>
+          {slides.map((d, i) => (
+            <Indicator key={d} activeIndex={activeIndex} index={i} />
+          ))}
         </Box>
-      </ScrollView>
-    </Box>
+      </Box>
+    </>
+  );
+}
+
+function Indicator({ activeIndex, index }) {
+  return (
+    <Box
+      height={INDICATOR_SIZE}
+      width={INDICATOR_SIZE}
+      bg={index === activeIndex ? '$amber500' : '$coolGray700'}
+      borderRadius={INDICATOR_RADIUS}
+    />
   );
 }
