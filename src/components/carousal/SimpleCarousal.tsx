@@ -7,6 +7,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import { rh } from 'src/constants/dimensions';
 
 let interval;
 const slides = [image01, image02];
@@ -56,14 +57,21 @@ export default function SimpleCarousal() {
           columnGap={SLIDES_GAP}>
           {slides.map((d, i) => (
             <Box
-              sx={{ _web: { cursor: 'pointer' } }}
+              sx={{ _web: { cursor: 'pointer', height: '$72' } }}
               onLayout={handleLayout}
               key={Math.random()}
               height={'$72'}
               width={'$full'}
               overflow='hidden'
+              h={rh(25)}
               my={'$2'}>
-              <Image source={d} h={'$full'} w={'$full'} resizeMode='cover' />
+              <Image
+                source={d}
+                h={'$full'}
+                w={'$full'}
+                resizeMode='cover'
+                alt='slide-image'
+              />
             </Box>
           ))}
         </AnimatedBox>

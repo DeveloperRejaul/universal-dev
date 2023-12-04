@@ -2,9 +2,9 @@ import React from 'react';
 import { useRouter } from 'expo-router';
 import {
   Box,
-  Button,
   Center,
   Divider,
+  HStack,
   Pressable,
   ScrollView,
   View,
@@ -29,8 +29,10 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <ScrollView>
-      <Box flex={1} px={'$3'} paddingBottom={'$10'}>
+    <ScrollView
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}>
+      <Box flex={1} px={'$3'} paddingBottom={'$10'} bg={'$light100'}>
         {/* header part */}
         <View>
           <Header />
@@ -55,8 +57,12 @@ export default function Home() {
           borderWidth={'$2'}
           borderRadius={'$sm'}
           borderColor='$coolGray500'>
-          {productCategory.map((category) => (
-            <Center w={'$1/4'} py={'$2'} sx={{ _web: { cursor: 'pointer' } }}>
+          {productCategory.map((category, i) => (
+            <Center
+              w={'$1/4'}
+              py={'$2'}
+              key={i}
+              sx={{ _web: { cursor: 'pointer' } }}>
               <Center h={'$16'} w={'$16'} rounded={'$full'} bg={'$amber100'}>
                 <Icon name='tshirt' size={25} />
               </Center>
@@ -82,7 +88,18 @@ export default function Home() {
             <Text>🔥FLASH SALE</Text>
           </Pressable>
         </Box>
-        <ShapingCard />
+
+        <HStack
+          rowGap={'$2'}
+          flexWrap='wrap'
+          sx={{
+            _android: { justifyContent: 'space-between' },
+            _ios: { justifyContent: 'space-between' },
+          }}>
+          {new Array(6).fill(1).map((d, i) => (
+            <ShapingCard key={i} />
+          ))}
+        </HStack>
       </Box>
     </ScrollView>
   );
