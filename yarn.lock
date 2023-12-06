@@ -1692,11 +1692,6 @@
   resolved "https://registry.npmjs.org/@gluestack-ui/config/-/config-1.0.1.tgz"
   integrity sha512-QyrxfkYn8QPiYjefjgwaMNbo8ojL7k0838F3G96DDJbWsl6RBG8PjhT6DiAmRhDe7k4zzixKKlaRHFfXHEo3FA==
 
-"@gluestack-ui/config@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@gluestack-ui/config/-/config-1.0.3.tgz"
-  integrity sha512-cP07ZOGDhwZKsTBdCUTa88O4KbRbAKArXyZcgTMZnoNJ5477psE9O9ClPd7xuPwJ/pLgh7NNCC1cAOMIpR0zpQ==
-
 "@gluestack-ui/divider@^0.1.8":
   version "0.1.8"
   resolved "https://registry.npmjs.org/@gluestack-ui/divider/-/divider-0.1.8.tgz"
