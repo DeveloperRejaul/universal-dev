@@ -1,9 +1,9 @@
 import React, { useState, forwardRef } from 'react';
 import { Text, Box, Pressable } from '@gluestack-ui/themed';
-import { colors } from 'src/constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { rf } from 'src/constants/dimensions';
 import { TextInput, TextStyle, ViewStyle } from 'react-native';
+import { COLORS } from 'src/constants/colors';
 
 type appProps = {
   label?: string;
@@ -43,7 +43,7 @@ export default forwardRef(function (
     <Box style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
       <Box
-        borderColor={colors.gray_100}
+        borderColor={COLORS.gray_100}
         borderWidth={'$1'}
         borderRadius={'$sm'}
         paddingHorizontal={'$1'}
@@ -64,7 +64,7 @@ export default forwardRef(function (
         />
         {type === 'search' ? (
           <Pressable>
-            <Ionicons name='search' size={rf(3)} color={colors.gray_100} />
+            <Ionicons name='search' size={rf(3)} color={COLORS.gray_100} />
           </Pressable>
         ) : null}
         {type === 'password' ? (
@@ -72,7 +72,7 @@ export default forwardRef(function (
             <Ionicons
               name={passwordHidden ? 'eye-off' : 'eye'}
               size={rf(3)}
-              color={colors.gray_100}
+              color={COLORS.gray_100}
             />
           </Pressable>
         ) : null}
