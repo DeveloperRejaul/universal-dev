@@ -14,8 +14,6 @@ export const Context = createContext<contextType>({})
 export default function AppContext({children}:AppProps) {
  const {handleOnLayout,isLoaded} = useFonts()
  if (!isLoaded) return null;
-
-
   return (
     <Context.Provider value={{}}>
       <View onLayout={handleOnLayout} />

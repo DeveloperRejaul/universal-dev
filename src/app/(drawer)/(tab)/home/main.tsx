@@ -28,6 +28,11 @@ const productCategory = [
 export default function Home() {
   const router = useRouter();
 
+
+
+  
+
+
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}
