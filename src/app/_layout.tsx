@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { config } from '../../config/gluestack-ui.config';
 import { store } from 'src/store/rtk/store';
+import '../global.css';
 
 export default function () {
   return (
