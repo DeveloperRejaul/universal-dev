@@ -1,44 +1,48 @@
-import { Box, HStack, Image, Pressable, Text } from '@gluestack-ui/themed';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { rf, rw } from 'src/constants/dimensions';
 import { useNavigation } from 'expo-router';
 import Logo from '../../../assets/images/logo.png';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { Text, View } from 'react-native';
+import { Pressable } from 'react-native';
+import { Image } from 'react-native';
 
-type RootDrawerParamList = {
+type RootStackParamList = {
   Drawer: undefined;
   Details: { itemId: number };
 };
+
 type DrawerScreenNavigationProp = DrawerNavigationProp<
-  RootDrawerParamList,
+  RootStackParamList,
   'Drawer'
 >;
 
 export default function () {
   const navigation = useNavigation<DrawerScreenNavigationProp>();
   return (
-    <Box
-      px={'$2'}
-      py={'$2'}
-      borderBottomColor={'$coolGray200'}
-      borderBottomWidth={'$1'}>
-      <HStack alignItems='center' justifyContent='space-between'>
-        <HStack columnGap={'$2'} alignItems='center'>
+    <View className='px-3 py-2'
+    style={{
+      borderBottomColor:'gray',
+      borderBottomWidth:1
+    }}>
+      <View className='items-center justify-center flex-row'>
+        <View className='space-x-2 items-center'>
           <Pressable onPress={() => navigation.toggleDrawer()}>
-            <Ionicons name='menu' size={rf(3)} />
+            <Ionicons name='menu' size={rf(4)} />
           </Pressable>
-          <Text color='$textDark900' fontWeight='$semibold'>
+          <Text className='text-black font-semibold'>
             Menu
           </Text>
-        </HStack>
+        </View>
         <Image
           source={Logo}
-          style={{ height: 40, width: rw(45), resizeMode: 'contain' }}
+          style={{ height: 40, width: rw(50), resizeMode: 'contain' }}
+          alt='logo'
         />
         <Pressable>
           <AntDesign name='shoppingcart' size={rf(3)} color='black' />
         </Pressable>
-      </HStack>
-    </Box>
+      </View>
+    </View>
   );
 }

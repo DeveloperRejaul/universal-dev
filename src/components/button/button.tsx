@@ -1,5 +1,5 @@
+import { useToken } from '@hooks/useToken';
 import React from 'react';
-import { useToken } from '@gluestack-style/react';
 import {
   TextStyle,
   ViewStyle,
@@ -16,6 +16,8 @@ type propsType = {
   containerStyle?: ViewStyle;
 };
 
+const textColor = useToken('colors', 'gray');
+
 export default function button({
   onPress,
   text,
@@ -23,7 +25,6 @@ export default function button({
   textStyle,
   containerStyle,
 }: propsType) {
-  const textColor = useToken('colors', 'trueGray900');
 
   return (
     <Pressable

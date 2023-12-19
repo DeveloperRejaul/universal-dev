@@ -1,4 +1,3 @@
-import { Box } from '@gluestack-ui/themed';
 import React, { useEffect, useState } from 'react';
 import image01 from '../../assets/images/slide01.jpg';
 import image02 from '../../assets/images/slide02.jpg';
@@ -13,7 +12,6 @@ let interval;
 const slides = [image01, image02];
 const INDICATOR_SIZE = 10;
 const INDICATOR_RADIUS = INDICATOR_SIZE / 2;
-const INDICATOR_GAP = 10;
 const SLIDES_GAP = 20;
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -49,8 +47,7 @@ export default function SimpleCarousal() {
   }, [activeIndex]);
 
   return (
-    <>
-      <Box>
+      <View>
         <AnimatedView
           style={[
             animatedStyle,
@@ -75,18 +72,12 @@ export default function SimpleCarousal() {
             <Indicator key={d} activeIndex={activeIndex} index={i} />
           ))}
         </View>
-      </Box>
-    </>
+      </View>
   );
 }
 
 function Indicator({ activeIndex, index }) {
   return (
-    <Box
-      height={INDICATOR_SIZE}
-      width={INDICATOR_SIZE}
-      bg={index === activeIndex ? '$amber500' : '$coolGray700'}
-      borderRadius={INDICATOR_RADIUS}
-    />
+    <View style={{height:INDICATOR_SIZE, width:INDICATOR_SIZE, backgroundColor:index === activeIndex ? '$amber500' : '$coolGray700', borderRadius:INDICATOR_RADIUS}}/>
   );
 }

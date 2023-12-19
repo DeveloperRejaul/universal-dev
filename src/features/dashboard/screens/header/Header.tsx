@@ -2,26 +2,21 @@ import React from 'react';
 import Icon from '@expo/vector-icons/Ionicons';
 import { useAppDispatch } from '@hooks/useAppDispatch';
 import { drawerToggle } from 'src/features/drawer/slice/slice';
-import { GSBox, GSPressable, Overly } from '@components';
-import { Text } from 'react-native';
+import { Overly } from '@components';
+import { Pressable, Text, View } from 'react-native';
 
 export default function Header() {
   const dispatch = useAppDispatch();
 
   return (
-    <GSBox flexDirection='row' bg='$amber300'>
+    <View className='flex-row bg-bubble-gum'>
       <Overly />
-      <GSPressable
+      <Pressable
         onPress={() => dispatch(drawerToggle())}
-        justifyContent='center'
-        alignItems='center'
-        sx={{ '@md': { opacity: '$0' } }}
-        h={'$7'}
-        w={'$7'}
-        bg='$blue400'>
+        className='h-7 w-7 bg-tahiti justify-center items-center md:opacity-0'>
         <Icon name='apps-sharp' />
-      </GSPressable>
+      </Pressable>
       <Text>Header</Text>
-    </GSBox>
+    </View>
   );
 }

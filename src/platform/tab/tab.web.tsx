@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Text } from '@gluestack-ui/themed';
 import { Tabs } from 'expo-router';
+import { Text } from 'react-native';
 import { rf } from 'src/constants/dimensions';
 
 export default () => {
@@ -25,7 +25,7 @@ export default () => {
             />
           ),
           tabBarLabel: ({ focused }) => (
-            <Text color={focused ? '#2196f3' : 'black'}>Home</Text>
+            <Text style={{color:focused ? '#2196f3' : 'black' }}>Home</Text>
           ),
         }}
       />
@@ -40,7 +40,7 @@ export default () => {
             />
           ),
           tabBarLabel: ({ focused }) => (
-            <Text color={focused ? '#2196f3' : 'black'}>Notification</Text>
+            <Text style={{color:focused ? '#2196f3' : 'black' }}>Notification</Text>
           ),
         }}
       />

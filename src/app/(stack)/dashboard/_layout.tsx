@@ -8,14 +8,15 @@ import { View } from 'react-native';
 export default function dashboardLayout() {
   return (
     <>
-      <View className='h-full'>
+      <View className='flex-1 flex-row'>
         <Sidebar />
-        <View className='h-full flex-1 justify-center'>
+        <View className='flex-1 justify-center'>
           <Header />
-          <Slot />
+            <Slot />
           <Footer />
         </View>
       </View>
     </>
   );
 }
+

@@ -1,7 +1,3 @@
-import { ToastDescription, VStack } from '@gluestack-ui/themed';
-import { ToastTitle } from '@gluestack-ui/themed';
-import { Toast, useToast } from '@gluestack-ui/themed';
-
 type params = {
   position?:
     | 'top'
@@ -17,27 +13,7 @@ type params = {
 };
 
 export default function () {
-  const toast = useToast();
 
-  const showToast = ({ position, title, message, action, variant }: params) => {
-    toast.show({
-      placement: position || 'top',
-      render: ({ id }) => {
-        return (
-          <Toast
-            nativeID={'toast-' + id}
-            action={action}
-            variant={variant}
-            top={'$7'}>
-            <VStack space='xs'>
-              <ToastTitle>{title}</ToastTitle>
-              <ToastDescription>{message}</ToastDescription>
-            </VStack>
-          </Toast>
-        );
-      },
-    });
-  };
-
-  return { showToast };
+const showToast = ()=>{}
+return {showToast}
 }

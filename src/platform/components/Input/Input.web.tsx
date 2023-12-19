@@ -1,11 +1,12 @@
-import { Box, Text } from '@gluestack-ui/themed';
+
 import React, { useState, forwardRef } from 'react';
 import './style.css';
-import { Pressable, ViewStyle } from 'react-native';
+import { Pressable, View, ViewStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { rf } from 'src/constants/dimensions';
 import { TextStyle } from 'react-native';
-import { COLORS } from 'src/constants/colors';
+import { useToken } from '@hooks/useToken';
+import { Text } from 'react-native';
 
 type appProps = {
   label?: string;
@@ -21,6 +22,8 @@ type appProps = {
   maxLength?: number;
   autoFocus?: boolean;
 };
+
+const color =  useToken("colors", 'gray')
 
 export default forwardRef(function (
   {
@@ -42,17 +45,9 @@ export default forwardRef(function (
   const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
 
   return (
-    <Box style={containerStyle}>
+    <View style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
-      <Box
-        borderColor={COLORS.gray_100}
-        borderWidth={'$1'}
-        borderRadius={'$sm'}
-        paddingHorizontal={'$1'}
-        w={'$full'}
-        flexDirection='row'
-        alignItems='center'
-        paddingVertical={'$1'}>
+      <View  className='border-gray border-2 rounded-sm p-1 w-full flex-row items-center'>
         <input
           ref={ref}
           autoFocus={autoFocus}
@@ -69,7 +64,7 @@ export default forwardRef(function (
         />
         {type === 'search' ? (
           <Pressable>
-            <Ionicons name='search' size={rf(2)} color={COLORS.gray_100} />
+            <Ionicons name='search' size={rf(2)} color={color} />
           </Pressable>
         ) : null}
         {type === 'password' ? (
@@ -77,16 +72,16 @@ export default forwardRef(function (
             <Ionicons
               name={passwordHidden ? 'eye-off' : 'eye'}
               size={rf(2)}
-              color={COLORS.gray_100}
+              color={"gray"}
             />
           </Pressable>
         ) : null}
-      </Box>
+      </View>
       {error && (
-        <Text fontSize={'$sm'} color='$warning500'>
+        <Text className='text-sm text-gray'>
           {error}
         </Text>
       )}
-    </Box>
+    </View>
   );
 });

@@ -3,7 +3,8 @@ import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, GSBox, GSPressable, GSText } from '@components';
+import { Button} from '@components';
+import { Text, View } from 'react-native';
 
 type appProps = {
   handleLogin?: () => void;
@@ -62,27 +63,9 @@ export default function SimpleSignUp({
     setFieldValue('confirmPassword', confirmPassword);
 
   return (
-    <GSBox
-      bg='$light100'
-      shadowColor='$black'
-      shadowOffset={{ height: 1, width: 1 }}
-      shadowOpacity={'$10'}
-      shadowRadius={'$10'}
-      elevation={'$10'}
-      sx={{
-        '@base': { width: '100%', height: '100%' },
-        '@md': { width: '60%', height: '90%', borderRadius: '$md' },
-        '@lg': { width: '50%', height: '80%' },
-      }}
-      justifyContent='center'
-      alignItems='center'>
-      <GSBox
-        rowGap={rh(2)}
-        w={'90%'}
-        sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
-        <GSText fontSize={'$2xl'} color='$trueGray800' fontWeight='$semibold'>
-          {title ? title : 'Sign Up'}
-        </GSText>
+    <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
+      <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
+        <Text className='text-2xl text-trueGray800 font-semibold'>{title ? title : 'Sign Up'}</Text>
         <Input
           label={nameLabel ? nameLabel : 'Full name'}
           placeholder={namePlaceholder ? namePlaceholder : 'Enter full name'}
@@ -123,24 +106,13 @@ export default function SimpleSignUp({
         />
         <Button text=' Sing up' onPress={handleSubmit} isLoading={isLoading} />
 
-        <GSBox
-          flexDirection='row'
-          w={'100%'}
-          justifyContent='center'
-          alignItems='center'>
-          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
-          <GSBox
-            w={'10%'}
-            justifyContent='center'
-            alignItems='center'
-            h={30}
-            borderColor='$coolGray200'
-            borderWidth={'$2'}
-            borderRadius={'$sm'}>
+        <View className='flex-row w-[100%] justify-center items-center'>
+          <View className='w-[45%] h-1 bg-coolGray200'/>
+          <View className='w-[10%] justify-center items-center h-10 border-coolGray200 border-2 rounded-sm'>
             <GSText color='$coolGray400'>OR</GSText>
-          </GSBox>
+          </View>
           <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
-        </GSBox>
+        </View>
 
         <GSBox
           flexDirection='row'
@@ -195,7 +167,7 @@ export default function SimpleSignUp({
             </GSText>
           </GSPressable>
         </GSBox>
-      </GSBox>
-    </GSBox>
+      </View>
+    </View>
   );
 }

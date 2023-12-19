@@ -55,7 +55,7 @@ export default function verification() {
   }, [isError, isSuccess]);
 
   return (
-    <View className='flex-1 justify-center items-center bg-stone-100'>
+    <View className ='flex-1 justify-center items-center bg-stone-100'>
       <Verification
         handleResend={handleResend}
         handleSend={handleSend}

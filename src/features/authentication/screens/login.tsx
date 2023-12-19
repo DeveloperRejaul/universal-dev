@@ -1,9 +1,11 @@
-import { rh, rw } from 'src/constants/dimensions';
 import { Checkbox, Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, GSBox, GSPressable, GSText } from '@components';
+import { Button, } from '@components';
+import { Pressable, View } from 'react-native';
+import { Text } from 'react-native';
+import { useToken } from '@hooks/useToken';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,6 +31,11 @@ type appProps = {
   handleGithubLogin?: () => void;
   isLoading?: boolean;
 };
+
+const googleColor = useToken("colors", "red500")
+const fbColor = useToken("colors", "blue800")
+const gitColor = useToken("colors", "black")
+
 
 export default function SimpleLogin({
   title,
@@ -58,28 +65,9 @@ export default function SimpleLogin({
   const { errors, touched } = formik;
 
   return (
-    <GSBox
-      bg='$light100'
-      shadowColor='$black'
-      shadowOffset={{ height: 5, width: 5 }}
-      shadowOpacity={'$10'}
-      shadowRadius={'$5'}
-      elevation={'$5'}
-      sx={{
-        '@base': { width: '100%', height: '100%' },
-        '@md': { width: '60%', height: '90%', borderRadius: '$md' },
-        '@lg': { width: '50%', height: '80%' },
-      }}
-      justifyContent='center'
-      alignItems='center'>
-      <GSBox
-        rowGap={rh(2)}
-        w={'90%'}
-        sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
-        <GSText fontSize={'$2xl'} color='$trueGray800' fontWeight='$semibold'>
-          {title ? title : 'Login'}
-        </GSText>
-
+    <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
+      <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
+        <Text className='text-2xl text-trueGray800 font-semibold'>{title ? title : 'Login'}</Text>
         <Input
           value={formik.values.email}
           onChangeText={setEmail}
@@ -98,102 +86,53 @@ export default function SimpleLogin({
           error={errors.password && touched.password ? errors.password : ''}
           type='password'
         />
-        <GSBox
-          flexDirection='row'
-          alignItems='center'
-          w={'100%'}
-          sx={{
-            _web: { columnGap: 2, marginLeft: -4 },
-            columnGap: rw(2),
-          }}>
+        <View className='flex-row'>
           <Checkbox background='#ed5684' size={1.3} onCheck={setIsRemember} />
-          <GSText> Remember me ? </GSText>
-        </GSBox>
+          <Text> Remember me ? </Text>
+        </View>
         <Button
           onPress={formik.handleSubmit}
           text='Login'
           isLoading={isLoading}
         />
-        <GSPressable onPress={handleForgotPassword}>
-          <GSText textAlign='right'>Forgot password?</GSText>
-        </GSPressable>
+        <Pressable onPress={handleForgotPassword}>
+          <Text className='text-right'>Forgot password?</Text>
+        </Pressable>
 
-        <GSBox
-          flexDirection='row'
-          w={'100%'}
-          justifyContent='center'
-          alignItems='center'>
-          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
-          <GSBox
-            w={'10%'}
-            justifyContent='center'
-            alignItems='center'
-            h={30}
-            borderColor='$coolGray200'
-            borderWidth={'$2'}
-            borderRadius={'$sm'}>
-            <GSText color='$coolGray400'>OR</GSText>
-          </GSBox>
-          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
-        </GSBox>
+        <View className='flex-row w-[100%] justify-center items-center'>
+          <View className='w-[45%] h-1 bg-coolGray200'/>
+          <View className='w-[10%] justify-center items-center h-10 border-coolGray200 border-2 rounded-sm'>
+            <Text className='text-coolGray400'>OR</Text>
+          </View>
+          <View className='w-[45%] h-1 bg-coolGray200'/>
+        </View>
 
-        <GSBox
-          flexDirection='row'
-          justifyContent='center'
-          columnGap='$7'
-          marginTop={'$1'}>
-          <GSPressable
+        <View className='flex-row justify-center space-x-7 mt-1'>
+          <Pressable
             onPress={handleGoogleLogin}
-            sx={{
-              height: '$8',
-              width: '$8',
-              borderRadius: '$full',
-              borderWidth: 3,
-              borderColor: '#b30d18',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <AntDesign name='google' size={20} color='#b30d18' />
-          </GSPressable>
-          <GSPressable
+            className='h-8 w-8 rounded-full border-2 border-red500 justify-center items-center'>
+            <AntDesign name='google' size={20} color={googleColor} />
+          </Pressable>
+          <Pressable
             onPress={handleFacebookLogin}
-            sx={{
-              height: '$8',
-              width: '$8',
-              borderRadius: '$full',
-              borderWidth: 3,
-              borderColor: '#304b7a',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <FontAwesome name='facebook-f' size={20} color='#304b7a' />
-          </GSPressable>
-          <GSPressable
+            className='h-8 w-8 rounded-full border-2 border-blue800 justify-center items-center'>
+            <FontAwesome name='facebook-f' size={20} color={fbColor} />
+          </Pressable>
+          <Pressable
             onPress={handleGithubLogin}
-            sx={{
-              height: '$8',
-              width: '$8',
-              borderRadius: '$full',
-              borderWidth: 3,
-              borderColor: '#000000',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <FontAwesome name='github' size={18} color='#000000' />
-          </GSPressable>
-        </GSBox>
-        <GSBox flexDirection='row' justifyContent='center' columnGap={'$1.5'}>
-          <GSText>Need an account?</GSText>
-          <GSPressable onPress={handleSignUP}>
-            <GSText
-              textTransform='uppercase'
-              textDecorationLine='underline'
-              fontWeight='$medium'>
-              Sing up
-            </GSText>
-          </GSPressable>
-        </GSBox>
-      </GSBox>
-    </GSBox>
+            className='h-8 w-8 rounded-full justify-center items-center border-2' >
+            <FontAwesome name='github' size={18} color={gitColor} />
+          </Pressable>
+        </View>
+        <View className='flex-row justify-center space-x-1'>
+          <Text>Need an account?</Text>
+          <Pressable onPress={handleSignUP}>
+            <Text className='uppercase underline font-medium'>
+              Sign up
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    </View>
   );
 }
