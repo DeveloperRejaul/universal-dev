@@ -1,12 +1,6 @@
 import { useToken } from '@hooks/useToken';
 import React from 'react';
-import {
-  TextStyle,
-  ViewStyle,
-  Pressable,
-  Text,
-  ActivityIndicator,
-} from 'react-native';
+import { TextStyle, ViewStyle,Pressable, Text,ActivityIndicator} from 'react-native';
 
 type propsType = {
   onPress: () => void;
@@ -18,14 +12,7 @@ type propsType = {
 
 const textColor = useToken('colors', 'gray');
 
-export default function button({
-  onPress,
-  text,
-  isLoading,
-  textStyle,
-  containerStyle,
-}: propsType) {
-
+export default function button({ onPress,text,isLoading,textStyle,containerStyle}: propsType) {
   return (
     <Pressable
       disabled={isLoading}
@@ -37,8 +24,8 @@ export default function button({
       ) : (
         <Text
           style={textStyle}
-          className={`text-[${textColor}] font-semibold text-lg web:font-bold`}>
-          {text}
+          className={`text-[${textColor}] android:font-semibold ios:font-semibold text-lg web:font-bold`}>
+          {text || "Click Me"}
         </Text>
       )}
     </Pressable>
