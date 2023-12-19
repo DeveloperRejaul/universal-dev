@@ -2,8 +2,11 @@ import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, GSBox, GSPressable, GSText } from '@components';
+import { Button } from '@components';
 import { rh } from 'src/constants/dimensions';
+import { Pressable, View } from 'react-native';
+import { Text } from 'react-native';
+import { useToken } from '@hooks/useToken';
 
 type appProps = {
   emailPlaceholder?: string;
@@ -20,6 +23,13 @@ const validationSchema = Yup.object().shape({
     .required('Email is required'),
 });
 
+
+const googleColor = useToken("colors", "red500")
+const fbColor = useToken("colors", "blue800")
+const gitColor = useToken("colors", "black")
+
+
+
 export default function ForgotPassword({
   isLoading,
   emailPlaceholder,
@@ -35,119 +45,57 @@ export default function ForgotPassword({
   const setEmail = (email: string) => setFieldValue('email', email);
 
   return (
-    <GSBox
-      bg='$light100'
-      shadowColor='$black'
-      shadowOffset={{ height: 5, width: 5 }}
-      shadowOpacity={'$10'}
-      shadowRadius={'$5'}
-      elevation={'$5'}
-      sx={{
-        '@base': { width: '100%', height: '100%' },
-        '@md': { width: '60%', height: '90%', borderRadius: '$md' },
-        '@lg': { width: '50%', height: '80%' },
-      }}
-      justifyContent='center'
-      alignItems='center'>
-      <GSBox
-        rowGap={rh(2)}
-        w={'90%'}
-        sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
-        <GSText
-          fontWeight='$semibold'
-          color='$coolGray800'
-          fontSize={'$lg'}
-          textAlign='center'>
+    <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
+      <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
+        <Text className='font-semibold text-coolGray800 text-lg text-center'>
           Enter Email Address
-        </GSText>
+        </Text>
         <Input
           placeholder={emailPlaceholder ? emailPlaceholder : 'Enter email'}
           onChangeText={setEmail}
           error={errors.email && touched.email ? errors.email : ''}
         />
-        <GSPressable onPress={handleLogin}>
-          <GSText
-            fontSize={'$sm'}
-            fontWeight='$normal'
-            color='$coolGray500'
-            textAlign='center'>
+        <Pressable onPress={handleLogin}>
+          <Text className='text-sm font-normal text-coolGray500 text-center'>
             Back to login
-          </GSText>
-        </GSPressable>
+          </Text>
+        </Pressable>
         <Button onPress={handleSubmit} text='Send' isLoading={isLoading} />
-        <GSBox
-          flexDirection='row'
-          w={'100%'}
-          justifyContent='center'
-          alignItems='center'>
-          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
-          <GSBox
-            w={'10%'}
-            justifyContent='center'
-            alignItems='center'
-            h={30}
-            borderColor='$coolGray200'
-            borderWidth={'$2'}
-            borderRadius={'$sm'}>
-            <GSText color='$coolGray400'>OR</GSText>
-          </GSBox>
-          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
-        </GSBox>
 
-        <GSBox
-          flexDirection='row'
-          justifyContent='center'
-          columnGap='$7'
-          marginTop={'$1'}>
-          <GSPressable
-            sx={{
-              height: '$8',
-              width: '$8',
-              borderRadius: '$full',
-              borderWidth: 3,
-              borderColor: '#b30d18',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <AntDesign name='google' size={20} color='#b30d18' />
-          </GSPressable>
-          <GSPressable
-            sx={{
-              height: '$8',
-              width: '$8',
-              borderRadius: '$full',
-              borderWidth: 3,
-              borderColor: '#304b7a',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <FontAwesome name='facebook-f' size={20} color='#304b7a' />
-          </GSPressable>
-          <GSPressable
-            sx={{
-              height: '$8',
-              width: '$8',
-              borderRadius: '$full',
-              borderWidth: 3,
-              borderColor: '#245493',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <FontAwesome name='linkedin' size={18} color='#245493' />
-          </GSPressable>
-        </GSBox>
-        <GSBox flexDirection='row' justifyContent='center' columnGap={'$1.5'}>
-          <GSText>Do you have an account?</GSText>
-          <GSPressable onPress={handleSignUP}>
-            <GSText
-              textTransform='uppercase'
-              textDecorationLine='underline'
-              fontWeight='$medium'>
+        <View className='flex-row w-[100%] justify-center items-center'>
+          <View className='w-[45%] h-1 bg-coolGray200'/>
+          <View className='w-[10%] justify-center items-center h-10 border-coolGray200 border-2 rounded-sm'>
+            <Text className='text-coolGray400'>OR</Text>
+          </View>
+          <View className='w-[45%] h-1 bg-coolGray200'/>
+        </View>
+        <View className='flex-row justify-center space-x-7 mt-1'>
+          <Pressable
+            onPress={()=>{}}
+            className='h-8 w-8 rounded-full border-2 border-red500 justify-center items-center'>
+            <AntDesign name='google' size={20} color={googleColor} />
+          </Pressable>
+          <Pressable
+            onPress={()=>{}}
+            className='h-8 w-8 rounded-full border-2 border-blue800 justify-center items-center'>
+            <FontAwesome name='facebook-f' size={20} color={fbColor} />
+          </Pressable>
+          <Pressable
+            onPress={()=>{}}
+            className='h-8 w-8 rounded-full justify-center items-center border-2' >
+            <FontAwesome name='github' size={18} color={gitColor} />
+          </Pressable>
+        </View>
+
+        <View className='flex-row justify-center pace-x-1'>
+          <Text>Do you have an account?</Text>
+          <Pressable onPress={handleSignUP}>
+            <Text className='uppercase underline font-medium'>
               Sing up
-            </GSText>
-          </GSPressable>
-        </GSBox>
-      </GSBox>
-    </GSBox>
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    </View>
   );
 }

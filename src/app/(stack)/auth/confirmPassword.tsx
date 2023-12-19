@@ -12,6 +12,7 @@ export default function () {
     useAddNewPasswordMutation();
   const { token }: { token: string } = useLocalSearchParams();
   const handleSend = async (values: { password: string }) => {
+    // router.push('/auth/login')
     await addNewPassword({ password: values.password, token });
   };
   useEffect(() => {

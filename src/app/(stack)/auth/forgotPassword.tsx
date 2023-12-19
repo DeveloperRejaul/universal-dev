@@ -8,14 +8,12 @@ import { View } from 'react-native';
 export default function () {
   const router = useRouter();
   const { showToast } = useToast();
-  const [forgetPass, { isError, isLoading, isSuccess, error, data }] =
-    useForgetPasswordMutation();
+  const [forgetPass, { isError, isLoading, isSuccess, error, data }] = useForgetPasswordMutation();
 
   const handleSend = async ({ email }: { email: string }) => {
+    // router.push({ pathname: '/(stack)/auth/verification'});
     await forgetPass({ email });
   };
-
-  console.log(isError, isLoading, isSuccess, error, data);
 
   useEffect(() => {
     if (isError)
@@ -36,6 +34,8 @@ export default function () {
       }, 1000);
     }
   }, [isError, isSuccess]);
+
+
   return (
     <View className='flex-1 justify-center items-center bg-stone-100'>
       <ForgotPassword

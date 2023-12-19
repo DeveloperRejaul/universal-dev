@@ -23,6 +23,7 @@ export default function verification() {
   const { isError, isSuccess, error, isLoading } = response;
 
   const handleSend = async (values: codeType) => {
+    // router.push('/auth/confirmPassword');
     await checkPasswordValid({
       code: Number(`${values.otp1}${values.otp2}${values.otp3}${values.otp4}`),
       token: params.token,

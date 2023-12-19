@@ -4,7 +4,8 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button} from '@components';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { useToken } from '@hooks/useToken';
 
 type appProps = {
   handleLogin?: () => void;
@@ -35,6 +36,11 @@ const validationSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
     .required('Confirm Password is required'),
 });
+
+const googleColor = useToken("colors", "red500")
+const fbColor = useToken("colors", "blue800")
+const gitColor = useToken("colors", "black")
+
 
 export default function SimpleSignUp({
   handleLogin,
@@ -109,64 +115,37 @@ export default function SimpleSignUp({
         <View className='flex-row w-[100%] justify-center items-center'>
           <View className='w-[45%] h-1 bg-coolGray200'/>
           <View className='w-[10%] justify-center items-center h-10 border-coolGray200 border-2 rounded-sm'>
-            <GSText color='$coolGray400'>OR</GSText>
+            <Text className='text-coolGray400'>OR</Text>
           </View>
-          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
+          <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
 
-        <GSBox
-          flexDirection='row'
-          justifyContent='center'
-          columnGap='$7'
-          marginTop={'$1'}>
-          <GSPressable
-            sx={{
-              height: '$8',
-              width: '$8',
-              borderRadius: '$full',
-              borderWidth: 3,
-              borderColor: '#b30d18',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <AntDesign name='google' size={20} color='#b30d18' />
-          </GSPressable>
-          <GSPressable
-            sx={{
-              height: '$8',
-              width: '$8',
-              borderRadius: '$full',
-              borderWidth: 3,
-              borderColor: '#304b7a',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <FontAwesome name='facebook-f' size={20} color='#304b7a' />
-          </GSPressable>
-          <GSPressable
-            sx={{
-              height: '$8',
-              width: '$8',
-              borderRadius: '$full',
-              borderWidth: 3,
-              borderColor: '#245493',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <FontAwesome name='linkedin' size={18} color='#245493' />
-          </GSPressable>
-        </GSBox>
-        <GSBox flexDirection='row' justifyContent='center' columnGap={'$1.5'}>
-          <GSText>Need an account?</GSText>
-          <GSPressable onPress={handleLogin}>
-            <GSText
-              textTransform='uppercase'
-              textDecorationLine='underline'
-              fontWeight='$medium'>
+        <View className='flex-row justify-center space-x-7 mt-1'>
+          <Pressable
+            onPress={()=>{}}
+            className='h-8 w-8 rounded-full border-2 border-red500 justify-center items-center'>
+            <AntDesign name='google' size={20} color={googleColor} />
+          </Pressable>
+          <Pressable
+            onPress={()=>{}}
+            className='h-8 w-8 rounded-full border-2 border-blue800 justify-center items-center'>
+            <FontAwesome name='facebook-f' size={20} color={fbColor} />
+          </Pressable>
+          <Pressable
+            onPress={()=>{}}
+            className='h-8 w-8 rounded-full justify-center items-center border-2' >
+            <FontAwesome name='github' size={18} color={gitColor} />
+          </Pressable>
+        </View>
+
+        <View className='flex-row justify-center pace-x-1'>
+          <Text>Need an account?</Text>
+          <Pressable onPress={handleLogin}>
+            <Text className='uppercase underline font-medium'>
               Login
-            </GSText>
-          </GSPressable>
-        </GSBox>
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );

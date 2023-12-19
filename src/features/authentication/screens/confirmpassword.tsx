@@ -1,8 +1,8 @@
 import { Input } from '@platform-components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, GSBox } from '@components';
-import { rh } from 'src/constants/dimensions';
+import { Button } from '@components';
+import { View } from 'react-native';
 
 type appProps = {
   passwordConfirmLabel?: string;
@@ -14,13 +14,8 @@ type appProps = {
 };
 
 const validationSchema = Yup.object().shape({
-  password: Yup.string()
-    .min(6, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Password is required'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Confirm Password is required'),
+  password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
+  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
 });
 
 export default function ConfirmPassword({
@@ -42,24 +37,8 @@ export default function ConfirmPassword({
     setFieldValue('confirmPassword', conPassword);
 
   return (
-    <GSBox
-      bg='$light100'
-      shadowColor='$black'
-      shadowOffset={{ height: 5, width: 5 }}
-      shadowOpacity={'$10'}
-      shadowRadius={'$5'}
-      elevation={'$5'}
-      sx={{
-        '@base': { width: '100%', height: '100%' },
-        '@md': { width: '60%', height: '90%', borderRadius: '$md' },
-        '@lg': { width: '50%', height: '80%' },
-      }}
-      justifyContent='center'
-      alignItems='center'>
-      <GSBox
-        rowGap={rh(2)}
-        w={'90%'}
-        sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
+    <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
+      <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
         <Input
           type='password'
           label={passwordLabel ? passwordLabel : 'Password'}
@@ -87,7 +66,7 @@ export default function ConfirmPassword({
           }
         />
         <Button isLoading={isLoading} text='Send' onPress={handleSubmit} />
-      </GSBox>
-    </GSBox>
+      </View>
+    </View>
   );
 }

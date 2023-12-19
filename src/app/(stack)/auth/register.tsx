@@ -1,4 +1,3 @@
-import { Center } from '@gluestack-ui/themed';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import useToast from '@hooks/useToast';
