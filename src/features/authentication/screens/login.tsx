@@ -6,6 +6,7 @@ import { Button, } from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';
+import { Link } from 'expo-router';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -57,10 +58,8 @@ export default function SimpleLogin({
     onSubmit: handleLogin,
   });
   const setEmail = (email: string) => formik.setFieldValue('email', email);
-  const setPassword = (password: string) =>
-    formik.setFieldValue('password', password);
-  const setIsRemember = (isRemember: boolean) =>
-    formik.setFieldValue('isRemember', isRemember);
+  const setPassword = (password: string) => formik.setFieldValue('password', password);
+  const setIsRemember = (isRemember: boolean) => formik.setFieldValue('isRemember', isRemember);
 
   const { errors, touched } = formik;
 
@@ -95,6 +94,7 @@ export default function SimpleLogin({
           text='Login'
           isLoading={isLoading}
         />
+
         <Pressable onPress={handleForgotPassword}>
           <Text className='text-right'>Forgot password?</Text>
         </Pressable>

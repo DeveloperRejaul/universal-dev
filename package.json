@@ -13,16 +13,23 @@
     "prebuild -c": "npx expo prebuild --clean",
     "credentials": "eas credentials",
     "eas-config": "eas build:configure",
-    "expo-help": "expo start --help"
+    "expo-help": "expo start --help",
+    "build:web": "npx expo export -p web",
+    "serve": "npx serve dist",
+    "serve:s": "npx serve dist --single",
+    "postinstall": "yarn setup-skia-web && node path-fs-canvaskit-postinstall.js"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@expo/vector-icons": "^13.0.0",
+    "@expo/webpack-config": "^19.0.0",
     "@react-navigation/drawer": "^6.6.6",
     "@react-navigation/native": "^6.0.2",
     "@reduxjs/toolkit": "^1.9.7",
+    "@shopify/react-native-skia": "^0.1.230",
     "expo": "^50.0.0-preview.4",
     "expo-auth-session": "~5.4.0",
     "expo-font": "~11.10.0",
@@ -51,6 +58,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@types/react": "~18.2.45",
     "@types/react-native": "^0.72.7",
     "@typescript-eslint/eslint-plugin": "^6.4.0",

@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AppContext from 'src/store/context/AppContext';
 import { Provider } from 'react-redux';;
 import { store } from 'src/store/rtk/store';
-import '../../css/app.css'
+import '../config/app.css'
 
 export default function () {
   return (
