@@ -1,10 +1,9 @@
 import { rh, rw } from 'src/constants/dimensions';
-import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { Checkbox, Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button } from '@components';
+import { Button, GSBox, GSPressable, GSText } from '@components';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -59,7 +58,7 @@ export default function SimpleLogin({
   const { errors, touched } = formik;
 
   return (
-    <Box
+    <GSBox
       bg='$light100'
       shadowColor='$black'
       shadowOffset={{ height: 5, width: 5 }}
@@ -73,13 +72,13 @@ export default function SimpleLogin({
       }}
       justifyContent='center'
       alignItems='center'>
-      <Box
+      <GSBox
         rowGap={rh(2)}
         w={'90%'}
         sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
-        <Text fontSize={'$2xl'} color='$trueGray800' fontWeight='$semibold'>
+        <GSText fontSize={'$2xl'} color='$trueGray800' fontWeight='$semibold'>
           {title ? title : 'Login'}
-        </Text>
+        </GSText>
 
         <Input
           value={formik.values.email}
@@ -99,7 +98,8 @@ export default function SimpleLogin({
           error={errors.password && touched.password ? errors.password : ''}
           type='password'
         />
-        <HStack
+        <GSBox
+          flexDirection='row'
           alignItems='center'
           w={'100%'}
           sx={{
@@ -107,20 +107,24 @@ export default function SimpleLogin({
             columnGap: rw(2),
           }}>
           <Checkbox background='#ed5684' size={1.3} onCheck={setIsRemember} />
-          <Text> Remember me ? </Text>
-        </HStack>
+          <GSText> Remember me ? </GSText>
+        </GSBox>
         <Button
           onPress={formik.handleSubmit}
           text='Login'
           isLoading={isLoading}
         />
-        <Pressable onPress={handleForgotPassword}>
-          <Text textAlign='right'>Forgot password?</Text>
-        </Pressable>
+        <GSPressable onPress={handleForgotPassword}>
+          <GSText textAlign='right'>Forgot password?</GSText>
+        </GSPressable>
 
-        <HStack w={'100%'} justifyContent='center' alignItems='center'>
-          <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
-          <Box
+        <GSBox
+          flexDirection='row'
+          w={'100%'}
+          justifyContent='center'
+          alignItems='center'>
+          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
+          <GSBox
             w={'10%'}
             justifyContent='center'
             alignItems='center'
@@ -128,13 +132,17 @@ export default function SimpleLogin({
             borderColor='$coolGray200'
             borderWidth={'$2'}
             borderRadius={'$sm'}>
-            <Text color='$coolGray400'>OR</Text>
-          </Box>
-          <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
-        </HStack>
+            <GSText color='$coolGray400'>OR</GSText>
+          </GSBox>
+          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
+        </GSBox>
 
-        <HStack justifyContent='center' columnGap='$7' marginTop={'$1'}>
-          <Pressable
+        <GSBox
+          flexDirection='row'
+          justifyContent='center'
+          columnGap='$7'
+          marginTop={'$1'}>
+          <GSPressable
             onPress={handleGoogleLogin}
             sx={{
               height: '$8',
@@ -146,8 +154,8 @@ export default function SimpleLogin({
               alignItems: 'center',
             }}>
             <AntDesign name='google' size={20} color='#b30d18' />
-          </Pressable>
-          <Pressable
+          </GSPressable>
+          <GSPressable
             onPress={handleFacebookLogin}
             sx={{
               height: '$8',
@@ -159,8 +167,8 @@ export default function SimpleLogin({
               alignItems: 'center',
             }}>
             <FontAwesome name='facebook-f' size={20} color='#304b7a' />
-          </Pressable>
-          <Pressable
+          </GSPressable>
+          <GSPressable
             onPress={handleGithubLogin}
             sx={{
               height: '$8',
@@ -172,20 +180,20 @@ export default function SimpleLogin({
               alignItems: 'center',
             }}>
             <FontAwesome name='github' size={18} color='#000000' />
-          </Pressable>
-        </HStack>
-        <HStack justifyContent='center' columnGap={'$1.5'}>
-          <Text>Need an account?</Text>
-          <Pressable onPress={handleSignUP}>
-            <Text
+          </GSPressable>
+        </GSBox>
+        <GSBox flexDirection='row' justifyContent='center' columnGap={'$1.5'}>
+          <GSText>Need an account?</GSText>
+          <GSPressable onPress={handleSignUP}>
+            <GSText
               textTransform='uppercase'
               textDecorationLine='underline'
               fontWeight='$medium'>
               Sing up
-            </Text>
-          </Pressable>
-        </HStack>
-      </Box>
-    </Box>
+            </GSText>
+          </GSPressable>
+        </GSBox>
+      </GSBox>
+    </GSBox>
   );
 }

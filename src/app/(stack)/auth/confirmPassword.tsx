@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import React, { useEffect } from 'react';
-import { Center } from '@gluestack-ui/themed';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import useToast from '@hooks/useToast';
 import ConfirmPassword from 'src/features/authentication/screens/confirmpassword';
@@ -36,8 +35,8 @@ export default function () {
   }, [isError, isSuccess]);
 
   return (
-    <Center flex={1} bg='$light100'>
+    <View className='flex-1 justify-center items-center bg-stone-100'>
       <ConfirmPassword handleSend={handleSend} isLoading={isLoading} />
-    </Center>
+    </View>
   );
 }

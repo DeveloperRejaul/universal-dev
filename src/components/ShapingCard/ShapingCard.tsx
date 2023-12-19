@@ -1,23 +1,13 @@
-import {
-  Box,
-  Button,
-  ButtonText,
-  Center,
-  HStack,
-  Image,
-  Pressable,
-  Text,
-} from '@gluestack-ui/themed';
 import React, { useState } from 'react';
 import cardImage from '../../assets/images/card.webp';
 import AnimatedButton from '../button/AnimatedButton';
 import { rw } from 'src/constants/dimensions';
-
+import { GSPressable, GSImage, GSBox, GSText } from '@components';
 export default function ShapingCard() {
   const [isHover, setIsHover] = useState(false);
 
   return (
-    <Box
+    <GSBox
       sx={{
         _web: { cursor: 'pointer', w: '$56' },
         _android: { justifyContent: 'space-between' },
@@ -29,47 +19,47 @@ export default function ShapingCard() {
       p={'$2'}
       rounded={'$md'}
       rowGap={'$1'}>
-      <Box h={'70%'} w={'$full'} overflow='hidden' rounded={'$md'}>
-        <Image
+      <GSBox h={'70%'} w={'$full'} overflow='hidden' rounded={'$md'}>
+        <GSImage
           resizeMode='cover'
           source={cardImage}
           h={'$full'}
           w={'$full'}
           alt='product-image'
         />
-      </Box>
-      <Button
+      </GSBox>
+      <GSPressable
         onHoverIn={() => setIsHover(true)}
         onHoverOut={() => setIsHover(false)}
         bg='$white'>
-        <ButtonText
+        <GSText
           fontSize={'$sm'}
           textAlign='center'
           color={isHover ? '$black' : '$coolGray600'}>
           Premium Exclusive Sneakers Grey-RSO7009
-        </ButtonText>
-      </Button>
+        </GSText>
+      </GSPressable>
 
-      <HStack justifyContent='center' columnGap={'$2'}>
-        <Text
+      <GSBox justifyContent='center' flexDirection='row' columnGap={'$2'}>
+        <GSText
           color='$coolGray400'
           fontWeight='$normal'
           textAlign='center'
           fontSize={'$sm'}
           textDecorationLine='line-through'>
           ৳5,899
-        </Text>
-        <Text
+        </GSText>
+        <GSText
           fontWeight='$bold'
           color='$black'
           textAlign='center'
           fontSize={'$sm'}>
           ৳1,225
-        </Text>
-      </HStack>
-      <Center>
+        </GSText>
+      </GSBox>
+      <GSBox justifyContent='center' alignItems='center'>
         <AnimatedButton />
-      </Center>
-    </Box>
+      </GSBox>
+    </GSBox>
   );
 }

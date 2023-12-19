@@ -1,12 +1,12 @@
-import { rf, rh } from 'src/constants/dimensions';
-import { Box, Center, HStack, Pressable, Text } from '@gluestack-ui/themed';
+import { rh } from 'src/constants/dimensions';
 import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import useToast from '@hooks/useToast';
-import { Button } from '@components';
+import { Button, GSBox, GSPressable, GSText } from '@components';
+import { View } from 'react-native';
 
 let timeout: any;
 let interval: any;
@@ -68,7 +68,7 @@ export default function Verification({
   };
 
   return (
-    <Box
+    <GSBox
       bg='$light100'
       shadowColor='$black'
       shadowOffset={{ height: 5, width: 5 }}
@@ -82,18 +82,18 @@ export default function Verification({
       }}
       justifyContent='center'
       alignItems='center'>
-      <Box
+      <GSBox
         rowGap={rh(2)}
         w={'90%'}
         sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
-        <Text
+        <GSText
           fontWeight='$semibold'
           color='$coolGray800'
           fontSize={'$lg'}
           textAlign='center'>
           Enter Verification Code
-        </Text>
-        <Center flexDirection='row' columnGap={'$10'}>
+        </GSText>
+        <View className='flex-1 justify-center items-center flex-row space-x-3'>
           <Input
             ref={input1}
             onChangeText={(text: string) => {
@@ -133,24 +133,24 @@ export default function Verification({
             containerStyle={{ width: 40 }}
             inputStyle={{ textAlign: 'center' }}
           />
-        </Center>
-        <HStack justifyContent='center' columnGap={'$1'}>
-          <Text
+        </View>
+        <GSBox justifyContent='center' columnGap={'$1'}>
+          <GSText
             fontSize={'$sm'}
             fontWeight='$normal'
             color='$coolGray500'
             textAlign='center'>
             If you don't resive code
-          </Text>
-          <Pressable onPress={handleResendStatus} disabled={resend}>
-            <Text
+          </GSText>
+          <GSPressable onPress={handleResendStatus} disabled={resend}>
+            <GSText
               fontWeight='$semibold'
               color={resend ? '#ed568341' : '#ed5684'}>
               Resend
-            </Text>
-          </Pressable>
-          {resend && <Text ml={'$2'}>{time}</Text>}
-        </HStack>
+            </GSText>
+          </GSPressable>
+          {resend && <GSText ml={'$2'}>{time}</GSText>}
+        </GSBox>
         <Button
           onPress={() => {
             handleSubmit?.();
@@ -165,9 +165,13 @@ export default function Verification({
           isLoading={isLoading}
         />
 
-        <HStack w={'100%'} justifyContent='center' alignItems='center'>
-          <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
-          <Box
+        <GSBox
+          flexDirection='row'
+          w={'100%'}
+          justifyContent='center'
+          alignItems='center'>
+          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
+          <GSBox
             w={'10%'}
             justifyContent='center'
             alignItems='center'
@@ -175,13 +179,17 @@ export default function Verification({
             borderColor='$coolGray200'
             borderWidth={'$2'}
             borderRadius={'$sm'}>
-            <Text color='$coolGray400'>OR</Text>
-          </Box>
-          <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
-        </HStack>
+            <GSText color='$coolGray400'>OR</GSText>
+          </GSBox>
+          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
+        </GSBox>
 
-        <HStack justifyContent='center' columnGap='$7' marginTop={'$1'}>
-          <Pressable
+        <GSBox
+          flexDirection='row'
+          justifyContent='center'
+          columnGap='$7'
+          marginTop={'$1'}>
+          <GSPressable
             sx={{
               height: '$8',
               width: '$8',
@@ -192,8 +200,8 @@ export default function Verification({
               alignItems: 'center',
             }}>
             <AntDesign name='google' size={20} color='#b30d18' />
-          </Pressable>
-          <Pressable
+          </GSPressable>
+          <GSPressable
             sx={{
               height: '$8',
               width: '$8',
@@ -204,8 +212,8 @@ export default function Verification({
               alignItems: 'center',
             }}>
             <FontAwesome name='facebook-f' size={20} color='#304b7a' />
-          </Pressable>
-          <Pressable
+          </GSPressable>
+          <GSPressable
             sx={{
               height: '$8',
               width: '$8',
@@ -216,20 +224,20 @@ export default function Verification({
               alignItems: 'center',
             }}>
             <FontAwesome name='linkedin' size={18} color='#245493' />
-          </Pressable>
-        </HStack>
-        <HStack justifyContent='center' columnGap={'$1.5'}>
-          <Text>Do you have an account?</Text>
-          <Pressable onPress={handleSignUP}>
-            <Text
+          </GSPressable>
+        </GSBox>
+        <GSBox flexDirection='row' justifyContent='center' columnGap={'$1.5'}>
+          <GSText>Do you have an account?</GSText>
+          <GSPressable onPress={handleSignUP}>
+            <GSText
               textTransform='uppercase'
               textDecorationLine='underline'
               fontWeight='$medium'>
               Sing up
-            </Text>
-          </Pressable>
-        </HStack>
-      </Box>
-    </Box>
+            </GSText>
+          </GSPressable>
+        </GSBox>
+      </GSBox>
+    </GSBox>
   );
 }

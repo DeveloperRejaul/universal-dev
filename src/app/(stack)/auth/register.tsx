@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import useToast from '@hooks/useToast';
 import SimpleSignUp from 'src/features/authentication/screens/signup';
 import { useSignupMutation } from 'src/features/authentication/api';
+import { View } from 'react-native';
 
 type signUpParams = {
   name: string;
@@ -45,12 +46,12 @@ export default function register() {
   }, [isError, isSuccess]);
 
   return (
-    <Center justifyContent='center' alignItems='center' bg='$light100' flex={1}>
+    <View className='flex-1 justify-center items-center bg-stone-100'>
       <SimpleSignUp
         handleSignUP={handleSignUp}
         handleLogin={() => router.push('/')}
         isLoading={isLoading}
       />
-    </Center>
+    </View>
   );
 }

@@ -1,10 +1,9 @@
 import { rh } from 'src/constants/dimensions';
-import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
 import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button } from '@components';
+import { Button, GSBox, GSPressable, GSText } from '@components';
 
 type appProps = {
   handleLogin?: () => void;
@@ -63,7 +62,7 @@ export default function SimpleSignUp({
     setFieldValue('confirmPassword', confirmPassword);
 
   return (
-    <Box
+    <GSBox
       bg='$light100'
       shadowColor='$black'
       shadowOffset={{ height: 1, width: 1 }}
@@ -77,13 +76,13 @@ export default function SimpleSignUp({
       }}
       justifyContent='center'
       alignItems='center'>
-      <Box
+      <GSBox
         rowGap={rh(2)}
         w={'90%'}
         sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
-        <Text fontSize={'$2xl'} color='$trueGray800' fontWeight='$semibold'>
+        <GSText fontSize={'$2xl'} color='$trueGray800' fontWeight='$semibold'>
           {title ? title : 'Sign Up'}
-        </Text>
+        </GSText>
         <Input
           label={nameLabel ? nameLabel : 'Full name'}
           placeholder={namePlaceholder ? namePlaceholder : 'Enter full name'}
@@ -122,12 +121,15 @@ export default function SimpleSignUp({
           }
           type='password'
         />
-        <HStack />
         <Button text=' Sing up' onPress={handleSubmit} isLoading={isLoading} />
 
-        <HStack w={'100%'} justifyContent='center' alignItems='center'>
-          <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
-          <Box
+        <GSBox
+          flexDirection='row'
+          w={'100%'}
+          justifyContent='center'
+          alignItems='center'>
+          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
+          <GSBox
             w={'10%'}
             justifyContent='center'
             alignItems='center'
@@ -135,13 +137,17 @@ export default function SimpleSignUp({
             borderColor='$coolGray200'
             borderWidth={'$2'}
             borderRadius={'$sm'}>
-            <Text color='$coolGray400'>OR</Text>
-          </Box>
-          <Box w={'45%'} height={'$0.5'} bg='$coolGray200' />
-        </HStack>
+            <GSText color='$coolGray400'>OR</GSText>
+          </GSBox>
+          <GSBox w={'45%'} height={'$0.5'} bg='$coolGray200' />
+        </GSBox>
 
-        <HStack justifyContent='center' columnGap='$7' marginTop={'$1'}>
-          <Pressable
+        <GSBox
+          flexDirection='row'
+          justifyContent='center'
+          columnGap='$7'
+          marginTop={'$1'}>
+          <GSPressable
             sx={{
               height: '$8',
               width: '$8',
@@ -152,8 +158,8 @@ export default function SimpleSignUp({
               alignItems: 'center',
             }}>
             <AntDesign name='google' size={20} color='#b30d18' />
-          </Pressable>
-          <Pressable
+          </GSPressable>
+          <GSPressable
             sx={{
               height: '$8',
               width: '$8',
@@ -164,8 +170,8 @@ export default function SimpleSignUp({
               alignItems: 'center',
             }}>
             <FontAwesome name='facebook-f' size={20} color='#304b7a' />
-          </Pressable>
-          <Pressable
+          </GSPressable>
+          <GSPressable
             sx={{
               height: '$8',
               width: '$8',
@@ -176,20 +182,20 @@ export default function SimpleSignUp({
               alignItems: 'center',
             }}>
             <FontAwesome name='linkedin' size={18} color='#245493' />
-          </Pressable>
-        </HStack>
-        <HStack justifyContent='center' columnGap={'$1.5'}>
-          <Text>Need an account?</Text>
-          <Pressable onPress={handleLogin}>
-            <Text
+          </GSPressable>
+        </GSBox>
+        <GSBox flexDirection='row' justifyContent='center' columnGap={'$1.5'}>
+          <GSText>Need an account?</GSText>
+          <GSPressable onPress={handleLogin}>
+            <GSText
               textTransform='uppercase'
               textDecorationLine='underline'
               fontWeight='$medium'>
               Login
-            </Text>
-          </Pressable>
-        </HStack>
-      </Box>
-    </Box>
+            </GSText>
+          </GSPressable>
+        </GSBox>
+      </GSBox>
+    </GSBox>
   );
 }

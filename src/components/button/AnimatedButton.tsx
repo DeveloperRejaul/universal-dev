@@ -1,5 +1,4 @@
-import { Box, Text } from '@gluestack-ui/themed';
-import { Pressable } from '@gluestack-ui/themed';
+import { Text, View, Pressable } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Animated, {
   useAnimatedStyle,
@@ -7,7 +6,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import Icon from '@expo/vector-icons/Feather';
-const AnimatedBox = Animated.createAnimatedComponent(Box);
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 export default function AnimatedButton() {
   const [isHover, setHover] = useState(false);
@@ -29,31 +28,22 @@ export default function AnimatedButton() {
 
   return (
     <Pressable
-      overflow='hidden'
-      bg='$black'
-      width={'80%'}
-      h={'$8'}
-      px={'$1'}
-      py={'$1'}
-      rounded={'$md'}
-      onHoverIn={() => setHover(true)}
-      onHoverOut={() => setHover(false)}>
-      <AnimatedBox
+      className='overflow-hidden bg-black w-[80%] h-8 p-1 rounded-md'
+      onHoverOut={() => setHover(false)}
+      onHoverIn={() => setHover(true)}>
+      <AnimatedView
         style={animatedStyle}
-        rowGap={'$2'}
-        justifyContent={'center'}
-        alignItems={'center'}>
-        <Text
-          px={'$1'}
-          sx={{ _android: { mt: '$3' } }}
-          fontSize={'$sm'}
-          textTransform='uppercase'
-          color='$white'
-          textAlign='center'>
+        className={'flex flex-1 justify-center items-center'}>
+        <Text className='px-1 text-sm uppercase text-white text-center android:mt-3'>
           Select option
         </Text>
-        <Icon name='shopping-cart' size={20} color={'#fff'} />
-      </AnimatedBox>
+        <Icon
+          className='self-center mt-2'
+          name='shopping-cart'
+          size={20}
+          color={'#fff'}
+        />
+      </AnimatedView>
     </Pressable>
   );
 }

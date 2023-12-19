@@ -1,8 +1,7 @@
-import { Box } from '@gluestack-ui/themed';
 import { Input } from '@platform-components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button } from '@components';
+import { Button, GSBox } from '@components';
 import { rh } from 'src/constants/dimensions';
 
 type appProps = {
@@ -43,7 +42,7 @@ export default function ConfirmPassword({
     setFieldValue('confirmPassword', conPassword);
 
   return (
-    <Box
+    <GSBox
       bg='$light100'
       shadowColor='$black'
       shadowOffset={{ height: 5, width: 5 }}
@@ -57,7 +56,7 @@ export default function ConfirmPassword({
       }}
       justifyContent='center'
       alignItems='center'>
-      <Box
+      <GSBox
         rowGap={rh(2)}
         w={'90%'}
         sx={{ _web: { w: '70%' }, '@lg': { _web: { w: '50%' } } }}>
@@ -88,7 +87,7 @@ export default function ConfirmPassword({
           }
         />
         <Button isLoading={isLoading} text='Send' onPress={handleSubmit} />
-      </Box>
-    </Box>
+      </GSBox>
+    </GSBox>
   );
 }

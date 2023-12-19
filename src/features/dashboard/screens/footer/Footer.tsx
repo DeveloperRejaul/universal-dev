@@ -1,13 +1,12 @@
-import React from 'react'
-import { Box } from '@gluestack-ui/themed'
-import { Overly } from '@components'
-import { Text } from '@gluestack-ui/themed'
+import React from 'react';
+import { GSBox, Overly } from '@components';
+import { Text } from 'react-native';
 
 export default function Footer() {
   return (
-    <Box w={"$full"} h={"$10"} bg='$coolGray400'>
-      <Overly/>
+    <GSBox w={'$full'} h={'$10'} bg='$coolGray400'>
+      <Overly />
       <Text>Footer</Text>
-    </Box>
-  )
+    </GSBox>
+  );
 }

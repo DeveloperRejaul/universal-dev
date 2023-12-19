@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Center } from '@gluestack-ui/themed';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import useToast from '@hooks/useToast';
 import Verification from 'src/features/authentication/screens/verification';
 import { usePasswordVerificationMutation } from 'src/features/authentication/api';
+import { View } from 'react-native';
 
 type codeType = {
   otp1: number;
@@ -55,13 +55,13 @@ export default function verification() {
   }, [isError, isSuccess]);
 
   return (
-    <Center flex={1} bg='$light100'>
+    <View className='flex-1 justify-center items-center bg-stone-100'>
       <Verification
         handleResend={handleResend}
         handleSend={handleSend}
         handleSignUP={() => router.push('/auth/register')}
         isLoading={isLoading}
       />
-    </Center>
+    </View>
   );
 }

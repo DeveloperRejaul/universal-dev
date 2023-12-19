@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Center } from '@gluestack-ui/themed';
 import { useRouter } from 'expo-router';
 import useToast from '@hooks/useToast';
 import ForgotPassword from 'src/features/authentication/screens/forgotPassword';
 import { useForgetPasswordMutation } from 'src/features/authentication/api';
+import { View } from 'react-native';
 
 export default function () {
   const router = useRouter();
@@ -37,13 +37,13 @@ export default function () {
     }
   }, [isError, isSuccess]);
   return (
-    <Center bg='$light100' alignItems='center' flex={1}>
+    <View className='flex-1 justify-center items-center bg-stone-100'>
       <ForgotPassword
         isLoading={isLoading}
         handleSend={handleSend}
         handleLogin={() => router.push('/auth/login')}
         handleSignUP={() => router.push('/auth/register')}
       />
-    </Center>
+    </View>
   );
 }
