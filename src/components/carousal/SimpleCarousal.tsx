@@ -57,13 +57,13 @@ export default function SimpleCarousal() {
             <View
               onLayout={handleLayout}
               key={Math.random()}
-              className='w-full h-72 overflow-hidden my-2 cursor-pointer'>
-              <Image
+              className='w-full h-72 overflow-hidden my-2 cursor-pointer bg-rose500'>
+              {/* <Image
                 className='h-full w-full'
                 source={d}
                 resizeMode='cover'
                 alt='slide-image'
-              />
+              /> */}
             </View>
           ))}
         </AnimatedView>

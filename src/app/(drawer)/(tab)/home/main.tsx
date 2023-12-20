@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header, Input } from '@platform-components';
-import { SimpleCarousal } from '@components';
+import {Input } from '@platform-components';
+import { Header, SimpleCarousal } from '@components';
 import { ScrollView, View } from 'react-native';
 
 export default function Home() {

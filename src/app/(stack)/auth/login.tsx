@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@hooks/useAppDispatch';
-import useToast from '@hooks/useToast';
+import { useToast } from '@hooks/useToast';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { View } from 'react-native';
@@ -16,32 +16,21 @@ type loginParams = {
 export default function index() {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { showToast } = useToast();
   const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
-
+  const {} = useToast()
+  
   const loginReq = async (values: loginParams) => {
-    await login({
-      email: values.email,
-      password: values.password,
-      isRemember: values.isRemember,
-    });
+   
+    // await login({
+    //   email: values.email,
+    //   password: values.password,
+    //   isRemember: values.isRemember,
+    // });
   };
 
   useEffect(() => {
-    if (isError)
-      showToast({
-        message: 'Account login failed',
-        title: 'Error',
-        action: 'error',
-      });
     if (isSuccess) {
       dispatch(handleLogin());
-      showToast({
-        message: 'Account login success',
-        title: 'Success',
-        action: 'success',
-      });
-
       setTimeout(() => {
         router.replace('/(drawer)/(tab)/home/main');
       }, 1000);

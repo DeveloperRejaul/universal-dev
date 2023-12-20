@@ -1,6 +1,5 @@
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import useToast from '@hooks/useToast';
 import SimpleSignUp from 'src/features/authentication/screens/signup';
 import { useSignupMutation } from 'src/features/authentication/api';
 import { View } from 'react-native';
@@ -14,7 +13,6 @@ type signUpParams = {
 export default function register() {
   const router = useRouter();
   const [singUp, { isLoading, isError, isSuccess, data }] = useSignupMutation();
-  const { showToast } = useToast();
 
   const handleSignUp = async (values: signUpParams) => {
     await singUp({
@@ -25,19 +23,7 @@ export default function register() {
   };
 
   useEffect(() => {
-    if (isError)
-      showToast({
-        message: 'Account create failed',
-        title: 'Error',
-        action: 'error',
-      });
     if (isSuccess) {
-      showToast({
-        message: 'Account create success',
-        title: 'Success',
-        action: 'success',
-      });
-
       setTimeout(() => {
         router.push('/');
       }, 1000);

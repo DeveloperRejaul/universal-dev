@@ -19,7 +19,5 @@
     "typescriptreactnative"
   ],
   "editor.formatOnSave": true,
-  "cSpell.words": [
-    "actualy"
-  ]
+  "cSpell.words": ["actualy"]
 }

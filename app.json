@@ -34,9 +34,9 @@
       [
         "expo-router",
         {
-          // "origin": "https://acme.com",
+          "origin": "https://acme.com",
           "asyncRoutes": {
-             "web": true,
+             "web": false,
              "android": false,
              "default": "development"
           }
@@ -45,7 +45,6 @@
       [ 
         "expo-image-picker",
         {
-          "asyncRoutes": "development",
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]

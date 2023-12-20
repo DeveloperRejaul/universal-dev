@@ -3,7 +3,6 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import useToast from '@hooks/useToast';
 import { Button} from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
@@ -46,7 +45,6 @@ export default function Verification({
   const input2 = useRef(null);
   const input3 = useRef(null);
   const input4 = useRef(null);
-  const { showToast } = useToast();
 
   const [resend, setResend] = useState(false);
   const [time, setTime] = useState('00:00');
