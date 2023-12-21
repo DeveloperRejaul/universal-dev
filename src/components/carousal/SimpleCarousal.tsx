@@ -57,7 +57,7 @@ export default function SimpleCarousal() {
             <View
               onLayout={handleLayout}
               key={Math.random()}
-              className='w-full h-72 overflow-hidden my-2 cursor-pointer bg-rose500'>
+              className='w-full h-72 overflow-hidden my-2 web:cursor-pointer bg-rose500'>
               {/* <Image
                 className='h-full w-full'
                 source={d}

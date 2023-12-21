@@ -11,12 +11,13 @@ export default function ShapingCard() {
   return (
     <View className={`w-[${rw(45)}] h-96 bg-white p-2 rounded-md space-x-1 justify-between web:cursor-pointer web:w-56`}>
       <View className='h-[70%] w-full overflow-hidden rounded-md'>
-        <Image
+        {/* <Image
           className='h-full w-full'
           resizeMode='cover'
           source={cardImage}
           alt='product-image'
-        />
+        /> */}
+        <Text>Image</Text>
       </View>
       <Pressable className='bg-white'>
         <Text className={`text-sm text-center text-purple hover:text-gray`}>

@@ -1,6 +1,4 @@
-import { useToast } from "react-native-toast-notifications"
+import { useContext } from "react";
+import { ToastType,ToastContext } from "../components/toast/main/Provider";
 
-export const useAppToast = () => {
-  const {hide, hideAll,show,isOpen,update} = useToast();
-  
-}
+export const useToast = (): ToastType => useContext(ToastContext);

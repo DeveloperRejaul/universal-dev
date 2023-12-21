@@ -4,8 +4,6 @@ import ShapingCard from './ShapingCard/ShapingCard';
 import AnimatedButton from './button/AnimatedButton';
 import Overly from './overly/overly';
 import Header from './header/header';
-import ToastContainer from './toast/ToastContainer';
-
 
 export {  
   SimpleCarousal,
@@ -14,5 +12,4 @@ export {
   AnimatedButton,
   Overly,
   Header,
-  ToastContainer
 }
