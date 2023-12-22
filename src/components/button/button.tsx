@@ -1,7 +1,6 @@
+import { useToken } from '@hooks/useToken';
 import React from 'react';
-import { Pressable, Spinner, Text } from '@gluestack-ui/themed';
-import { rf } from 'src/constants/dimensions';
-import { TextStyle, ViewStyle } from 'react-native';
+import { TextStyle, ViewStyle,Pressable, Text,ActivityIndicator} from 'react-native';
 
 type propsType = {
   onPress: () => void;
@@ -11,37 +10,22 @@ type propsType = {
   containerStyle?: ViewStyle;
 };
 
-export default function button({
-  onPress,
-  text,
-  isLoading,
-  textStyle,
-  containerStyle,
-}: propsType) {
+const textColor = useToken('colors', 'gray');
+
+export default function button({ onPress,text,isLoading,textStyle,containerStyle}: propsType) {
   return (
     <Pressable
       disabled={isLoading}
       style={containerStyle}
-      bg='#ed5684'
-      justifyContent='center'
-      alignItems='center'
-      borderRadius={5}
-      sx={{
-        _web: { paddingVertical: '$1', ':hover': { bg: '#f81d5f' } },
-      }}
-      paddingVertical={'$2'}
+      className='bg-[#ed5684] justify-center items-center rounded-md py-1 hover:bg-[#f81d5f]'
       onPress={onPress}>
       {isLoading ? (
-        <Spinner color='$white' />
+        <ActivityIndicator color={'#fff'} />
       ) : (
         <Text
           style={textStyle}
-          color='$trueGray900'
-          fontWeight='$semibold'
-          fontSize={rf(2.2)}
-          textTransform='uppercase'
-          sx={{ _web: { fontSize: rf(1.2), fontWeight: '$bold' } }}>
-          {text}
+          className={`text-[${textColor}] android:font-semibold ios:font-semibold text-lg web:font-bold`}>
+          {text || "Click Me"}
         </Text>
       )}
     </Pressable>

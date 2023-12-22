@@ -31,8 +31,18 @@
       "favicon": "./src/assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router",
       [
+        "expo-router",
+        {
+          "origin": "https://acme.com",
+          "asyncRoutes": {
+             "web": false,
+             "android": false,
+             "default": "development"
+          }
+        }
+      ],
+      [ 
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."

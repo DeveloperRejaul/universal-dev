@@ -1,21 +1,22 @@
-import React from 'react'
-import {Text ,HStack, Pressable} from '@gluestack-ui/themed'
-import Icon from '@expo/vector-icons/Ionicons'
-import { useAppDispatch } from '@hooks/useAppDispatch'
-import { drawerToggle } from 'src/features/drawer/slice/slice'
-import { Overly } from '@components'
+import React from 'react';
+import Icon from '@expo/vector-icons/Ionicons';
+import { useAppDispatch } from '@hooks/useAppDispatch';
+import { drawerToggle } from 'src/features/drawer/slice/slice';
+import { Overly } from '@components';
+import { Pressable, Text, View } from 'react-native';
 
 export default function Header() {
-  const dispatch = useAppDispatch()
- 
-  return (
+  const dispatch = useAppDispatch();
 
-    <HStack flexDirection='row' bg='$amber300'>
-      <Overly/>
-      <Pressable onPress={()=>dispatch(drawerToggle())} justifyContent='center' alignItems='center' sx={{"@md":{opacity:'$0'}}} h={'$7'} w={'$7'} bg='$blue400'>
-          <Icon name='apps-sharp'/>
+  return (
+    <View className='flex-row bg-bubble-gum'>
+      <Overly />
+      <Pressable
+        onPress={() => dispatch(drawerToggle())}
+        className='h-7 w-7 bg-tahiti justify-center items-center md:opacity-0'>
+        <Icon name='apps-sharp' />
       </Pressable>
       <Text>Header</Text>
-    </HStack>
-  )
+    </View>
+  );
 }

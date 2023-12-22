@@ -1,5 +1,5 @@
 import { Redirect } from 'expo-router';
 
 export default function index() {
-  return <Redirect href={'/(stack)/dashboard/Home'} />;
+  return <Redirect href={'/(stack)/components'} />;
 }

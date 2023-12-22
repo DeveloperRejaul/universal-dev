@@ -1,24 +1,23 @@
-import { Stack } from 'expo-router';
+import '../config/app.css'
+import { Stack} from 'expo-router';
+import { Provider } from 'react-redux';;
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AppContext from 'src/store/context/AppContext';
-import { Provider } from 'react-redux';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
-import { config } from '../../config/gluestack-ui.config';
 import { store } from 'src/store/rtk/store';
-import '../global.css';
+import AppContext from 'src/store/context/AppContext';
+import { ToastProvider } from 'src/components/toast/main/Provider';
 
 export default function () {
   return (
     <Provider store={store}>
-      <AppContext>
-        <GluestackUIProvider config={config} colorMode='light'>
+      <AppContext >
+        <ToastProvider>
           <SafeAreaView style={{ flex: 1 }}>
             <Stack screenOptions={{ headerShown: false }}>
               <Stack.Screen name='index' options={{ title: 'Login' }} />
               <Stack.Screen name='(drawer)' options={{ headerShown: false }} />
             </Stack>
           </SafeAreaView>
-        </GluestackUIProvider>
+        </ToastProvider>
       </AppContext>
     </Provider>
   );
