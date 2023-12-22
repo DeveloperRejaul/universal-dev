@@ -18,7 +18,7 @@ export default function Components() {
        <Component.Button text='Toast' onPress={()=>show("Success message",{ type:"success"})}/>
        {Object.values(Component).map((Com,i)=><View key={i} className='py-4'><Com/></View>)}
 
-      <RNText> Hello </RNText>
+      <RNText/>
 
        <Text className='text-center'> Platform specific components  </Text>
        {Object.values(PComponent).map((Com,i)=><View key={i} className='py-4'><Com/></View>)}

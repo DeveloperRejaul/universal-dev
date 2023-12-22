@@ -1,11 +1,18 @@
-import React from "react";
-import {TextStyle } from "react-native";
+import React, { ReactNode } from "react";
+import {TextStyle, ViewStyle } from "react-native";
 
 interface ComponentProps {
-    style?: TextStyle; // Adjust this according to the specific Text component's props
+    style?: TextStyle;
+    children?: ReactNode;
 }
 
-export const styled = (Component: React.ComponentType<any>, style: TextStyle) => ({ style: componentStyle, ...props }: ComponentProps): React.ReactElement => {
+interface styledProps {
+    style?: TextStyle | ViewStyle;
+    className?: string | null;
+    Component: React.ComponentType<any>;
+}
+
+export const styled = ({ Component,className, style}:styledProps) => ({ style: componentStyle, children, ...props }: ComponentProps) => {
     const mergedStyle = [style, componentStyle];
-    return <Component style={mergedStyle} {...props}/>
+    return <Component className={className} style={mergedStyle} {...props} > {children} </Component>
 };
