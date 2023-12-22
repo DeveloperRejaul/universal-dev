@@ -1,6 +1,6 @@
 https://believerssign.com/
 
-// icon 
+//TODO: icon 
 https://thenounproject.com/icon/
 https://blog.expo.dev/the-new-expo-cli-f4250d8e3421
 
@@ -20,4 +20,3 @@ export async function generateStaticParams(): Promise<Record<string, string>[]> 
     // Each entry in the array will be a new page.
     // return posts.map(post => ({ id: post.id }));
 }
-  

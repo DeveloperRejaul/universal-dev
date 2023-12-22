@@ -1,9 +1,9 @@
 import { Ionicons, AntDesign } from '@expo/vector-icons';
-import { rf, } from 'src/constants/dimensions';
 import { useNavigation } from 'expo-router';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { Text, View } from 'react-native';
 import { Pressable } from 'react-native';
+import { rf } from 'src/constants/dimensions';
 
 type RootStackParamList = {
   Drawer: undefined;

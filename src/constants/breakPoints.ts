@@ -7,6 +7,7 @@ export type BreakPointsType = {
     XL: number;
     XL_2: number;
 };
+
 export const breakPoints:BreakPointsType = {
     BASE:350,
     SM:640,

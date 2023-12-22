@@ -3,6 +3,7 @@ import { TopToast } from "../position/TopToast";
 import CenterToast from "../position/CenterToast";
 import BottomToast from "../position/BottomToast";
 import { Props, State, ToastOptions } from "./types";
+import { TopRight } from "../position/TopRigth";
 
 
 // container components
@@ -71,6 +72,7 @@ export default class ToastContainer extends Component<Props, State> {
         <TopToast {...{props:this.props, state:this.state}}/>
         <BottomToast {...{props:this.props, state:this.state}}/>
         <CenterToast {...{props:this.props, state:this.state}}/>
+        <TopRight {...{props:this.props, state:this.state}}/>
       </>
     );
   }

@@ -14,9 +14,9 @@ export type PropsWithChildren = Props & {
 export interface ToastOptions {
     id?: string;
     icon?: JSX.Element;
-    type?: "normal" | "success" | "danger" | "warning" | string;
+    type: "normal" | "success" | "danger" | "warning";
     duration?: number;
-    placement?: "top" | "bottom" | "center";
+    placement?: "top" |"top-left" | "top-right"| "bottom"|"bottom-left"|"bottom-right" | "center"
     style?: StyleProp<ViewStyle>;
     textStyle?: StyleProp<TextStyle>;
     animationDuration?: number;

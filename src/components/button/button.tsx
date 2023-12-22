@@ -1,9 +1,9 @@
 import { useToken } from '@hooks/useToken';
 import React from 'react';
-import { TextStyle, ViewStyle,Pressable, Text,ActivityIndicator} from 'react-native';
+import { TextStyle, ViewStyle,Pressable, Text,ActivityIndicator, GestureResponderEvent} from 'react-native';
 
-type propsType = {
-  onPress: () => void;
+interface IPropsType {
+  onPress?: ((event: GestureResponderEvent) => void) | undefined;
   text: string;
   isLoading?: boolean;
   textStyle?: TextStyle;
@@ -12,7 +12,7 @@ type propsType = {
 
 const textColor = useToken('colors', 'gray');
 
-export default function button({ onPress,text,isLoading,textStyle,containerStyle}: propsType) {
+export default function button({ onPress ,text,isLoading,textStyle,containerStyle}: IPropsType) {
   return (
     <Pressable
       disabled={isLoading}

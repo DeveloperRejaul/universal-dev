@@ -1,12 +1,11 @@
-import { Checkbox, Input } from '@platform-components';
+import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, } from '@components';
+import { Button, CheckBox, } from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';
-import { Link } from 'expo-router';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -86,7 +85,7 @@ export default function SimpleLogin({
           type='password'
         />
         <View className='flex-row'>
-          <Checkbox background='#ed5684' size={1.3} onCheck={setIsRemember} />
+          <CheckBox handleCheck={(check:boolean)=>{console.log(check)}}/>
           <Text> Remember me ? </Text>
         </View>
         <Button
