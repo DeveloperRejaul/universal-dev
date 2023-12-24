@@ -1,5 +1,5 @@
 import { Platform, Text, View } from "react-native";
-import Toast from "./main/Container";
+import {ToastContainer} from "./main/Container";
 import { Props, ToastProps } from "./main/types";
 import { Ionicons } from "@expo/vector-icons";
 import { TOAST_ICON_SIZE } from "./constants";
@@ -7,7 +7,7 @@ type propsType= {toastRef:any;props:Props}
 
 
 export const ToastCom = ({props,toastRef}:propsType) =>  {
-  return <Toast
+  return <ToastContainer
     placement={Platform.OS ==="web"? "top-right":"bottom"}
     renderToast={(props:ToastProps)=><ToastBody {...props}/>}
     ref={toastRef} {...props} 

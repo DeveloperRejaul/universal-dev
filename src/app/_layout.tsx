@@ -5,19 +5,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { store } from 'src/store/rtk/store';
 import AppContext from 'src/store/context/AppContext';
 import { ToastProvider } from 'src/components/toast/main/Provider';
+import { View } from 'react-native';
+import { Text } from 'react-native';
 
 export default function () {
   return (
     <Provider store={store}>
       <AppContext >
-        <ToastProvider>
+        <ToastProvider> 
           <SafeAreaView style={{ flex: 1 }}>
             <Stack screenOptions={{ headerShown: false }}>
               <Stack.Screen name='index' options={{ title: 'Login' }} />
               <Stack.Screen name='(drawer)' options={{ headerShown: false }} />
             </Stack>
           </SafeAreaView>
-        </ToastProvider>
+         </ToastProvider> 
       </AppContext>
     </Provider>
   );

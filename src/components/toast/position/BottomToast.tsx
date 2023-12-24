@@ -1,11 +1,11 @@
 import { KeyboardAvoidingView, Platform, SafeAreaView,useWindowDimensions } from 'react-native'
 import React from 'react'
 import { ViewStyle } from 'react-native';
-import Toast from '../main/Toast';
+import {Toast} from '../main/Toast';
 import { styles } from '../main/styles';
 import { PositionPropsType } from './type';
 
-export default function BottomToast({props, state}:PositionPropsType) {
+export const BottomToast = ({props, state}:PositionPropsType) => {
 const {width} = useWindowDimensions()
 
   const { toasts } = state;

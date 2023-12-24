@@ -1,5 +1,5 @@
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
-import ToastContainer from "./Container";
+import {ToastContainer} from "./Container";
 
 export type ToastType = Pick<
   ToastContainer,

@@ -7,7 +7,9 @@ import {useToast} from '@hooks/useToast';
 import { Text } from 'react-native';
 import { styled } from 'src/utils/styled';
 
-const RNText = styled(Text, {backgroundColor:"red"})
+const components = Object.values(Component);
+const pcomponents = Object.values(PComponent);
+
 
 export default function Components() {
   const {show} = useToast()
@@ -16,13 +18,13 @@ export default function Components() {
       <View className='px-2'>
        {/* Display Toast message */}
        <Component.Button text='Toast' onPress={()=>show("Success message",{ type:"success"})}/>
-       {Object.values(Component).map((Com,i)=><View key={i} className='py-4'><Com/></View>)}
+       {components.map((Com,i)=><View key={i} className='py-4'><Com/></View>)}
 
-      <RNText/>
+    
 
        <Text className='text-center'> Platform specific components  </Text>
-       {Object.values(PComponent).map((Com,i)=><View key={i} className='py-4'><Com/></View>)}
-      </View>
+       {pcomponents.map((Com,i)=><View key={i} className='py-4'><Com/></View>)}
+      </View> 
     </ScrollView>
   );
 }
