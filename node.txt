@@ -20,3 +20,26 @@ export async function generateStaticParams(): Promise<Record<string, string>[]> 
     // Each entry in the array will be a new page.
     // return posts.map(post => ({ id: post.id }));
 }
+
+
+//TODO add css in style onject
+import './styles.css';
+style={{
+    $$css: true,
+    _: 'container' // class name,
+}}
+
+// TODO add module css
+App.module.css
+
+platform specific styles
+App.module.ios.css
+App.module.web.css
+App.module.android.css
+
+
+.text {
+  color: red;
+}
+import styles, { unstable_styles } from './App.module.css';
+style={unstable_styles.text}

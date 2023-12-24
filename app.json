@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.rejaul_karim.universaldev"
@@ -22,7 +24,9 @@
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["android.permission.RECORD_AUDIO"],
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
       "package": "com.rejaul_karim.universaldev"
     },
     "web": {
@@ -36,13 +40,13 @@
         {
           "origin": "https://acme.com",
           "asyncRoutes": {
-             "web": false,
-             "android": false,
-             "default": "development"
+            "web": false,
+            "android": false,
+            "default": "development"
           }
         }
       ],
-      [ 
+      [
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
@@ -54,11 +58,17 @@
       "tsconfigPaths": true
     },
     "extra": {
-      "router": {
-        "origin": false
+      "eas": {
+        "projectId": "af526f09-0930-425e-b99b-647b6a7da6f4"
       },
-      "eas": {}
+      "router": {
+        "origin": "https://acme.com",
+        "asyncRoutes": {
+          "web": false,
+          "android": false,
+          "default": "development"
+        }
+      }
     }
   }
 }
-

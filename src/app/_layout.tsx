@@ -1,12 +1,10 @@
-import '../config/app.css'
+import "../config/app.css"
 import { Stack} from 'expo-router';
 import { Provider } from 'react-redux';;
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { store } from 'src/store/rtk/store';
 import AppContext from 'src/store/context/AppContext';
 import { ToastProvider } from 'src/components/toast/main/Provider';
-import { View } from 'react-native';
-import { Text } from 'react-native';
 
 export default function () {
   return (
