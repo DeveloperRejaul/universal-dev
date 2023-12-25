@@ -7,11 +7,11 @@ import { Text } from 'react-native';
 
 
 interface IImageCardProps  {
-  uri:string;
-  productTitle:string;
-  mainPrice:number;
-  discountPrice:number;
-  buttonText:string;
+  uri?:string;
+  productTitle?:string;
+  mainPrice?:number;
+  discountPrice?:number;
+  buttonText?:string;
 }
 
 
@@ -46,7 +46,7 @@ export default function ShapingCard({uri, productTitle, mainPrice, discountPrice
         </Text>
       </View>
       <View className='justify-center items-center'>
-        <AnimatedButton buttonText={buttonText}/>
+        <AnimatedButton text={buttonText}/>
       </View>
     </View>
   );

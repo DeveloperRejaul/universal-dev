@@ -1,10 +1,12 @@
+
+//TODO :create this website
 https://believerssign.com/
 
-//TODO: icon 
+//TODO : icon 
 https://thenounproject.com/icon/
 https://blog.expo.dev/the-new-expo-cli-f4250d8e3421
 
-//TODO:  static rending example 
+//TODO :  static rending example 
 import { useLocalSearchParams } from "expo-router";
 import { Text } from "react-native";
 // doc:https://docs.expo.dev/router/reference/static-rendering/
@@ -22,7 +24,7 @@ export async function generateStaticParams(): Promise<Record<string, string>[]> 
 }
 
 
-//TODO add css in style onject
+//TODO add css in style object
 import './styles.css';
 style={{
     $$css: true,
