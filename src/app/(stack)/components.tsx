@@ -15,7 +15,16 @@ export default function Components() {
        {/* Display Slider components  */}
        <View style={{rowGap:5}}>
         <Component.H3 className='text-center'> Slider components </Component.H3>
-        <Component.Slider/>
+        <Component.Slider 
+          thumbTintColor={"black"}
+          maximumTrackTintColor={"#ff0000"} 
+          minimumTrackTintColor={"green"}
+          maximumValue={100}
+          minimumValue={0} 
+          onValueChange={(val)=>{console.log(val)}}
+          onSlidingComplete={()=>{console.log("Sliding complete")}}
+          onSlidingStart={()=>{console.log("Sliding start")}}
+          />
        </View>
 
 
