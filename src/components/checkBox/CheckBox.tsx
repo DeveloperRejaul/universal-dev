@@ -2,13 +2,13 @@ import { Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { FontAwesome } from '@expo/vector-icons'
 import { CHECK_COLOR, CHECK_SIZE } from './constants';
-import CustomText from 'src/utils/styled';
 
 interface ICheckboxProps {
     handleCheck: (check:boolean)=>void;
     activeCheckBg?:string;
     iconColor?:string;
 }
+
 
 
 
@@ -19,7 +19,7 @@ export default function CheckBox({handleCheck, activeCheckBg,iconColor}:ICheckbo
             onPress={()=>{setCheck( (pre)=>!pre);handleCheck?.(check) }}
             className={`h-5 w-5 rounded-md ${check ? styles(activeCheckBg).check:styles().uncheck} justify-center items-center`}
         >
-    {check ? <FontAwesome name='check' size={CHECK_SIZE} color={ iconColor || CHECK_COLOR}/>:null}
+        <FontAwesome name='check' size={CHECK_SIZE} color={iconColor|| CHECK_COLOR}/>
     </Pressable>
 }
 

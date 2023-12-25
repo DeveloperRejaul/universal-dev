@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import image01 from '../../assets/images/slide01.jpg';
-import image02 from '../../assets/images/slide02.jpg';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -9,7 +7,7 @@ import Animated, {
 import { View, Image } from 'react-native';
 
 let interval;
-const slides = [image01, image02];
+const slides = [1,2];
 const INDICATOR_SIZE = 10;
 const INDICATOR_RADIUS = INDICATOR_SIZE / 2;
 const SLIDES_GAP = 20;

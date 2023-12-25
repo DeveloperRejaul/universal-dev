@@ -8,12 +8,15 @@ import { TextStyle } from 'react-native';
 import { useToken } from '@hooks/useToken';
 import { Text } from 'react-native';
 
+const inputType =  ['search' , 'text' ,'password']
+const textareaType =  ['textarea']
+
 type appProps = {
   label?: string;
   placeholder?: string;
   labelStyle?: object;
   onChangeText?: (value: string) => void;
-  type?: 'search' | 'text' | 'password';
+  type?: 'search' | 'text' | 'password'| 'textarea';
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
   value?: string;
@@ -44,11 +47,13 @@ export default forwardRef(function (
 ) {
   const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
 
+
+
   return (
     <View style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
       <View  className='border-gray border-2 rounded-sm p-1 w-full flex-row items-center'>
-        <input
+        {!textareaType.includes(type) && <input
           ref={ref}
           autoFocus={autoFocus}
           style={inputStyle}
@@ -61,7 +66,24 @@ export default forwardRef(function (
           }
           value={value}
           type={type === 'password' && passwordHidden ? 'password' : 'text'}
-        />
+        />}
+
+
+          {textareaType.includes(type) && <textarea 
+            ref={ref}
+            autoFocus={autoFocus}
+            style={inputStyle}
+            maxLength={maxLength}
+            onBlur={onBlur}
+            className='input'
+            placeholder={placeholder}
+            onChange={
+              onChangeText ? (e) => onChangeText(e.target.value) : () => {}
+            }
+            value={value}
+          />}
+
+
         {type === 'search' ? (
           <Pressable>
             <Ionicons name='search' size={rf(2)} color={color} />

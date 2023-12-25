@@ -2,10 +2,10 @@ import { KeyboardAvoidingView, ViewStyle, useWindowDimensions } from 'react-nati
 import React from 'react'
 import { Platform } from 'react-native';
 import { styles } from '../main/styles';
-import Toast from '../main/Toast';
+import {Toast} from '../main/Toast';
 import { PositionPropsType } from './type';
 
-export default function CenterToast({state, props}:PositionPropsType) {
+export  const CenterToast = ({state, props}:PositionPropsType) => {
 const {width, height} = useWindowDimensions()
     
     const { toasts } = state;

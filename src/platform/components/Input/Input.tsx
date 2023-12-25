@@ -10,7 +10,7 @@ type appProps = {
   placeholder?: string;
   labelStyle?: object;
   onChangeText?: (value: string) => void;
-  type?: 'search' | 'text' | 'password';
+  type?: 'search' | 'text' | 'password'| 'textarea';
   value?: string;
   onBlur?: (value: boolean) => void;
   error?: string;
@@ -44,6 +44,7 @@ export default forwardRef(function (
       <Text style={labelStyle}>{label}</Text>
       <View className='border-gray border-2 rounded-sm p-1 w-full flex-row items-center'>
         <TextInput
+          multiline={type === "textarea"}
           ref={ref}
           autoFocus={autoFocus}
           maxLength={maxLength}

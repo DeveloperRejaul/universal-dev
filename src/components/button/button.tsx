@@ -4,7 +4,7 @@ import { TextStyle, ViewStyle,Pressable, Text,ActivityIndicator, GestureResponde
 
 interface IPropsType {
   onPress?: ((event: GestureResponderEvent) => void) | undefined;
-  text: string;
+  text?: string;
   isLoading?: boolean;
   textStyle?: TextStyle;
   containerStyle?: ViewStyle;
@@ -17,7 +17,7 @@ export default function button({ onPress ,text,isLoading,textStyle,containerStyl
     <Pressable
       disabled={isLoading}
       style={containerStyle}
-      className='bg-[#ed5684] justify-center items-center rounded-md py-1 hover:bg-[#f81d5f]'
+      className='bg-rose500 justify-center items-center rounded-md py-1 hover:bg-rose600'
       onPress={onPress}>
       {isLoading ? (
         <ActivityIndicator color={'#fff'} />
