@@ -3,7 +3,7 @@ import React from 'react'
 import Animated, { runOnJS, useSharedValue, withSpring } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 
-const OFFSET =20;
+const OFFSET =15;
 const BALL_SIZE = 20
 const MIN = 0;
 
