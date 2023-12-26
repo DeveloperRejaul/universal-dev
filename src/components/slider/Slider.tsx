@@ -1,295 +1,122 @@
-import React from 'react';
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  AccessibilityActionEvent,
-  ViewProps,
-  ViewStyle,
-  ColorValue,
-  NativeSyntheticEvent,
-  StyleProp,
-} from 'react-native';
-import RCTSliderNativeComponent from './index';
-//@ts-ignore
-import type {ImageSource} from 'react-native/Libraries/Image/ImageSource';
+import React, { Component } from 'react';
+import { Animated, PanResponder, StyleSheet, View } from 'react-native';
 
-import type {Ref} from 'react';
+const activeColor = 'red';
+const inactiveColor = 'lightgrey';
+const dotWidth = 20;
 
-const LIMIT_MIN_VALUE = Number.MIN_SAFE_INTEGER;
-const LIMIT_MAX_VALUE = Number.MAX_SAFE_INTEGER;
 
-type Event = NativeSyntheticEvent<
-  Readonly<{
-    value: number;
-    /**
-     * Android Only.
-     */
-    fromUser?: boolean;
-  }>
->;
+interface ISliderProps {
+    activeColor?: string;
+    inactiveColor?: string;
+    dotWidth?: number,
+    handlePresents:(val:number)=> void
+}
 
-type WindowsProps = Readonly<{
-  /**
-   * If true the slider will be inverted.
-   * Default value is false.
-   */
-  vertical?: boolean;
-}>;
+export default class Slider extends Component <ISliderProps> {
 
-type IOSProps = Readonly<{
-  /**
-   * Assigns a single image for the track. Only static images are supported.
-   * The center pixel of the image will be stretched to fill the track.
-   */
-  trackImage?: ImageSource;
+    constructor(props) {
+        super(props)    
+        this.state = {
+            sliderWidth: 0
+        }
+    }
+  
 
-  /**
-   * Assigns a minimum track image. Only static images are supported. The
-   * rightmost pixel of the image will be stretched to fill the track.
-   */
-  minimumTrackImage?: ImageSource;
+    pan = new Animated.ValueXY({ x: 0, y: 0 })
+    scaleY = new Animated.Value(1);
+    translateX = new Animated.Value(0)
+    panResponder = PanResponder.create({
+        onMoveShouldSetPanResponder: () => true,
+        onPanResponderGrant: () => {
+            this.pan.setValue({ x: 0, y: 0 });
+            this.animateScale(true);
+        },
+        onPanResponderMove: Animated.event([null, { dx: this.pan.x, dy: this.pan.y }], {
+            useNativeDriver: false
+        }),
+        onPanResponderRelease: () => {
+            this.pan.flattenOffset();
+            this.animateScale(false);
+        },
+        onPanResponderTerminate:()=> this.animateScale,
+    })
+    setListener() {
+        const { sliderWidth } = this.state
+        this.translateX.removeAllListeners();
+        this.translateX.addListener(x => {
+            const progress = Math.floor((x.value / (sliderWidth - dotWidth))*100)
+            this.props.handlePresents(progress)
+            
+        })
+    }
 
-  /**
-   * Assigns a maximum track image. Only static images are supported. The
-   * leftmost pixel of the image will be stretched to fill the track.
-   */
-  maximumTrackImage?: ImageSource;
+    animateScale = (expand:boolean) => {
+        Animated.spring(this.scaleY, { toValue: expand ? 2 : 1, useNativeDriver: true, bounciness: 0 }).start()
+    }
 
-  /**
-   * Permits tapping on the slider track to set the thumb position.
-   * Defaults to false on iOS. No effect on Android or Windows.
-   */
-  tapToSeek?: boolean;
-}>;
+    render() {
 
-type Props = ViewProps &
-  IOSProps &
-  WindowsProps &
-  Readonly<{
-    /**
-     * Used to style and layout the `Slider`.  See `StyleSheet.js` and
-     * `DeprecatedViewStylePropTypes.js` for more info.
-     */
-    style?: StyleProp<ViewStyle>;
+        const { sliderWidth } = this.state
+        this.translateX = Animated.diffClamp(this.pan.x, 0, sliderWidth - dotWidth);
+        this.setListener();
 
-    /**
-     * Write-only property representing the value of the slider.
-     * Can be used to programmatically control the position of the thumb.
-     * Entered once at the beginning still acts as an initial value.
-     * The value should be between minimumValue and maximumValue,
-     * which default to 0 and 1 respectively.
-     * Default value is 0.
-     *
-     * This is not a controlled component, you don't need to update the
-     * value during dragging.
-     */
-    value?: number;
+        return (
+            <View style={styles.container}>
+                <View style={styles.barContainer} {...this.panResponder.panHandlers}
+                    onLayout={(e) => { this.setState({ sliderWidth: e.nativeEvent.layout.width }) }}>
+                    {!!sliderWidth && <Animated.View style={[styles.bar, {backgroundColor: this.props.inactiveColor ||  inactiveColor, transform: [{ scaleY: this.scaleY }] }]}>
+                        <Animated.View 
+                            style={
+                                [styles.activeLine, 
+                                {backgroundColor: this.props.activeColor || activeColor, transform: [{ translateX: this.translateX }] }
+                            ]} />
+                    </Animated.View>}
+                    {!!sliderWidth && <Animated.View 
+                        style={[styles.dot, 
+                        {
+                            height: this.props.dotWidth ||  dotWidth,
+                            width:this.props.dotWidth ||  dotWidth,
+                            borderRadius: this.props.dotWidth || dotWidth / 2,
+                            backgroundColor:this.props.activeColor ||  activeColor,
+                            transform: [{ translateX: this.translateX }] }]
+                        } 
+                    />}
+                </View>
+            </View>
+        )
+    }
+}
 
-    /**
-     * Step value of the slider. The value should be
-     * between 0 and (maximumValue - minimumValue).
-     * Default value is 0.
-     */
-    step?: number;
 
-    /**
-     * Initial minimum value of the slider. Default value is 0.
-     */
-    minimumValue?: number;
-
-    /**
-     * Initial maximum value of the slider. Default value is 1.
-     */
-    maximumValue?: number;
-
-    /**
-     * The lower limit value of the slider. The user won't be able to slide below this limit.
-     */
-    lowerLimit?: number;
-
-    /**
-     * The upper limit value of the slider. The user won't be able to slide above this limit.
-     */
-    upperLimit?: number;
-
-    /**
-     * The color used for the track to the left of the button.
-     * Overrides the default blue gradient image on iOS.
-     */
-    minimumTrackTintColor?: ColorValue;
-
-    /**
-     * The color used for the track to the right of the button.
-     * Overrides the default blue gradient image on iOS.
-     */
-    maximumTrackTintColor?: ColorValue;
-    /**
-     * The color used to tint the default thumb images on iOS, or the
-     * color of the foreground switch grip on Android.
-     */
-    thumbTintColor?: ColorValue;
-
-    /**
-     * If true the user won't be able to move the slider.
-     * Default value is false.
-     */
-    disabled?: boolean;
-
-    /**
-     * Callback continuously called while the user is dragging the slider.
-     */
-    onValueChange?: (value: number) => void;
-
-    /**
-     * Callback that is called when the user touches the slider,
-     * regardless if the value has changed. The current value is passed
-     * as an argument to the callback handler.
-     */
-    onSlidingStart?: (value: number) => void;
-
-    /**
-     * Callback that is called when the user releases the slider,
-     * regardless if the value has changed. The current value is passed
-     * as an argument to the callback handler.
-     */
-    onSlidingComplete?: (value: number) => void;
-
-    /**
-     * Used to locate this view in UI automation tests.
-     */
-    testID?: string;
-
-    /**
-     * Sets an image for the thumb. Only static images are supported.
-     */
-    thumbImage?: ImageSource;
-
-    /**
-     * If true the slider will be inverted.
-     * Default value is false.
-     */
-    inverted?: boolean;
-
-    /**
-     * A string of one or more words to be announced by the screen reader.
-     * Otherwise, it will announce the value as a percentage.
-     * Requires passing a value to `accessibilityIncrements` to work correctly.
-     * Should be a plural word, as singular units will be handled.
-     */
-    accessibilityUnits?: string;
-
-    /**
-     * An array of values that represent the different increments displayed
-     * by the slider. All the values passed into this prop must be strings.
-     * Requires passing a value to `accessibilityUnits` to work correctly.
-     * The number of elements must be the same as `maximumValue`.
-     */
-    accessibilityIncrements?: Array<string>;
-  }>;
-
-const SliderComponent = (
-  props: Props,
-  forwardedRef?: Ref<typeof RCTSliderNativeComponent>,
-) => {
-  const style = props.style ? [props.style, styles.slider] : styles.slider;
-
-  const {
-    onValueChange,
-    onSlidingStart,
-    onSlidingComplete,
-    onAccessibilityAction,
-    ...localProps
-  } = props;
-
-  const onValueChangeEvent = onValueChange
-    ? (event: Event) => {
-        onValueChange(event.nativeEvent.value);
-      }
-    : null;
-
-  const _disabled =
-    typeof props.disabled === 'boolean'
-      ? props.disabled
-      : props.accessibilityState?.disabled === true;
-
-  const _accessibilityState =
-    typeof props.disabled === 'boolean'
-      ? {...props.accessibilityState, disabled: props.disabled}
-      : props.accessibilityState;
-
-  const onSlidingStartEvent = onSlidingStart
-    ? (event: Event) => {
-        onSlidingStart(event.nativeEvent.value);
-      }
-    : null;
-  const onSlidingCompleteEvent = onSlidingComplete
-    ? (event: Event) => {
-        onSlidingComplete(event.nativeEvent.value);
-      }
-    : null;
-  const onAccessibilityActionEvent = onAccessibilityAction
-    ? (event: AccessibilityActionEvent) => {
-        onAccessibilityAction(event);
-      }
-    : null;
-
-  const value =
-    Number.isNaN(props.value) || !props.value ? undefined : props.value;
-
-  const lowerLimit =
-    !!localProps.lowerLimit || localProps.lowerLimit === 0
-      ? localProps.lowerLimit
-      : LIMIT_MIN_VALUE;
-
-  const upperLimit =
-    !!localProps.upperLimit || localProps.upperLimit === 0
-      ? localProps.upperLimit
-      : LIMIT_MAX_VALUE;
-
-  return (
-    <RCTSliderNativeComponent
-      {...localProps}
-      value={value}
-      lowerLimit={lowerLimit}
-      upperLimit={upperLimit}
-      accessibilityState={_accessibilityState}
-      thumbImage={
-        Platform.OS === 'web'
-          ? props.thumbImage
-          : props.thumbImage
-          ? Image.resolveAssetSource(props.thumbImage)
-          : undefined
-      }
-      ref={forwardedRef}
-      style={style}
-      onChange={onValueChangeEvent}
-      onRNCSliderSlidingStart={onSlidingStartEvent}
-      onRNCSliderSlidingComplete={onSlidingCompleteEvent}
-      onRNCSliderValueChange={onValueChangeEvent}
-      disabled={_disabled}
-      onStartShouldSetResponder={() => true}
-      onResponderTerminationRequest={() => false}
-      onRNCSliderAccessibilityAction={onAccessibilityActionEvent}
-    />
-  );
-};
-
-const SliderWithRef = React.forwardRef(SliderComponent);
-
-SliderWithRef.defaultProps = {
-  value: 0,
-  minimumValue: 0,
-  maximumValue: 1,
-  step: 0,
-  inverted: false,
-  tapToSeek: false,
-  lowerLimit: LIMIT_MIN_VALUE,
-  upperLimit: LIMIT_MAX_VALUE,
-};
-
-let styles = StyleSheet.create(
-  Platform.OS === 'ios' ? {slider: {height: 40}} : {slider: {}},
-);
-
-export default SliderWithRef;
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        padding: 50
+    },
+    txt: {
+        fontSize: 25,
+        color: '#000'
+    },
+    barContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        paddingVertical: 10,
+    },
+    bar: {
+        height: 3,
+        width: '100%',
+        overflow: 'hidden',
+        justifyContent: 'center'
+    },
+    dot: {
+        position: 'absolute',
+    },
+    activeLine: {
+        height: '100%',
+        width: '100%',
+        marginLeft: '-100%'
+    }
+})

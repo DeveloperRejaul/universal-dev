@@ -17,6 +17,7 @@ import H6 from './Heading/H6';
 import Progress from './progress/Progress';
 import Select from './select/Select';
 import Dialog from './dialog/Dialog';
+import SliderAlt from './slider/SliderAlt';
 import Slider from './slider/Slider';
 
 
@@ -41,5 +42,6 @@ export {
   Progress,
   Select,
   Dialog,
-  Slider
+  Slider,
+  SliderAlt
 }
