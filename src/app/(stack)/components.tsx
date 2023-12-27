@@ -4,13 +4,14 @@ import * as Component from "@components"
 import * as PComponent from "@platform-components"
 import { ScrollView } from 'react-native';
 import {useToast} from '@hooks/useToast';
+import { Platform } from 'react-native';
 
 
 export default function Components() {
   const {show} = useToast()
 
   useEffect(()=>{
-    NativeModules.demo.play((result)=>{console.log(result)})
+    Platform.OS ==="android" &&  NativeModules.demo.play((result)=>{console.log(result)})
   },[])
 
   return (
