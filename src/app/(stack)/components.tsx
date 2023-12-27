@@ -13,12 +13,9 @@ export default function Components() {
     NativeModules.demo.play((result)=>{console.log(result)})
   },[])
 
-
   return (
     <ScrollView>
       <View style={{zIndex:-1}} className='px-2 space-y-6 pb-36'>
-
-
       {/* Display Radio components  */}
       <View style={{rowGap:5}}>
         <Component.H3 className='text-center'> Radio components </Component.H3>
