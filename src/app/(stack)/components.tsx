@@ -11,12 +11,30 @@ export default function Components() {
     <ScrollView>
       <View style={{zIndex:-1}} className='px-2 space-y-6 pb-36'>
 
-      
+
+      {/* Display Radio components  */}
+      <View style={{rowGap:5}}>
+        <Component.H3 className='text-center'> Radio components </Component.H3>
+           <Component.Radio.RadioGroup initialSelect={"apple"} handleSelectValue={(val)=>{console.log(val)}}> 
+            <Component.Radio.Item value={"apple"}/>
+            <Component.Radio.Item value={"samsung"}/>
+            <Component.Radio.Item value={"Realme"}/>
+            <Component.Radio.Item value={"Asus"}/>
+           </Component.Radio.RadioGroup>
+      </View>
+
+  
+      {/* Display Switch components  */}
+      <View style={{rowGap:5}}>
+        <Component.H3 className='text-center'> Switch components </Component.H3>
+        <Component.Switch handleSwitch={(val)=>{console.log(val)}}/>
+      </View>
+
+
        {/* Display Slider components  */}
        <View style={{rowGap:5}}>
         <Component.H3 className='text-center'> Slider components </Component.H3>
-        <Component.Slider handlePresents={(p)=>{console.log(p);}}/>
-        <Component.SliderAlt handlePresents={(p)=>{console.log(p)}}/>
+        <Component.Slider handlePresents={(p)=>{console.log(p)}}/>
        </View>
 
 

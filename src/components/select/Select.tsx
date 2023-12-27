@@ -20,9 +20,8 @@ const {width, height} = useWindowDimensions()
   return (
     <>
       <Pressable
-        style={{width:width-20}}
         onPress={()=>{setOpen(true)}}
-        className='h-12 bg-red50 border-2 border-red100 justify-between items-center px-4 flex-row' >
+        className='h-12 bg-rose200 rounded-md border-2 border-rose300 justify-between items-center px-4 flex-row' >
           <Text className='text-lg text-coolGray800'>{select}</Text>
           <Ionicons name='chevron-down' size={useToken("size", "5")} color={useToken("colors", "black")}/>  
       </Pressable>

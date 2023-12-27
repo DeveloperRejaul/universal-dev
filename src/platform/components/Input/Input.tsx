@@ -42,7 +42,7 @@ export default forwardRef(function (
   return (
     <View style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
-      <View className='border-gray border-2 rounded-sm p-1 w-full flex-row items-center'>
+      <View className='border-rose300 bg-rose100 border-2 rounded-md p-1 w-full flex-row items-center'>
         <TextInput
           multiline={type === "textarea"}
           ref={ref}

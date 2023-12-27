@@ -17,8 +17,9 @@ import H6 from './Heading/H6';
 import Progress from './progress/Progress';
 import Select from './select/Select';
 import Dialog from './dialog/Dialog';
-import SliderAlt from './slider/SliderAlt';
 import Slider from './slider/Slider';
+import Switch from './Switch/Switch';
+import * as Radio from './radio/Radio';
 
 
 export { 
@@ -43,5 +44,6 @@ export {
   Select,
   Dialog,
   Slider,
-  SliderAlt
+  Switch,
+  Radio,
 }

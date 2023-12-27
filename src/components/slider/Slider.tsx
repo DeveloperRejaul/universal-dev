@@ -1,122 +1,106 @@
-import React, { Component } from 'react';
-import { Animated, PanResponder, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet,View } from 'react-native'
+import React from 'react'
+import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 
-const activeColor = 'red';
-const inactiveColor = 'lightgrey';
-const dotWidth = 20;
-
+const OFFSET =17;
+const BALL_SIZE = 20
+const MIN = -1;
 
 interface ISliderProps {
-    activeColor?: string;
-    inactiveColor?: string;
-    dotWidth?: number,
-    handlePresents:(val:number)=> void
+    handlePresents:(val:number)=>void;
+    ballColor?:string;
+    storkColor?:string;
+    barColor?:string
+    sliderWidth?:number
 }
 
-export default class Slider extends Component <ISliderProps> {
+export default function SliderAlt({handlePresents, ballColor, storkColor, barColor, sliderWidth}:ISliderProps) {
+    const translateX = useSharedValue(0)
+    const scale = useSharedValue(1)
+    const saveBall = useSharedValue(0);
+ 
+    const SLIDER_WIDTH = sliderWidth || 300
+    const MAX = SLIDER_WIDTH-OFFSET
 
-    constructor(props) {
-        super(props)    
-        this.state = {
-            sliderWidth: 0
-        }
-    }
-  
 
-    pan = new Animated.ValueXY({ x: 0, y: 0 })
-    scaleY = new Animated.Value(1);
-    translateX = new Animated.Value(0)
-    panResponder = PanResponder.create({
-        onMoveShouldSetPanResponder: () => true,
-        onPanResponderGrant: () => {
-            this.pan.setValue({ x: 0, y: 0 });
-            this.animateScale(true);
-        },
-        onPanResponderMove: Animated.event([null, { dx: this.pan.x, dy: this.pan.y }], {
-            useNativeDriver: false
-        }),
-        onPanResponderRelease: () => {
-            this.pan.flattenOffset();
-            this.animateScale(false);
-        },
-        onPanResponderTerminate:()=> this.animateScale,
-    })
-    setListener() {
-        const { sliderWidth } = this.state
-        this.translateX.removeAllListeners();
-        this.translateX.addListener(x => {
-            const progress = Math.floor((x.value / (sliderWidth - dotWidth))*100)
-            this.props.handlePresents(progress)
-            
+    const pan = Gesture.Pan()
+        .onStart(()=>{})
+        .onBegin(()=>{scale.value = withSpring(1.2)})
+        .onUpdate((e)=>{
+            const TRANSLATE_X = e.translationX+saveBall.value
+
+            if((MIN<=TRANSLATE_X) && (TRANSLATE_X<MAX)){
+                translateX.value = TRANSLATE_X;
+                // calculate presents 
+                const presents = ((TRANSLATE_X - MIN) / (MAX - MIN)) * 100;
+                const finalPresent = presents > 50 ? Math.ceil(presents):Math.floor(presents)
+                runOnJS(handlePresents)(finalPresent)
+                
+            }
         })
-    }
+        .onEnd((e)=>{
+            saveBall.value = translateX.value; scale.value = withSpring(1)
+        })
 
-    animateScale = (expand:boolean) => {
-        Animated.spring(this.scaleY, { toValue: expand ? 2 : 1, useNativeDriver: true, bounciness: 0 }).start()
-    }
+        const animatedStyle =  useAnimatedStyle(()=>{
+            return{
+                transform:[
+                    {translateX:translateX.value/2},
+                    {scaleX:translateX.value},
+                ],
+                marginRight:translateX.value
+            }
+        })
 
-    render() {
+     
 
-        const { sliderWidth } = this.state
-        this.translateX = Animated.diffClamp(this.pan.x, 0, sliderWidth - dotWidth);
-        this.setListener();
-
-        return (
-            <View style={styles.container}>
-                <View style={styles.barContainer} {...this.panResponder.panHandlers}
-                    onLayout={(e) => { this.setState({ sliderWidth: e.nativeEvent.layout.width }) }}>
-                    {!!sliderWidth && <Animated.View style={[styles.bar, {backgroundColor: this.props.inactiveColor ||  inactiveColor, transform: [{ scaleY: this.scaleY }] }]}>
-                        <Animated.View 
-                            style={
-                                [styles.activeLine, 
-                                {backgroundColor: this.props.activeColor || activeColor, transform: [{ translateX: this.translateX }] }
-                            ]} />
-                    </Animated.View>}
-                    {!!sliderWidth && <Animated.View 
-                        style={[styles.dot, 
-                        {
-                            height: this.props.dotWidth ||  dotWidth,
-                            width:this.props.dotWidth ||  dotWidth,
-                            borderRadius: this.props.dotWidth || dotWidth / 2,
-                            backgroundColor:this.props.activeColor ||  activeColor,
-                            transform: [{ translateX: this.translateX }] }]
-                        } 
-                    />}
-                </View>
+  return (
+    <GestureDetector gesture={pan}>
+        <View style={[styles.mainBody]}>
+            <View style={[styles.body, {width:SLIDER_WIDTH}]}>
+                <Animated.View className={"web:cursor-pointer"} style={[styles.ball, {backgroundColor: ballColor || "red", transform:[{translateX}, {scale}]}]}/>
+                <Animated.View style={[styles.bar,{backgroundColor: barColor || "black", width: SLIDER_WIDTH}]}> 
+                    <Animated.View style={[styles.stork,animatedStyle, {backgroundColor:storkColor || "green"}]}/>
+                </Animated.View>
             </View>
-        )
-    }
+        </View>
+    </GestureDetector>
+  )
 }
+
 
 
 const styles = StyleSheet.create({
-    container: {
+    mainBody:{
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-evenly',
-        padding: 50
-    },
-    txt: {
-        fontSize: 25,
-        color: '#000'
-    },
-    barContainer: {
-        width: '100%',
         justifyContent: 'center',
-        paddingVertical: 10,
     },
-    bar: {
-        height: 3,
-        width: '100%',
-        overflow: 'hidden',
-        justifyContent: 'center'
+    body:{
+        height:BALL_SIZE*1.5,
+        justifyContent:"center",
+        alignItems:"center",
     },
-    dot: {
-        position: 'absolute',
+    ball:{
+        height: BALL_SIZE,
+        width: BALL_SIZE,
+        borderRadius: BALL_SIZE/2,
+        position:"absolute",
+        zIndex:1000,
+        left:0
     },
-    activeLine: {
-        height: '100%',
-        width: '100%',
-        marginLeft: '-100%'
+    bar:{
+        height:BALL_SIZE/2,
+        position:"absolute",
+        zIndex:1,
+        borderRadius:10,
+        overflow:"hidden"
+    },
+    stork:{
+        width:1,
+        height:BALL_SIZE/2,
+        zIndex:2,
+        borderRadius:10
     }
 })
