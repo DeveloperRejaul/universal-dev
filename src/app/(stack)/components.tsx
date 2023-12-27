@@ -1,12 +1,19 @@
-import { View} from 'react-native';
-import React from 'react';
+import { View, NativeModules} from 'react-native';
+import React, { useEffect } from 'react';
 import * as Component from "@components"
 import * as PComponent from "@platform-components"
 import { ScrollView } from 'react-native';
 import {useToast} from '@hooks/useToast';
 
+
 export default function Components() {
   const {show} = useToast()
+
+  useEffect(()=>{
+    NativeModules.demo.play((result)=>{console.log(result)})
+  },[])
+
+
   return (
     <ScrollView>
       <View style={{zIndex:-1}} className='px-2 space-y-6 pb-36'>
