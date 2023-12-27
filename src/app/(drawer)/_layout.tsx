@@ -1,6 +1,8 @@
 import { CustomDrawer } from '@drawer';
-import { Text } from '@gluestack-ui/themed';
+import { useToken } from '@hooks/useToken';
 import { Drawer } from 'expo-router/drawer';
+import { Text } from 'react-native';
+const color = useToken("colors", 'bubble-gum')
 
 export default function DrawerLayout() {
   return (
@@ -11,7 +13,7 @@ export default function DrawerLayout() {
         name='(tab)'
         options={{
           title: ({ focused }) => (
-            <Text fontWeight='$bold' color={focused ? '$amber500' : '$black'}>
+            <Text style={{fontWeight:"bold", color:focused ? color : '$black'}}>
               Home
             </Text>
           ),

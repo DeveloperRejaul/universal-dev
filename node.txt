@@ -1,289 +1,46 @@
+//TODO :create this website
 https://believerssign.com/
 
-import React, { Component } from 'react';
-import { Animated, PanResponder, StyleSheet, TextInput, View } from 'react-native';
+//TODO : icon 
+https://thenounproject.com/icon/
+https://blog.expo.dev/the-new-expo-cli-f4250d8e3421
 
-const activeColor = 'red';
-const inactiveColor = 'lightgrey';
-const dotWidth = 20;
+//TODO :  static rending example 
+import { useLocalSearchParams } from "expo-router";
+import { Text } from "react-native";
+// doc:https://docs.expo.dev/router/reference/static-rendering/
+// https://blog.expo.dev/introducing-expo-router-v2-3850fd5c3ca1?gi=ccecdf00ff40
 
-export default class SLider extends Component {
-    state = {
-        sliderWidth: null
-    }
-    progress = 0.25
-    pan = new Animated.ValueXY({ x: 0, y: 0 })
-    scaleY = new Animated.Value(1);
-    translateX = new Animated.Value(0)
-    panResponder = PanResponder.create({
-        onMoveShouldSetPanResponder: () => true,
-        onPanResponderGrant: () => {
-            this.pan.setOffset({ x: this.pan.x._value, y: this.pan.y._value });
-            this.pan.setValue({ x: 0, y: 0 });
-            this.animateScale(true);
-        },
-        onPanResponderMove: Animated.event([null, { dx: this.pan.x, dy: this.pan.y }], {
-            useNativeDriver: false
-        }),
-        onPanResponderRelease: () => {
-            this.pan.flattenOffset();
-            this.animateScale();
-        },
-        onPanResponderTerminate: this.animateScale,
-    })
-    setListener() {
-        const { sliderWidth } = this.state
-        this.translateX.removeAllListeners();
-        this.translateX.addListener(x => {
-            const progress = (x.value / (sliderWidth - dotWidth)).toFixed(2)
-            this.onSeek(progress);
-            this.progress = progress;
-        })
-    }
-    onSeek = (progress) => {
-        this.textRef.setNativeProps({ text: progress.toString() })
-        // do your thing
-    }
-    animateScale = (expand) => {
-        Animated.spring(this.scaleY, { toValue: expand ? 2 : 1, useNativeDriver: true, bounciness: 0 }).start()
-    }
-    componentDidUpdate(_, prevState) {
-        const { sliderWidth } = this.state
-        if (sliderWidth != prevState.sliderWidth) {
-            this.pan.setValue({ x: (sliderWidth - dotWidth) * this.progress, y: 0 })
-        }
-    }
-    render() {
-        const { sliderWidth } = this.state
-        this.translateX = Animated.diffClamp(this.pan.x, 0, sliderWidth - dotWidth);
-        this.setListener();
-        return (
-            <View style={styles.container}>
-                <TextInput ref={e => this.textRef = e} defaultValue={this.progress.toString()} style={styles.txt} editable={false} />
-                <View style={styles.barContainer} {...this.panResponder.panHandlers}
-                    onLayout={(e) => { this.setState({ sliderWidth: e.nativeEvent.layout.width }) }}>
-                    {!!sliderWidth && <Animated.View style={[styles.bar, { transform: [{ scaleY: this.scaleY }] }]}>
-                        <Animated.View style={[styles.activeLine, { transform: [{ translateX: this.translateX }] }]} />
-                    </Animated.View>}
-                    {!!sliderWidth && <Animated.View style={[styles.dot, { transform: [{ translateX: this.translateX }] }]} />}
-                </View>
-            </View>
-        )
-    }
-}
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        padding: 50
-    },
-    txt: {
-        fontSize: 25,
-        color: '#000'
-    },
-    barContainer: {
-        width: '100%',
-        justifyContent: 'center',
-        paddingVertical: 10,
-    },
-    bar: {
-        height: 3,
-        width: '100%',
-        backgroundColor: inactiveColor,
-        overflow: 'hidden',
-        justifyContent: 'center'
-    },
-    dot: {
-        height: dotWidth,
-        width: dotWidth,
-        borderRadius: dotWidth / 2,
-        backgroundColor: activeColor,
-        position: 'absolute',
-    },
-    activeLine: {
-        height: '100%',
-        width: '100%',
-        backgroundColor: activeColor,
-        marginLeft: '-100%'
-    }
-})
-
-
-
-
-
-
-
-import React, { useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
-import Animated, {
-  measure,
-  runOnJS,
-  runOnUI,
-  useAnimatedGestureHandler,
-  useAnimatedProps,
-  useAnimatedRef,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring
-} from 'react-native-reanimated';
-const size = 30;
-
-const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
-
-const springConfig = () => {
-  'worklet';
-  return {
-    stiffness: 1000,
-    damping: 500,
-    mass: 2,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  };
-};
-
-function Slider({ initialvalue, animationEnabled, onProgress }) {
-  const layoutDetails = useSharedValue();
-  const animation = useSharedValue(0);
-  const progress = useSharedValue(initialvalue.toString());
-  const aRef = useAnimatedRef();
-
-  //=========== get bar width and other layout information =========== start
-  const onLayoutBar = () => {
-    runOnUI(getLayoutDetails)();
-  };
-  const getLayoutDetails = () => {
-    'worklet';
-    layoutDetails.value = measure(aRef);
-    animation.value = ((layoutDetails.value.width - layoutDetails.value.pageX) / 100) * initialvalue;
-  };
-  //=========== get bar width and other layout information =========== end
-
-
-  // =========== same logic is written inside onStart and onActive events ===========
-  const eventHandler = useAnimatedGestureHandler({
-    onStart: event => {
-      const newVal = Math.max(
-        0,
-        Math.min(
-          event.absoluteX - size / 2 - layoutDetails.value.pageX,
-          layoutDetails.value.width - size,
-        ),
-      );
-      animation.value = animationEnabled
-        ? withSpring(newVal, springConfig())
-        : newVal;
-    },
-    onActive: event => {
-      const newVal = Math.max(
-        0,
-        Math.min(
-          event.absoluteX - size / 2 - layoutDetails.value.pageX,
-          layoutDetails.value.width - size,
-        ),
-      );
-      animation.value = animationEnabled
-        ? withSpring(newVal, springConfig())
-        : newVal;
-    },
-  });
-
-  // =========== translate styles and also the progress value calcuated here ===========
-  const _style = useAnimatedStyle(() => {
-    if (layoutDetails.value) {
-      const newProgress = Math.round(
-        (animation.value /
-          (layoutDetails.value.width - layoutDetails.value.pageX)) *
-        100,
-      ).toString();
-      if (newProgress !== progress.value) {
-        progress.value = newProgress;
-        runOnJS(onProgress)(progress.value);
-      }
-    }
-    return {
-      transform: [{ translateX: animation.value }],
-    };
-  });
-
-  const animatedProps = useAnimatedProps(() => {
-    return {
-      text: progress.value,
-    };
-  });
-
-  return (
-    <PanGestureHandler onGestureEvent={eventHandler}>
-      <Animated.View style={[styles.bar]} ref={aRef} onLayout={onLayoutBar}>
-        <Animated.View style={[styles.moveRightBar, _style]} />
-        <Animated.View style={[styles.dot, _style]}>
-          <View pointerEvents='none'>
-            <AnimatedTextInput
-              style={styles.txt}
-              defaultValue={initialvalue.toString()}
-              editable={false}
-              {...{ animatedProps }}
-            />
-          </View>
-        </Animated.View>
-      </Animated.View>
-    </PanGestureHandler>
-  );
-}
-
-export default function SliderReanimated() {
-  const [animationEnabled, setAnimationEnabled] = useState(true);
-  return (
-    <View style={styles.container}>
-      <Button
-        title={'Animation: ' + (animationEnabled ? 'on' : 'off')}
-        onPress={() => setAnimationEnabled(val => !val)}
-      />
-      <Slider
-        initialvalue={50}
-        animationEnabled={animationEnabled}
-        onProgress={val => console.log(val)}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 30,
-    justifyContent: 'space-evenly',
-  },
-  bar: {
-    width: '100%',
-    backgroundColor: 'lightgreen',
-    borderRadius: size,
-    overflow: 'hidden',
-  },
-  dot: {
-    height: size,
-    width: size,
-    borderRadius: size,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  txt: {
-    fontSize: 10,
-    color: '#fff',
-    padding: 0,
-    textAlign: 'center',
-  },
-  moveRightBar: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: '#eee',
-    position: 'absolute',
-    marginLeft: size / 2,
+export default function Page() {
+    const { id } = useLocalSearchParams();
+    return <Text>Post {id}</Text>;
   }
-});
+export async function generateStaticParams(): Promise<Record<string, string>[]> {
+    // const posts = await getPosts();
+    // Return an array of params to generate static HTML files for.
+    // Each entry in the array will be a new page.
+    // return posts.map(post => ({ id: post.id }));
+}
+
+
+//TODO add css in style object
+import './styles.css';
+style={{
+    $$css: true,
+    _: 'container' // class name,
+}}
+
+// TODO add module css
+App.module.css
+
+platform specific styles
+App.module.ios.css
+App.module.web.css
+App.module.android.css
+
+
+.text {
+  color: red;
+}
+import styles, { unstable_styles } from './App.module.css';
+style={unstable_styles.text}

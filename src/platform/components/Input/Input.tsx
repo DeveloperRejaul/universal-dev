@@ -1,16 +1,16 @@
 import React, { useState, forwardRef } from 'react';
-import { Text, Box, Pressable } from '@gluestack-ui/themed';
 import { Ionicons } from '@expo/vector-icons';
 import { rf } from 'src/constants/dimensions';
-import { TextInput, TextStyle, ViewStyle } from 'react-native';
-import { COLORS } from 'src/constants/colors';
+import { Pressable, TextInput, TextStyle, ViewStyle } from 'react-native';
+import { View } from 'react-native';
+import { Text } from 'react-native';
 
 type appProps = {
   label?: string;
   placeholder?: string;
   labelStyle?: object;
   onChangeText?: (value: string) => void;
-  type?: 'search' | 'text' | 'password';
+  type?: 'search' | 'text' | 'password'| 'textarea';
   value?: string;
   onBlur?: (value: boolean) => void;
   error?: string;
@@ -40,18 +40,11 @@ export default forwardRef(function (
   const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
 
   return (
-    <Box style={containerStyle}>
+    <View style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
-      <Box
-        borderColor={COLORS.gray_100}
-        borderWidth={'$1'}
-        borderRadius={'$sm'}
-        paddingHorizontal={'$1'}
-        w={'$full'}
-        flexDirection='row'
-        alignItems='center'
-        paddingVertical={'$1'}>
+      <View className='border-rose300 bg-rose100 border-2 rounded-md p-1 w-full flex-row items-center'>
         <TextInput
+          multiline={type === "textarea"}
           ref={ref}
           autoFocus={autoFocus}
           maxLength={maxLength}
@@ -64,7 +57,7 @@ export default forwardRef(function (
         />
         {type === 'search' ? (
           <Pressable>
-            <Ionicons name='search' size={rf(3)} color={COLORS.gray_100} />
+            <Ionicons name='search' size={rf(3)} color={"gray"} />
           </Pressable>
         ) : null}
         {type === 'password' ? (
@@ -72,16 +65,16 @@ export default forwardRef(function (
             <Ionicons
               name={passwordHidden ? 'eye-off' : 'eye'}
               size={rf(3)}
-              color={COLORS.gray_100}
+              color={"gray"}
             />
           </Pressable>
         ) : null}
-      </Box>
+      </View>
       {error && (
-        <Text fontSize={'$sm'} color='$warning500'>
+        <Text className='text-sm text-gray'>
           {error}
         </Text>
       )}
-    </Box>
+    </View>
   );
 });

@@ -1,59 +1,24 @@
-import { Box, Text } from '@gluestack-ui/themed';
-import { Pressable } from '@gluestack-ui/themed';
-import React, { useEffect, useState } from 'react';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
-import Icon from '@expo/vector-icons/Feather';
-const AnimatedBox = Animated.createAnimatedComponent(Box);
+import { Text, Pressable, View, Platform } from 'react-native';
+import React from 'react';
+import {Feather} from '@expo/vector-icons';
+import { rf } from 'src/constants/dimensions';
+import { ICON_COLOR } from './constants';
 
-export default function AnimatedButton() {
-  const [isHover, setHover] = useState(false);
-  const translateY = useSharedValue(0);
 
-  useEffect(() => {
-    if (isHover) {
-      translateY.value = withTiming(29, { duration: 500 });
-    } else {
-      translateY.value = withTiming(0, { duration: 500 });
-    }
-  }, [isHover]);
+interface IAnimatedButtonProps{
+  text?:string;
+  onPress?:()=>void;
+}
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: -translateY.value }],
-    };
-  });
 
+export default function AnimatedButton({text, onPress}:IAnimatedButtonProps) {
   return (
-    <Pressable
-      overflow='hidden'
-      bg='$black'
-      width={'80%'}
-      h={'$8'}
-      px={'$1'}
-      py={'$1'}
-      rounded={'$md'}
-      onHoverIn={() => setHover(true)}
-      onHoverOut={() => setHover(false)}>
-      <AnimatedBox
-        style={animatedStyle}
-        rowGap={'$2'}
-        justifyContent={'center'}
-        alignItems={'center'}>
-        <Text
-          px={'$1'}
-          sx={{ _android: { mt: '$3' } }}
-          fontSize={'$sm'}
-          textTransform='uppercase'
-          color='$white'
-          textAlign='center'>
-          Select option
-        </Text>
-        <Icon name='shopping-cart' size={20} color={'#fff'} />
-      </AnimatedBox>
+    <Pressable onPress={onPress} className="justify-center h-10 rounded-md items-center bg-black group/h overflow-hidden">
+      <View className={`items-center px-3 ${ Platform.OS === "web" &&  "transition translate-y-6 space-y-3 group-hover/h:-translate-y-5"}`}>
+        <Text className='text-white text-lg'  >{text || "Select Option"}</Text>
+        {Platform.OS ==="web" && <Feather name='shopping-cart' size={rf(2.5)} color={ICON_COLOR}/>} 
+      </View>
     </Pressable>
   );
 }
+

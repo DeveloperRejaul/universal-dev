@@ -4,7 +4,6 @@ import {
   DrawerItemList,
   DrawerContentComponentProps,
 } from '@react-navigation/drawer';
-import { Box, Pressable, Text } from '@gluestack-ui/themed';
 import Icon from '@expo/vector-icons/Ionicons';
 import Animated, {
   useAnimatedStyle,
@@ -13,11 +12,16 @@ import Animated, {
 } from 'react-native-reanimated';
 import DrawerItems from './DrawerItems';
 import { ITEM_HEIGHT } from './constance';
+import { Text, View } from 'react-native';
+import { Pressable } from 'react-native';
+
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-const AnimatedBox = Animated.createAnimatedComponent(Box);
+const AnimatedBox = Animated.createAnimatedComponent(View);
 const ANIMATED_BOX_HEIGHT = ITEM_HEIGHT * 7;
+
+
 const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
   const [isHoverWinter, setIsHoverWinter] = React.useState(false);
   const [isWinterBtnClick, setIsWinterBtnClick] = React.useState(false);
@@ -69,29 +73,27 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
 
-      <Box>
+      <View>
         {/* Winter Collection  */}
         <Pressable
           onHoverIn={() => setIsHoverWinter(true)}
           onHoverOut={() => setIsHoverWinter(false)}
-          flexDirection='row'
-          sx={{ _web: { cursor: 'pointer' } }}
-          borderTopWidth={'$1'}
-          borderBottomWidth={'$1'}
-          borderColor='$coolGray200'
-          alignItems='center'
-          pl={'$5'}
-          justifyContent='space-between'>
-          <AnimatedText style={animatedStyle} py={'$2'}>
+          style={{
+            flexDirection:"row",
+            borderTopWidth:1,
+            borderColor:"gray",
+            alignItems:"center",
+            paddingLeft:5,
+            justifyContent:"space-between"
+          }}
+          >
+          <AnimatedText style={[animatedStyle,{paddingHorizontal:2}]}>
             Winter Collection
           </AnimatedText>
           <AnimatedPressable
-            style={btnAnimationStyle}
+            style={[btnAnimationStyle,{paddingHorizontal:2, paddingVertical:4, borderLeftWidth:1, borderColor:"gray"}]}
             onPress={() => setIsWinterBtnClick((pre) => !pre)}
-            py={'$2'}
-            px={'$4'}
-            borderLeftWidth={'$1'}
-            borderColor='$coolGray200'>
+            >
             <AnimatedText style={iconAnimationStyle}>
               <Icon name='chevron-forward' size={20} />
             </AnimatedText>
@@ -106,7 +108,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
           <DrawerItems />
           <DrawerItems />
         </AnimatedBox>
-      </Box>
+      </View>
     </DrawerContentScrollView>
   );
 };

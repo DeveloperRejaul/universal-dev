@@ -1,5 +1,7 @@
 import { Redirect } from 'expo-router';
+import { Text } from 'react-native';
 
 export default function index() {
-  return <Redirect href={'/(stack)/dashboard/Home'} />;
+//  return <Text> Hello</Text>
+  return <Redirect href={'/(stack)/components'} />;
 }

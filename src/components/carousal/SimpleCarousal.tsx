@@ -1,21 +1,17 @@
-import { Box, Text, Image, ScrollView } from '@gluestack-ui/themed';
 import React, { useEffect, useState } from 'react';
-import image01 from '../../assets/images/slide01.jpg';
-import image02 from '../../assets/images/slide02.jpg';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import { rh } from 'src/constants/dimensions';
+import { View, Image } from 'react-native';
 
 let interval;
-const slides = [image01, image02];
+const slides = [1,2];
 const INDICATOR_SIZE = 10;
 const INDICATOR_RADIUS = INDICATOR_SIZE / 2;
-const INDICATOR_GAP = 10;
 const SLIDES_GAP = 20;
-const AnimatedBox = Animated.createAnimatedComponent(Box);
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 export default function SimpleCarousal() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -49,54 +45,37 @@ export default function SimpleCarousal() {
   }, [activeIndex]);
 
   return (
-    <>
-      <Box>
-        <AnimatedBox
-          style={[animatedStyle]}
-          flexDirection='row'
-          columnGap={SLIDES_GAP}>
+      <View>
+        <AnimatedView
+          style={[
+            animatedStyle,
+            { flexDirection: 'row', columnGap: SLIDES_GAP },
+          ]}>
           {slides.map((d, i) => (
-            <Box
-              sx={{ _web: { cursor: 'pointer', height: '$72' } }}
+            <View
               onLayout={handleLayout}
               key={Math.random()}
-              height={'$72'}
-              width={'$full'}
-              overflow='hidden'
-              h={rh(25)}
-              my={'$2'}>
-              <Image
+              className='w-full h-72 overflow-hidden my-2 web:cursor-pointer bg-rose500'>
+              {/* <Image
+                className='h-full w-full'
                 source={d}
-                h={'$full'}
-                w={'$full'}
                 resizeMode='cover'
                 alt='slide-image'
-              />
-            </Box>
+              /> */}
+            </View>
           ))}
-        </AnimatedBox>
-        <Box
-          bottom={'$5'}
-          left={'$1/2'}
-          position='absolute'
-          flexDirection='row'
-          columnGap={INDICATOR_GAP}>
+        </AnimatedView>
+        <View className='bottom-5 left-1/2 absolute flex-row space-x-2'>
           {slides.map((d, i) => (
             <Indicator key={d} activeIndex={activeIndex} index={i} />
           ))}
-        </Box>
-      </Box>
-    </>
+        </View>
+      </View>
   );
 }
 
 function Indicator({ activeIndex, index }) {
   return (
-    <Box
-      height={INDICATOR_SIZE}
-      width={INDICATOR_SIZE}
-      bg={index === activeIndex ? '$amber500' : '$coolGray700'}
-      borderRadius={INDICATOR_RADIUS}
-    />
+    <View style={{height:INDICATOR_SIZE, width:INDICATOR_SIZE, backgroundColor:index === activeIndex ? '$amber500' : '$coolGray700', borderRadius:INDICATOR_RADIUS}}/>
   );
 }

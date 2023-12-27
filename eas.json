@@ -3,6 +3,22 @@
     "version": ">= 5.9.1"
   },
   "build": {
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "developmentClient": true
+    },
+    "preview4": {
+      "distribution": "internal"
+    },
     "development": {
       "developmentClient": true,
       "distribution": "internal",
@@ -13,10 +29,16 @@
         "buildConfiguration": "Debug"
       }
     },
-    "preview": {
-      "distribution": "internal"
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_BASE_URL": "http://192.168.0.107:4000/api/v-1"
+      }
     },
-    "production": {}
+    "test": {
+      "env": {
+        "EXPO_PUBLIC_BASE_URL": "http://192.168.0.107:4000/api/v-1"
+      }
+    }
   },
   "submit": {
     "production": {}
