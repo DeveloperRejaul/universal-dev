@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import SimpleSignUp from 'src/features/authentication/screens/signup';
 import { useSignupMutation } from 'src/features/authentication/api';
 import { View } from 'react-native';
@@ -12,7 +12,7 @@ type signUpParams = {
 
 export default function register() {
   const router = useRouter();
-  const [singUp, { isLoading, isError, isSuccess, data }] = useSignupMutation();
+  const [singUp, { isLoading, isError, isSuccess }] = useSignupMutation();
 
   const handleSignUp = async (values: signUpParams) => {
     await singUp({
@@ -29,6 +29,7 @@ export default function register() {
       }, 1000);
     }
   }, [isError, isSuccess]);
+
 
   return (
     <View className='flex-1 justify-center items-center bg-stone-100'>

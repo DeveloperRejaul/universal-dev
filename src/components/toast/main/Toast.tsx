@@ -1,4 +1,6 @@
-import React, {useRef, useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable prefer-const */
+import React, {useRef, useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -11,22 +13,23 @@ import {
   PanResponderGestureState,
   Platform,
   useWindowDimensions,
-} from "react-native";
-import { ToastProps } from "./types";
+} from 'react-native';
+import { ToastProps } from './types';
 
 
-export const Toast = (props:ToastProps) => {
+export const Toast = (props: ToastProps) => {
+
   let {
     id,
     onDestroy,
     icon,
-    type = "normal",
+    type = 'normal',
     message,
     duration = 5000,
     style,
     textStyle,
     animationDuration = 250,
-    animationType = "slide-in",
+    animationType = 'slide-in',
     successIcon,
     dangerIcon,
     warningIcon,
@@ -49,10 +52,10 @@ export const Toast = (props:ToastProps) => {
   useEffect(() => {
     Animated.timing(animation, {
       toValue: 1,
-      useNativeDriver: Platform.OS !== "web",
+      useNativeDriver: Platform.OS !== 'web',
       duration: animationDuration,
     }).start();
-    if (duration !== 0 && typeof duration === "number") {
+    if (duration !== 0 && typeof duration === 'number') {
       closeTimeoutRef.current = setTimeout(() => {
         handleClose();
       }, duration);
@@ -77,7 +80,7 @@ export const Toast = (props:ToastProps) => {
   const handleClose = () => {
     Animated.timing(animation, {
       toValue: 0,
-      useNativeDriver: Platform.OS !== "web",
+      useNativeDriver: Platform.OS !== 'web',
       duration: animationDuration,
     }).start(() => onDestroy());
   };
@@ -85,7 +88,7 @@ export const Toast = (props:ToastProps) => {
   const panReleaseToLeft = (gestureState: PanResponderGestureState) => {
     Animated.timing(getPanResponderAnim(), {
       toValue: { x: (-dims.width / 10) * 9, y: gestureState.dy },
-      useNativeDriver: Platform.OS !== "web",
+      useNativeDriver: Platform.OS !== 'web',
       duration: 250,
     }).start(() => onDestroy());
   };
@@ -93,14 +96,14 @@ export const Toast = (props:ToastProps) => {
   const panReleaseToRight = (gestureState: PanResponderGestureState) => {
     Animated.timing(getPanResponderAnim(), {
       toValue: { x: (dims.width / 10) * 9, y: gestureState.dy },
-      useNativeDriver: Platform.OS !== "web",
+      useNativeDriver: Platform.OS !== 'web',
       duration: 250,
     }).start(() => onDestroy());
   };
 
   const getPanResponder = () => {
     if (panResponderRef.current) return panResponderRef.current;
-    const swipeThreshold = Platform.OS === "android" ? 10 : 0;
+    const swipeThreshold = Platform.OS === 'android' ? 10 : 0;
     panResponderRef.current = PanResponder.create({
       onMoveShouldSetPanResponder: (_, gestureState) => {
         //return true if user is swiping, return false if it's a single click
@@ -123,7 +126,7 @@ export const Toast = (props:ToastProps) => {
         } else {
           Animated.spring(getPanResponderAnim(), {
             toValue: { x: 0, y: 0 },
-            useNativeDriver: Platform.OS !== "web",
+            useNativeDriver: Platform.OS !== 'web',
           }).start();
         }
       },
@@ -139,28 +142,32 @@ export const Toast = (props:ToastProps) => {
 
   if (icon === undefined) {
     switch (type) {
-      case "success": 
-        if (successIcon) return icon = successIcon; 
-      case "danger": 
-        if (dangerIcon) return icon = dangerIcon;
-      case "warning":
-        if (warningIcon) return icon = warningIcon;
+      case 'success': 
+        if (successIcon) icon = successIcon; 
+        break;
+      case 'danger': 
+        if (dangerIcon) icon = dangerIcon;
+        break;
+      case 'warning':
+        if (warningIcon) icon = warningIcon;
+        break;
     }
   }
 
-  let backgroundColor = "";
+
+  let backgroundColor = '';
   switch (type) {
-    case "success":
-      backgroundColor = successColor || "rgb(46, 125, 50)";
+    case 'success':
+      backgroundColor = successColor || 'rgb(46, 125, 50)';
       break;
-    case "danger":
-      backgroundColor = dangerColor || "rgb(211, 47, 47)";
+    case 'danger':
+      backgroundColor = dangerColor || 'rgb(211, 47, 47)';
       break;
-    case "warning":
-      backgroundColor = warningColor || "rgb(237, 108, 2)";
+    case 'warning':
+      backgroundColor = warningColor || 'rgb(237, 108, 2)';
       break;
     default:
-      backgroundColor = normalColor || "#333";
+      backgroundColor = normalColor || '#333';
   }
 
   const animationStyle: Animated.WithAnimatedObject<ViewStyle> = {
@@ -169,19 +176,21 @@ export const Toast = (props:ToastProps) => {
       {
         translateY: animation.interpolate({
           inputRange: [0, 1],
-          outputRange: placement === "bottom" ? [20, 0] : [-20, 0],
+          outputRange: placement === 'bottom' ? [20, 0] : [-20, 0],
         }),
       },
     ],
   };
 
   if (swipeEnabled) {
+    //@ts-ignore
     animationStyle.transform?.push(
       getPanResponderAnim().getTranslateTransform()[0]
     );
   }
 
-  if (animationType === "zoom-in") {
+  if (animationType === 'zoom-in') {
+    //@ts-ignore
     animationStyle.transform?.push({
       scale: animation.interpolate({
         inputRange: [0, 1],
@@ -192,7 +201,7 @@ export const Toast = (props:ToastProps) => {
 
   return (
     <Animated.View
-      pointerEvents={"box-none"}
+      pointerEvents={'box-none'}
       ref={containerRef}
       {...(swipeEnabled ? getPanResponder().panHandlers : null)}
       style={[styles.container, animationStyle]}
@@ -227,19 +236,19 @@ export const Toast = (props:ToastProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: { width: "100%", alignItems: "center" },
+  container: { width: '100%', alignItems: 'center' },
   toastContainer: {
     paddingHorizontal: 12,
     paddingVertical: 12,
     borderRadius: 5,
     marginVertical: 5,
-    flexDirection: "row",
-    alignItems: "center",
-    overflow: "hidden",
+    flexDirection: 'row',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
   message: {
-    color: "#fff",
-    fontWeight: "500",
+    color: '#fff',
+    fontWeight: '500',
   },
   iconContainer: {
     marginRight: 5,

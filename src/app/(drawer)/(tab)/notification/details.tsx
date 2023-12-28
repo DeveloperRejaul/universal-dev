@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import React from 'react';
 
 export default function details() {
@@ -8,5 +8,3 @@ export default function details() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({});

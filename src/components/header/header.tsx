@@ -4,6 +4,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { Text, View } from 'react-native';
 import { Pressable } from 'react-native';
 import { rf } from 'src/constants/dimensions';
+import React from 'react';
 
 type RootStackParamList = {
   Drawer: undefined;
@@ -11,8 +12,8 @@ type RootStackParamList = {
 };
 
 type DrawerScreenNavigationProp = DrawerNavigationProp<
-  RootStackParamList,
-  'Drawer'
+RootStackParamList,
+'Drawer'
 >;
 
 export default function () {

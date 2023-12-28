@@ -1,7 +1,7 @@
 import React from 'react';
-import { Overly } from '@components';
 import { Text } from 'react-native';
 import { View } from 'react-native';
+import Overly from '../overly/overly';
 
 export default function Footer() {
   return (

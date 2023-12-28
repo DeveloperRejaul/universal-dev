@@ -1,7 +1,6 @@
 import { useAppDispatch } from '@hooks/useAppDispatch';
-import { useToast } from '@hooks/useToast';
 import { useRouter } from 'expo-router';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useLoginMutation } from 'src/features/authentication/api';
 import SimpleLogin from 'src/features/authentication/screens/login';
@@ -17,15 +16,14 @@ export default function index() {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
-  const {} = useToast()
   
   const loginReq = async (values: loginParams) => {
    
-    // await login({
-    //   email: values.email,
-    //   password: values.password,
-    //   isRemember: values.isRemember,
-    // });
+    await login({
+      email: values.email,
+      password: values.password,
+      isRemember: values.isRemember,
+    });
   };
 
   useEffect(() => {
