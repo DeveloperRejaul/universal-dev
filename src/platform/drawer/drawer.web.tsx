@@ -1,6 +1,6 @@
 import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import React from 'react';
-import Container from './items/Container';
+import Container from './Container';
 
 
 const CustomDrawer = (props: DrawerContentComponentProps) => {

@@ -19,6 +19,7 @@ import Dialog from './dialog/Dialog';
 import Slider from './slider/Slider';
 import Switch from './Switch/Switch';
 import * as Radio from './radio/index';
+import Accordion from './accordion/Accordion';
 
 
 export { 
@@ -44,4 +45,5 @@ export {
   Slider,
   Switch,
   Radio,
+  Accordion
 };
