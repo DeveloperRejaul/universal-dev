@@ -75,18 +75,16 @@ export default function SimpleLogin({
         <Input
           value={formik.values.email}
           onChangeText={setEmail}
-          label={emailLabel ? emailLabel : 'Email'}
-          placeholder={emailPlaceholder ? passwordPlaceholder : 'Enter email'}
+          label={emailLabel || 'Email'}
+          placeholder={emailPlaceholder || 'Enter email'}
           error={errors.email && touched.email ? errors.email : ''}
         />
 
         <Input
           value={formik.values.password}
           onChangeText={setPassword}
-          label={passwordLabel ? passwordLabel : 'Password'}
-          placeholder={
-            passwordPlaceholder ? passwordPlaceholder : 'Enter password'
-          }
+          label={passwordLabel || 'Password'}
+          placeholder={ passwordPlaceholder || 'Enter password'}
           error={errors.password && touched.password ? errors.password : ''}
           type='password'
         />

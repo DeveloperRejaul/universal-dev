@@ -84,21 +84,19 @@ export default function SimpleSignUp(props: appProps) {
         <Text className='text-2xl text-trueGray800 font-semibold'>{title ? title : 'Sign Up'}</Text>
         <Input
           label={nameLabel ? nameLabel : 'Full name'}
-          placeholder={namePlaceholder ? namePlaceholder : 'Enter full name'}
+          placeholder={namePlaceholder || 'Enter full name'}
           onChangeText={setName}
           error={errors.name && touched.name ? errors.name : ''}
         />
         <Input
-          label={emailLabel ? emailLabel : 'Email'}
-          placeholder={emailPlaceholder ? passwordPlaceholder : 'Enter email'}
+          label={emailLabel || 'Email'}
+          placeholder={emailPlaceholder || 'Enter email'}
           onChangeText={setEmail}
           error={errors.email && touched.email ? errors.email : ''}
         />
         <Input
-          label={passwordLabel ? passwordLabel : 'Password'}
-          placeholder={
-            passwordPlaceholder ? passwordPlaceholder : 'Enter password'
-          }
+          label={passwordLabel || 'Password'}
+          placeholder={ passwordPlaceholder || 'Enter password'}
           onChangeText={setPassword}
           type='password'
           error={errors.password && touched.password ? errors.password : ''}
