@@ -52,14 +52,12 @@ export default function ForgotPassword({
           Enter Email Address
         </Text>
         <Input
-          placeholder={emailPlaceholder ? emailPlaceholder : 'Enter email'}
+          placeholder={emailPlaceholder || 'Enter email'}
           onChangeText={setEmail}
           error={errors.email && touched.email ? errors.email : ''}
         />
         <Pressable onPress={handleLogin}>
-          <Text className='text-sm font-normal text-coolGray500 text-center'>
-            Back to login
-          </Text>
+          <Text className='text-sm font-normal text-coolGray500 text-center'> Back to login </Text>
         </Pressable>
 
         {/*  eslint-disable-next-line @typescript-eslint/ban-ts-comment */}

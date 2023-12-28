@@ -38,8 +38,7 @@ export default function ConfirmPassword({
   });
 
   const setPassword = (password: string) => setFieldValue('password', password);
-  const setConfirmPassword = (conPassword: string) =>
-    setFieldValue('confirmPassword', conPassword);
+  const setConfirmPassword = (conPassword: string) => setFieldValue('confirmPassword', conPassword);
 
     
 
@@ -48,29 +47,17 @@ export default function ConfirmPassword({
       <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
         <Input
           type='password'
-          label={passwordLabel ? passwordLabel : 'Password'}
-          placeholder={
-            passwordPlaceholder ? passwordPlaceholder : 'Enter Password'
-          }
+          label={passwordLabel || 'Password'}
+          placeholder={ passwordPlaceholder || 'Enter Password'}
           onChangeText={setPassword}
           error={errors.password && touched.password ? errors.password : ''}
         />
         <Input
           type='password'
-          label={
-            passwordConfirmLabel ? passwordConfirmLabel : 'Confirm Password'
-          }
-          placeholder={
-            passwordConfirmPlaceholder
-              ? passwordConfirmPlaceholder
-              : 'Enter Password'
-          }
+          label={ passwordConfirmLabel || 'Confirm Password'}
+          placeholder={passwordConfirmPlaceholder || 'Enter Password'}
           onChangeText={setConfirmPassword}
-          error={
-            errors.confirmPassword && touched.confirmPassword
-              ? errors.confirmPassword
-              : ''
-          }
+          error={ errors.confirmPassword && touched.confirmPassword? errors.confirmPassword : ''}
         />
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/* @ts-ignore */}
