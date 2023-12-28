@@ -104,20 +104,10 @@ export default function SimpleSignUp(props: appProps) {
           error={errors.password && touched.password ? errors.password : ''}
         />
         <Input
-          label={
-            confirmPasswordLabel ? confirmPasswordLabel : 'Confirm Password'
-          }
-          placeholder={
-            confirmPasswordPlaceholder
-              ? confirmPasswordPlaceholder
-              : 'Enter password'
-          }
+          label={confirmPasswordLabel || 'Confirm Password'}
+          placeholder={confirmPasswordPlaceholder || 'Enter password'}
           onChangeText={setConfirmPassword}
-          error={
-            errors.confirmPassword && touched.confirmPassword
-              ? errors.confirmPassword
-              : ''
-          }
+          error={errors.confirmPassword && touched.confirmPassword ? errors.confirmPassword : ''}
           type='password'
         />
         {/*  eslint-disable-next-line @typescript-eslint/ban-ts-comment */}

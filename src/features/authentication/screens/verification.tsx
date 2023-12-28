@@ -122,9 +122,7 @@ export default function Verification({handleSignUP, handleSend, handleResend, is
           />
           <Input
             ref={input4}
-            onChangeText={(text: string) => {
-              setFieldValue('otp4', text);
-            }}
+            onChangeText={(text: string) => {setFieldValue('otp4', text);}}
             maxLength={1}
             containerStyle={{ width: 40 }}
             inputStyle={{ textAlign: 'center' }}
@@ -176,9 +174,7 @@ export default function Verification({handleSignUP, handleSend, handleResend, is
         <View className='flex-row justify-center pace-x-1'>
           <Text>Do you have an account?</Text>
           <Pressable onPress={handleSignUP}>
-            <Text className='uppercase underline font-medium'>
-              Sing up
-            </Text>
+            <Text className='uppercase underline font-medium'> Sing up </Text>
           </Pressable>
         </View>
       </View>
