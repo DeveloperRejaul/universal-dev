@@ -3,7 +3,6 @@ import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@components';
-import { rh } from 'src/constants/dimensions';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';

@@ -11,7 +11,7 @@ export default function Components() {
   const {show} = useToast()
 
   useEffect(()=>{
-    Platform.OS ==="android" &&  NativeModules.demo.play((result)=>{console.log(result)})
+    Platform.OS ==="android" &&  NativeModules?.demo?.play((result)=>{console.log(result)})
   },[])
 
   return (

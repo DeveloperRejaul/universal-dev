@@ -1,7 +1,7 @@
 import React from 'react';
-import { Overly } from '@components';
 import { View } from 'react-native';
 import { Text } from 'react-native';
+import Overly from '../overly/overly';
 
 export default function Home() {
   return (
