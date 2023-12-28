@@ -2,5 +2,5 @@ import { Redirect } from 'expo-router';
 import React from 'react';
 
 
-export default ()=> <Redirect href={'/(stack)/dashboard/Home'} />;
+export default ()=> <Redirect href={'/home/main'} />;
 
