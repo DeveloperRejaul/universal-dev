@@ -14,10 +14,10 @@ const AnimatedBox = Animated.createAnimatedComponent(View);
 const ANIMATED_BOX_HEIGHT = ITEM_HEIGHT * 7;
 
 // get colors 
-const borderColor = useToken('colors', "coolGray400");
-const hoverColor = useToken('colors', "amber400");
-const textColor = useToken('colors', "coolGray500");
-const iconActiveColor =useToken("colors", "white")
+const borderColor = useToken('colors', 'coolGray400');
+const hoverColor = useToken('colors', 'amber400');
+const textColor = useToken('colors', 'coolGray500');
+const iconActiveColor =useToken('colors', 'white');
 
 const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
 
@@ -49,11 +49,9 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
   }));
 
   // items style animation
-  const itemsAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      height: btnClick.value ? withTiming(ANIMATED_BOX_HEIGHT, { duration: 300 }): withTiming(0, { duration: 300 }),
-    };
-  });
+  const itemsAnimatedStyle = useAnimatedStyle(() => ({height: btnClick.value ? withTiming(ANIMATED_BOX_HEIGHT, { duration: 300 }): withTiming(0, { duration: 300 })}));
+
+  
 
   return (
     <DrawerContentScrollView {...props}>
@@ -64,7 +62,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
           onHoverIn={() => setIsHoverWinter(true)}
           onHoverOut={() => setIsHoverWinter(false)}
           className='flex-row justify-between items-center border-y-2 border-coolGray400 '
-          >
+        >
           <AnimatedText style={[animatedStyle,styles.item]}>
             Winter Collection
           </AnimatedText>
@@ -72,7 +70,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = (props) => {
           <AnimatedPressable
             style={[btnAnimationStyle, styles.btn, styles.item]}
             onPress={() => setIsWinterBtnClick((pre) => !pre)}
-            >
+          >
             <AnimatedText style={iconAnimationStyle}>
               <Icon name='chevron-forward' size={20} />
             </AnimatedText>
@@ -99,4 +97,4 @@ export default CustomDrawer;
 const styles = StyleSheet.create({
   btn:{borderLeftWidth:2, borderColor},
   item:{paddingHorizontal:10, paddingVertical:10}
-})
+});

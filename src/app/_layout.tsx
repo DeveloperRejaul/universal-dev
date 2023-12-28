@@ -1,6 +1,7 @@
-import "../config/app.css"
+import React from 'react';
+import '../config/app.css';
 import { Stack} from 'expo-router';
-import { Provider } from 'react-redux';;
+import { Provider } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { store } from 'src/store/rtk/store';
 import AppContext from 'src/store/context/AppContext';
@@ -11,6 +12,8 @@ export default function () {
   return (
     <Provider store={store}>
       <AppContext >
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-ignore */}
         <ToastProvider> 
           <SafeAreaView style={{ flex: 1 }}>
             <GestureHandlerRootView style={{flex:1}}>
@@ -20,7 +23,7 @@ export default function () {
               </Stack>
             </GestureHandlerRootView>
           </SafeAreaView>
-         </ToastProvider> 
+        </ToastProvider> 
       </AppContext>
     </Provider>
   );

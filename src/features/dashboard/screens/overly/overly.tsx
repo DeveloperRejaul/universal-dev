@@ -7,7 +7,7 @@ const bg = useToken('colors', 'transparent');
 
 export default function Overly() {
   const { md } = useMedia();
-  const {isOpen, toggle} = useContext(DrawerContext)
+  const {isOpen, toggle} = useContext(DrawerContext);
 
   if (isOpen && !md)
     return (

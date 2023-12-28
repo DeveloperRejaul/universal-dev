@@ -7,14 +7,14 @@ import { useMedia } from '@hooks/useMedia';
 import { useToken } from '@hooks/useToken';
 import { DrawerContext } from 'src/features/dashboard/screens/Index';
 
-const color =  useToken("colors", "white")
+const color = useToken('colors', 'white');
 
-const AnimatedView = Animated.createAnimatedComponent(View)
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 
 export default function Sidebar() {
- const {height} = useWindowDimensions()
-  const {isOpen,toggle} = useContext(DrawerContext)
+  const {height} = useWindowDimensions();
+  const {isOpen,toggle} = useContext(DrawerContext);
   const {md} = useMedia();
   const translateX = useSharedValue(md ? 0 : -SIDEBAR_WIDTH);
 
@@ -26,18 +26,19 @@ export default function Sidebar() {
   
 
   return (
-      <AnimatedView  style={[{transform: [{ translateX }], zIndex:999}]} >
-        <View className={ md ? "static":"absolute" } style={[styles.container,{height}]}>
+    <AnimatedView style={[{transform: [{ translateX }], zIndex:999}]} >
+      <View className={ md ? 'static':'absolute' } style={[styles.container,{height}]}>
         <ScrollView>
           <View style={styles.scrollBody}>
             <Pressable
               style={styles.btn}
-              onPress={() => toggle(p=>!p)}>
+              onPress={() => toggle(p=>!p)}
+            >
               <Icon name='menuunfold' size={20} color={color} />
             </Pressable>
           </View>
         </ScrollView>
-        </View>
+      </View>
     </AnimatedView>
   );
 }
@@ -46,8 +47,8 @@ export default function Sidebar() {
 const styles = StyleSheet.create({
   container :{
     width:SIDEBAR_WIDTH,
-    backgroundColor:"#fff",
+    backgroundColor:'#fff',
   },
-  scrollBody:{flex:1, alignItems:"center", backgroundColor:"red"},
-  btn:{alignSelf:"flex-end", padding:10},
-})
+  scrollBody:{flex:1, alignItems:'center', backgroundColor:'red'},
+  btn:{alignSelf:'flex-end', padding:10},
+});

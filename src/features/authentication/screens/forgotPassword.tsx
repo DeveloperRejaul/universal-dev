@@ -6,13 +6,14 @@ import { Button } from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';
+import React from 'react';
 
 type appProps = {
   emailPlaceholder?: string;
   setEmail?: (value: string) => void;
   handleLogin?: () => void;
   handleSignUP?: () => void;
-  handleSend?: (values: any) => void;
+  handleSend?: ({ email }: { email: string }) => void;
   isLoading?: boolean;
 };
 
@@ -23,10 +24,9 @@ const validationSchema = Yup.object().shape({
 });
 
 
-const googleColor = useToken("colors", "red500")
-const fbColor = useToken("colors", "blue800")
-const gitColor = useToken("colors", "black")
-
+const googleColor = useToken('colors', 'red500');
+const fbColor = useToken('colors', 'blue800');
+const gitColor = useToken('colors', 'black');
 
 
 export default function ForgotPassword({
@@ -39,6 +39,8 @@ export default function ForgotPassword({
   const { setFieldValue, handleSubmit, errors, touched } = useFormik({
     initialValues: { email: '' },
     validationSchema,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     onSubmit: handleSend,
   });
   const setEmail = (email: string) => setFieldValue('email', email);
@@ -59,29 +61,35 @@ export default function ForgotPassword({
             Back to login
           </Text>
         </Pressable>
+
+        {/*  eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-ignore */}
         <Button onPress={handleSubmit} text='Send' isLoading={isLoading} />
 
         <View className='flex-row w-[100%] justify-center items-center'>
-          <View className='w-[45%] h-1 bg-coolGray200'/>
+          <View className='w-[45%] h-1 bg-coolGray200' />
           <View className='w-[10%] justify-center items-center h-10 border-coolGray200 border-2 rounded-sm'>
             <Text className='text-coolGray400'>OR</Text>
           </View>
-          <View className='w-[45%] h-1 bg-coolGray200'/>
+          <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
         <View className='flex-row justify-center space-x-7 mt-1'>
           <Pressable
             onPress={()=>{}}
-            className='h-8 w-8 rounded-full border-2 border-red500 justify-center items-center'>
+            className='h-8 w-8 rounded-full border-2 border-red500 justify-center items-center'
+          >
             <AntDesign name='google' size={20} color={googleColor} />
           </Pressable>
           <Pressable
             onPress={()=>{}}
-            className='h-8 w-8 rounded-full border-2 border-blue800 justify-center items-center'>
+            className='h-8 w-8 rounded-full border-2 border-blue800 justify-center items-center'
+          >
             <FontAwesome name='facebook-f' size={20} color={fbColor} />
           </Pressable>
           <Pressable
             onPress={()=>{}}
-            className='h-8 w-8 rounded-full justify-center items-center border-2' >
+            className='h-8 w-8 rounded-full justify-center items-center border-2'
+          >
             <FontAwesome name='github' size={18} color={gitColor} />
           </Pressable>
         </View>

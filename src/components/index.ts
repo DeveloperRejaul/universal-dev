@@ -18,7 +18,7 @@ import Select from './select/Select';
 import Dialog from './dialog/Dialog';
 import Slider from './slider/Slider';
 import Switch from './Switch/Switch';
-import * as Radio from './radio/Radio';
+import * as Radio from './radio/index';
 
 
 export { 
@@ -44,4 +44,4 @@ export {
   Slider,
   Switch,
   Radio,
-}
+};

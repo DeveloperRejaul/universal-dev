@@ -18,7 +18,7 @@ export default function verification() {
   const router = useRouter();
   const params: paramsType = useLocalSearchParams();
   const [checkPasswordValid, response] = usePasswordVerificationMutation();
-  const { isError, isSuccess, error, isLoading } = response;
+  const { isError, isSuccess, isLoading } = response;
 
   const handleSend = async (values: codeType) => {
     // router.push('/auth/confirmPassword');

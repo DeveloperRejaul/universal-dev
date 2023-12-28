@@ -4,9 +4,9 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import { View, Image } from 'react-native';
+import { LayoutChangeEvent, View } from 'react-native';
 
-let interval;
+let interval: NodeJS.Timeout;
 const slides = [1,2];
 const INDICATOR_SIZE = 10;
 const INDICATOR_RADIUS = INDICATOR_SIZE / 2;
@@ -15,11 +15,11 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 
 export default function SimpleCarousal() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [cardWidth, setCardWidth] = useState(null);
+  const [cardWidth, setCardWidth] = useState<number>(0);
 
   const translate = useSharedValue(0);
 
-  const handleLayout = (event) => {
+  const handleLayout = (event: LayoutChangeEvent) => {
     const cardWidth = event.nativeEvent.layout.width;
     setCardWidth(cardWidth);
   };
@@ -45,37 +45,44 @@ export default function SimpleCarousal() {
   }, [activeIndex]);
 
   return (
-      <View>
-        <AnimatedView
-          style={[
-            animatedStyle,
-            { flexDirection: 'row', columnGap: SLIDES_GAP },
-          ]}>
-          {slides.map((d, i) => (
-            <View
-              onLayout={handleLayout}
-              key={Math.random()}
-              className='w-full h-72 overflow-hidden my-2 web:cursor-pointer bg-rose500'>
-              {/* <Image
+    <View>
+      <AnimatedView
+        style={[
+          animatedStyle,
+          { flexDirection: 'row', columnGap: SLIDES_GAP },
+        ]}
+      >
+        {slides.map(() => (
+          <View
+            onLayout={handleLayout}
+            key={Math.random()}
+            className='w-full h-72 overflow-hidden my-2 web:cursor-pointer bg-rose500'
+          >
+            {/* <Image
                 className='h-full w-full'
                 source={d}
                 resizeMode='cover'
                 alt='slide-image'
               /> */}
-            </View>
-          ))}
-        </AnimatedView>
-        <View className='bottom-5 left-1/2 absolute flex-row space-x-2'>
-          {slides.map((d, i) => (
-            <Indicator key={d} activeIndex={activeIndex} index={i} />
-          ))}
-        </View>
+          </View>
+        ))}
+      </AnimatedView>
+      <View className='bottom-5 left-1/2 absolute flex-row space-x-2'>
+        {slides.map((d, i) => (
+          <Indicator key={d} activeIndex={activeIndex} index={i} />
+        ))}
       </View>
+    </View>
   );
 }
 
-function Indicator({ activeIndex, index }) {
+
+interface IIndicatorProps {
+  activeIndex: number,
+  index: number
+}
+function Indicator({ activeIndex, index }: IIndicatorProps) {
   return (
-    <View style={{height:INDICATOR_SIZE, width:INDICATOR_SIZE, backgroundColor:index === activeIndex ? '$amber500' : '$coolGray700', borderRadius:INDICATOR_RADIUS}}/>
+    <View style={{height:INDICATOR_SIZE, width:INDICATOR_SIZE, backgroundColor:index === activeIndex ? '$amber500' : '$coolGray700', borderRadius:INDICATOR_RADIUS}} />
   );
 }

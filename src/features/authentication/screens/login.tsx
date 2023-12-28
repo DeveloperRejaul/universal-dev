@@ -6,17 +6,20 @@ import { Button, CheckBox, } from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';
+import React from 'react';
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Must be a valid email')
-    .required('Email is required'),
-  password: Yup.string()
-    .min(6, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Password is required'),
+  email: Yup.string().email('Must be a valid email').required('Email is required'),
+  password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
   isRemember: Yup.boolean(),
 });
+
+type loginParams = {
+  email: string;
+  password: string;
+  isRemember: boolean;
+};
+
 type appProps = {
   title?: string;
   emailLabel?: string;
@@ -24,7 +27,7 @@ type appProps = {
   emailPlaceholder?: string;
   passwordPlaceholder?: string;
   handleSignUP?: () => void;
-  handleLogin?: (values: any) => object;
+  handleLogin?: (val: loginParams) => object;
   handleForgotPassword?: () => void;
   handleGoogleLogin?: () => void;
   handleFacebookLogin?: () => void;
@@ -32,9 +35,9 @@ type appProps = {
   isLoading?: boolean;
 };
 
-const googleColor = useToken("colors", "red500")
-const fbColor = useToken("colors", "blue800")
-const gitColor = useToken("colors", "black")
+const googleColor = useToken('colors', 'red500');
+const fbColor = useToken('colors', 'blue800');
+const gitColor = useToken('colors', 'black');
 
 
 export default function SimpleLogin({
@@ -54,6 +57,8 @@ export default function SimpleLogin({
   const formik = useFormik({
     initialValues: { email: '', password: '', isRemember: false },
     validationSchema,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     onSubmit: handleLogin,
   });
   const setEmail = (email: string) => formik.setFieldValue('email', email);
@@ -62,6 +67,7 @@ export default function SimpleLogin({
 
   const { errors, touched } = formik;
 
+  
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
       <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
@@ -85,10 +91,12 @@ export default function SimpleLogin({
           type='password'
         />
         <View className='flex-row'>
-          <CheckBox handleCheck={(check:boolean)=>{console.log(check)}}/>
+          <CheckBox handleCheck={(check: boolean)=>{setIsRemember(check);}} />
           <Text> Remember me ? </Text>
         </View>
         <Button
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
           onPress={formik.handleSubmit}
           text='Login'
           isLoading={isLoading}
@@ -99,27 +107,30 @@ export default function SimpleLogin({
         </Pressable>
 
         <View className='flex-row w-[100%] justify-center items-center'>
-          <View className='w-[45%] h-1 bg-coolGray200'/>
+          <View className='w-[45%] h-1 bg-coolGray200' />
           <View className='w-[10%] justify-center items-center h-10 border-coolGray200 border-2 rounded-sm'>
             <Text className='text-coolGray400'>OR</Text>
           </View>
-          <View className='w-[45%] h-1 bg-coolGray200'/>
+          <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
 
         <View className='flex-row justify-center space-x-7 mt-1'>
           <Pressable
             onPress={handleGoogleLogin}
-            className='h-8 w-8 rounded-full border-2 border-red500 justify-center items-center'>
+            className='h-8 w-8 rounded-full border-2 border-red500 justify-center items-center'
+          >
             <AntDesign name='google' size={20} color={googleColor} />
           </Pressable>
           <Pressable
             onPress={handleFacebookLogin}
-            className='h-8 w-8 rounded-full border-2 border-blue800 justify-center items-center'>
+            className='h-8 w-8 rounded-full border-2 border-blue800 justify-center items-center'
+          >
             <FontAwesome name='facebook-f' size={20} color={fbColor} />
           </Pressable>
           <Pressable
             onPress={handleGithubLogin}
-            className='h-8 w-8 rounded-full justify-center items-center border-2' >
+            className='h-8 w-8 rounded-full justify-center items-center border-2'
+          >
             <FontAwesome name='github' size={18} color={gitColor} />
           </Pressable>
         </View>

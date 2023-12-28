@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { ITEM_HEIGHT } from './constance';
 import { Pressable, Text } from 'react-native';
 
