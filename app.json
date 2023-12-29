@@ -31,7 +31,7 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "static",
+      "output": "server", // static => for web static rendring  // server => for server enable
       "favicon": "./src/assets/images/favicon.png"
     },
     "plugins": [

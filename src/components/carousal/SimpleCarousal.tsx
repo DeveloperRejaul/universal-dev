@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
+import Animated, {useAnimatedStyle,useSharedValue, withSpring} from 'react-native-reanimated';
 import { LayoutChangeEvent, View } from 'react-native';
 
 let interval: NodeJS.Timeout;

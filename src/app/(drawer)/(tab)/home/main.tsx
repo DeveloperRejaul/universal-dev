@@ -4,6 +4,7 @@ import { Header, SimpleCarousal } from '@components';
 import { ScrollView, View } from 'react-native';
 
 export default function Home() {
+
   return (
     <ScrollView
       showsHorizontalScrollIndicator={false}
