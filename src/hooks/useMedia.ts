@@ -9,7 +9,7 @@ type Media = {
   xl: boolean;
   xl2: boolean;
 };
-  
+
 export const useMedia = () => {
   const {width} = useWindowDimensions();
   const media: Partial<Media> = {};

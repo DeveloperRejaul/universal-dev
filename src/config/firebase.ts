@@ -8,7 +8,8 @@
 // import {...} from "firebase/storage";
 
 // Initialize Firebase
-export const firebaseConfig = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.EXPO_PUBLIC_FIREBASE_DATABASE_URL,
