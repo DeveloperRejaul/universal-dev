@@ -1,7 +1,7 @@
 import {Text, View } from 'react-native';
 import React from 'react';
 
-export default function notification() {
+export default function index() {
   return (
     <View>
       <Text>notification</Text>
