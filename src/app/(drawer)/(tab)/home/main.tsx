@@ -23,7 +23,6 @@ export default function Home() {
 
         {/* slider part  */}
         <SimpleCarousal />
-
       </View>
     </ScrollView>
   );

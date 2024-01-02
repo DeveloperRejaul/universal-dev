@@ -22,6 +22,7 @@ type appProps = {
   error?: string;
   maxLength?: number;
   autoFocus?: boolean;
+  defaultValue?: string
 };
 
 const color = useToken('colors', 'gray');
@@ -41,6 +42,7 @@ export default forwardRef((props: appProps,ref: React.ForwardedRef<HTMLInputElem
     maxLength,
     inputStyle,
     autoFocus,
+    defaultValue
   } = props;
 
 
@@ -82,6 +84,7 @@ export default forwardRef((props: appProps,ref: React.ForwardedRef<HTMLInputElem
             onChangeText ? (e) => onChangeText(e.target.value) : () => {}
           }
           value={value}
+          defaultValue={defaultValue}
         />}
 
 

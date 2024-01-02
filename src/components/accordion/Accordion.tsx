@@ -11,13 +11,11 @@ const ICON_SIZE = useToken('size', '5');
 const ICON_COLOR = useToken('colors','coolGray700');
 const BORDER_COLOR = useToken('colors','rose200');
 const CONTAINER_HEIGHT = useToken('size', Platform.OS ==='web'? '10':'9');
-const BG_COLOR = useToken('colors','bg-rose50');
 const BG = useToken('colors','white');
 
 export default function Accordion(props: IAccordionProps) {
 
   const [isOpen, toggle] = useState(false);
-  const [isHover , setIsHover ] = useState(false);
   const rotate = useSharedValue('0deg');
   const itemsHeight = useSharedValue(0);
   
@@ -30,20 +28,20 @@ export default function Accordion(props: IAccordionProps) {
     if(!isOpen)itemsHeight.value = withTiming(0, {duration:500});
   },[isOpen]);
 
+
   const rotateStyle = useAnimatedStyle(()=>({transform:[{rotate:rotate.value}]}));
   const animateHeight = useAnimatedStyle(()=>({height:itemsHeight.value}));
 
   return (
     <>
       <Pressable onPress={()=>props.onPressItem?.(props.id)} className='bg-rose50 items-center justify-between my-1 flex-row'>
-        <View className='border-y-2 border-rose200 w-[85%] h-10 justify-center pl-5'>
-          <Text className=''>{props.title}</Text>
+        <View className='border-y-2 border-rose200 w-[85%] h-10 justify-center pl-5 group'>
+          <Text className='transition duration-500 web:group-hover:text-amber400'>{props.title}</Text>
         </View>
         <Pressable
-          onHoverIn={()=>{Platform.OS === 'web' && setIsHover(true);}}
-          onHoverOut={()=>{Platform.OS === 'web' && setIsHover(false);}}
+          className='transition duration-500 web:hover:bg-amber400'
           onPress={()=>{toggle((p)=>!p);}} 
-          style={[styles.buttonBody,{backgroundColor:isOpen || isHover ? ACTIVE_COLOR:BG_COLOR}]}
+          style={[styles.buttonBody,{backgroundColor:isOpen&&ACTIVE_COLOR}]}
         >
           <Animated.View style={rotateStyle}>
             <Ionicons name='chevron-back' size={ICON_SIZE} color={ICON_COLOR} />
@@ -68,6 +66,5 @@ const styles = StyleSheet.create({
     borderBottomWidth:2,
     borderColor:BORDER_COLOR
   }
-
 });
     

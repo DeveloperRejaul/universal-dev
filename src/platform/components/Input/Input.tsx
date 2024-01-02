@@ -19,6 +19,7 @@ type appProps = {
   inputStyle?: TextStyle;
   maxLength?: number;
   autoFocus?: boolean;
+  defaultValue?: string
 };
 
 export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) => {
@@ -36,6 +37,7 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
     maxLength,
     inputStyle,
     autoFocus,
+    defaultValue
   } = props;
   
   const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
@@ -55,6 +57,7 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
           placeholder={placeholder}
           value={value}
           secureTextEntry={type === 'password' && passwordHidden}
+          defaultValue={defaultValue}
         />
         {type === 'search' ? (
           <Pressable>

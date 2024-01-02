@@ -45,5 +45,5 @@ export {
   Slider,
   Switch,
   Radio,
-  Accordion
+  Accordion,
 };
