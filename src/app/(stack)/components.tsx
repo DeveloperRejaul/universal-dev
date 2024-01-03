@@ -1,32 +1,29 @@
+
 import { View, Text,ScrollView} from 'react-native';
 import React from 'react';
 import * as Component from '@components';
 import * as PComponent from '@platform-components';
 import {useToast} from '@hooks/useToast';
 import { useFrom } from 'src/components/form';
-import * as Yup from 'yup';
+import { string, object } from 'yup';
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Must be a valid email').required('Email is required'),
+const schema = object({
+  name:string().min(10, 'must be at least 10 characters long'),
+  email:string().min(10, 'must be at least 10 characters long').email('must be a valid email')
 });
+
+
 export default function Components() {
   const {show} = useToast();
-  const {Controller, handleSubmit} = useFrom({initialState:{name:'', email:''}});
+  const {Controller, handleSubmit, errors} = useFrom({initialState:{name:'', email:''},schema});
 
   const onSubmit = async (value)=>{
-    try {
-      await validationSchema.validate(value);
-    } catch (err) {
-      console.log(err.email);
-      console.log(err.errors);
-    }
-    
+    console.log( await value);
   };
 
 
   return (<ScrollView>
     <View style={{zIndex:-1}} className='px-2 space-y-6 pb-36'>
-
 
       <View style={{rowGap:5}}>
         <Component.H3 className='text-center'> Hook From  components </Component.H3> 
@@ -34,10 +31,13 @@ export default function Components() {
           name='name'
           render={({onChange})=><PComponent.Input placeholder='Name' onChangeText={onChange} />}
         />
+        {errors.name && <Text>{ errors.name }</Text>}
+
         <Controller
           name='email'
           render={({onChange})=><PComponent.Input placeholder='Email' onChangeText={onChange} />}
         />
+        {errors.email && <Text> {errors.email} </Text>}
         <Text onPress={()=>onSubmit(handleSubmit())}>Click Me</Text>
       </View>
 

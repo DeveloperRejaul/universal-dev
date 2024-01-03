@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-import { IController, IFormParams, initialState } from './types';
+import { useEffect, useState } from 'react';
+import { IController, IErrorState, IFormParams, IInitialState } from './types';
+import { yupValidate } from './yup';
 
-const updatedState: initialState = {};
+const updatedState: IInitialState = {};
 
 function Controller(props: IController) {
   const {render,name } = props;
@@ -9,8 +10,11 @@ function Controller(props: IController) {
   return render?.({onChange: handleChange});
 }
 
-export const useFrom = ({initialState}: IFormParams)=>{
-  
+export const useFrom = ({initialState,schema}: IFormParams)=>{
+  const [errors, setErrors] = useState<IErrorState>({});
+  const [state, setStates] = useState<IInitialState>(initialState);
+
+
   useEffect(()=>{
     for (const key in initialState) {
       if (Object.prototype.hasOwnProperty.call(initialState, key)) {
@@ -18,11 +22,21 @@ export const useFrom = ({initialState}: IFormParams)=>{
       }
     }
   },[]);
+ 
+  const setError = (key: string,value: string)=> setErrors(p=>({...p, [key]:value}));
+  const setState = (key: string,value: string|boolean)=> {setStates(p=>({...p, [key]:value})); updatedState[key]=value; };
 
-  const handleSubmit = () => {
+
+
+  const handleSubmit = async () => {
+    const err = await yupValidate(schema, updatedState);
+    if(err){setErrors(err); return {}; }
+      
+    setStates(updatedState); 
+    setErrors({}); 
     return updatedState;
   };
-  return {Controller, state:initialState,handleSubmit};
+  return {Controller, state,handleSubmit, errors,setError,setErrors,setState , setStates};
 };
 
 

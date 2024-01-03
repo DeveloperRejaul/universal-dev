@@ -1,12 +1,12 @@
 import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, CheckBox, } from '@components';
+import { Button, CheckBox} from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';
 import React from 'react';
+import { useFrom } from '@hooks/useForm';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Must be a valid email').required('Email is required'),
@@ -54,48 +54,50 @@ export default function SimpleLogin({
   handleGithubLogin,
   handleGoogleLogin,
 }: appProps) {
-  const formik = useFormik({
-    initialValues: { email: '', password: '', isRemember: false },
-    validationSchema,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    onSubmit: handleLogin,
-  });
-  const setEmail = (email: string) => formik.setFieldValue('email', email);
-  const setPassword = (password: string) => formik.setFieldValue('password', password);
-  const setIsRemember = (isRemember: boolean) => formik.setFieldValue('isRemember', isRemember);
+ 
 
-  const { errors, touched } = formik;
+  const {Controller,errors,handleSubmit,setState} = useFrom({initialState:{email: '', password: '', isRemember: false}, schema:validationSchema});
 
-  
+
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
       <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
         <Text className='text-2xl text-trueGray800 font-semibold'>{title ? title : 'Login'}</Text>
-        <Input
-          value={formik.values.email}
-          onChangeText={setEmail}
-          label={emailLabel || 'Email'}
-          placeholder={emailPlaceholder || 'Enter email'}
-          error={errors.email && touched.email ? errors.email : ''}
+         
+        <Controller 
+          name='email' 
+          render={({onChange})=> (
+            <Input
+              onChangeText={onChange}
+              label={emailLabel || 'Email'}
+              placeholder={emailPlaceholder || 'Enter email'}
+              error={errors.email ? errors.email : ''}
+            />) 
+          } 
         />
 
-        <Input
-          value={formik.values.password}
-          onChangeText={setPassword}
-          label={passwordLabel || 'Password'}
-          placeholder={ passwordPlaceholder || 'Enter password'}
-          error={errors.password && touched.password ? errors.password : ''}
-          type='password'
+        <Controller 
+          name='password' 
+          render={({onChange})=> (
+            <Input
+              onChangeText={onChange}
+              label={passwordLabel || 'Password'}
+              placeholder={ passwordPlaceholder || 'Enter password'}
+              error={errors.password ? errors.password : ''}
+              type='password'
+            />
+          ) 
+          } 
         />
+
         <View className='flex-row'>
-          <CheckBox handleCheck={(check: boolean)=>{setIsRemember(check);}} />
+          <CheckBox handleCheck={(check: boolean)=>setState('isRemember', !check)} />
           <Text> Remember me ? </Text>
         </View>
         <Button
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-ignore
-          onPress={formik.handleSubmit}
+          onPress={()=>handleLogin(handleSubmit())}
           text='Login'
           isLoading={isLoading}
         />
