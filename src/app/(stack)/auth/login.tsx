@@ -19,11 +19,8 @@ export default function index() {
   
   const loginReq = async (values: loginParams) => {
    
-    await login({
-      email: values.email,
-      password: values.password,
-      isRemember: values.isRemember,
-    });
+    console.log(await values);
+   
   };
 
   useEffect(() => {

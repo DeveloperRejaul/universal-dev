@@ -7,11 +7,15 @@ export interface IController {
   name: string;
   rules?: string
 }
-  
-export interface initialState {
+
+export interface IInitialState {
+  [key: string]: string | boolean;
+}
+export interface IErrorState {
   [key: string]: string;
 }
   
 export interface IFormParams {
-  initialState: initialState
+  initialState: IInitialState
+  schema: object
 }

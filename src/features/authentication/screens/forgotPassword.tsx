@@ -1,12 +1,12 @@
 import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';
 import React from 'react';
+import { useFrom } from '@hooks/useForm';
 
 type appProps = {
   emailPlaceholder?: string;
@@ -36,14 +36,7 @@ export default function ForgotPassword({
   handleSignUP,
   handleSend,
 }: appProps) {
-  const { setFieldValue, handleSubmit, errors, touched } = useFormik({
-    initialValues: { email: '' },
-    validationSchema,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    onSubmit: handleSend,
-  });
-  const setEmail = (email: string) => setFieldValue('email', email);
+  const {Controller,errors,handleSubmit} = useFrom({initialState:{ email: '' },schema:validationSchema});
 
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
@@ -51,18 +44,24 @@ export default function ForgotPassword({
         <Text className='font-semibold text-coolGray800 text-lg text-center'>
           Enter Email Address
         </Text>
-        <Input
-          placeholder={emailPlaceholder || 'Enter email'}
-          onChangeText={setEmail}
-          error={errors.email && touched.email ? errors.email : ''}
+        <Controller 
+          name='email'
+          render={({onChange})=>(
+            <Input
+              placeholder={emailPlaceholder || 'Enter email'}
+              onChangeText={onChange}
+              error={errors.email ? errors.email : ''}
+            />
+          )}
         />
+
         <Pressable onPress={handleLogin}>
           <Text className='text-sm font-normal text-coolGray500 text-center'> Back to login </Text>
         </Pressable>
 
         {/*  eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/* @ts-ignore */}
-        <Button onPress={handleSubmit} text='Send' isLoading={isLoading} />
+        <Button onPress={()=> handleSend(handleSubmit())} text='Send' isLoading={isLoading} />
 
         <View className='flex-row w-[100%] justify-center items-center'>
           <View className='w-[45%] h-1 bg-coolGray200' />

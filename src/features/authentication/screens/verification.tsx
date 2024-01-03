@@ -1,12 +1,12 @@
 import { Input } from '@platform-components';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
-import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button} from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';
+import { useFrom } from '@hooks/useForm';
 
 let timeout: NodeJS.Timeout;
 let interval: NodeJS.Timeout;
@@ -36,17 +36,9 @@ const gitColor = useToken('colors', 'black');
 
 
 
-export default function Verification({handleSignUP, handleSend, handleResend, isLoading}: appProps) {
+export default function Verification({ handleSignUP, handleSend, handleResend, isLoading }: appProps) {
 
-  const { handleSubmit, setFieldValue, isValid } = useFormik({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    initialValues: { otp1: '', otp2: '', otp3: '', otp4: '' },
-    validationSchema,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    onSubmit: handleSend,
-  });
+  const {Controller,handleSubmit} = useFrom({initialState:{ otp1: '', otp2: '', otp3: '', otp4: '' },schema:validationSchema});
 
   const input1 = useRef(null);
   const input2 = useRef(null);
@@ -84,48 +76,71 @@ export default function Verification({handleSignUP, handleSend, handleResend, is
       <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
         <Text className='font-semibold text-coolGray800 text-lg text-center'> Enter Verification Code</Text>
         <View className='flex-1 justify-center items-center flex-row space-x-3'>
-          <Input
-            ref={input1}
-            onChangeText={(text: string) => {
-              setFieldValue('otp1', text);
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              if (text.length >= 1 && input2.current) input2.current.focus();
-            }}
-            maxLength={1}
-            containerStyle={{ width: 40 }}
-            inputStyle={{ textAlign: 'center' }}
+
+          <Controller name='otp1'
+            render={({onChange})=> (
+              <Input
+                ref={input1}
+                onChangeText={(text: string) => {
+                  onChange(text);
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  if (text.length >= 1 && input2.current) input2.current.focus();
+                }}
+                maxLength={1}
+                containerStyle={{ width: 40 }}
+                inputStyle={{ textAlign: 'center' }}
+              />
+            )}
           />
-          <Input
-            ref={input2}
-            onChangeText={(text: string) => {
-              setFieldValue('otp2', text);
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              if (text.length >= 1 && input3.current) input3.current.focus();
-            }}
-            maxLength={1}
-            containerStyle={{ width: 40 }}
-            inputStyle={{ textAlign: 'center' }}
+          <Controller name='otp2'
+            render={({onChange})=> (
+              <Input
+                ref={input2}
+                onChangeText={(text: string) => {
+                  onChange(text);
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  if (text.length >= 1 && input3.current) input3.current.focus();
+                }}
+                maxLength={1}
+                containerStyle={{ width: 40 }}
+                inputStyle={{ textAlign: 'center' }}
+              />
+            )}
           />
-          <Input
-            ref={input3}
-            onChangeText={(text: string) => {
-              setFieldValue('otp3', text);
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              if (text.length >= 1 && input4.current) input4.current.focus();
-            }}
-            maxLength={1}
-            containerStyle={{ width: 40 }}
-            inputStyle={{ textAlign: 'center' }}
+          <Controller name='otp3'
+            render={({onChange})=> (
+              <Input
+                ref={input3}
+                onChangeText={(text: string) => {
+                  onChange(text);
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  if (text.length >= 1 && input4.current) input4.current.focus();
+                }}
+                maxLength={1}
+                containerStyle={{ width: 40 }}
+                inputStyle={{ textAlign: 'center' }}
+              />
+            )}
           />
-          <Input
-            ref={input4}
-            onChangeText={(text: string) => {setFieldValue('otp4', text);}}
-            maxLength={1}
-            containerStyle={{ width: 40 }}
-            inputStyle={{ textAlign: 'center' }}
+
+          <Controller name='otp4'
+            render={({onChange})=> (
+              <Input
+                ref={input3}
+                onChangeText={(text: string) => {
+                  onChange(text);
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  if (text.length >= 1 && input4.current) input4.current.focus();
+                }}
+                maxLength={1}
+                containerStyle={{ width: 40 }}
+                inputStyle={{ textAlign: 'center' }}
+              />
+            )}
           />
         </View>
         <View className='justify-center space-x-1'>
@@ -137,7 +152,9 @@ export default function Verification({handleSignUP, handleSend, handleResend, is
           {resend && <Text className='ml-2'>{time}</Text>}
         </View>
         <Button
-          onPress={() => { handleSubmit?.();if (!isValid) ()=>{};}}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          onPress={()=>handleSend(handleSubmit())}
           text='Send'
           isLoading={isLoading}
         />

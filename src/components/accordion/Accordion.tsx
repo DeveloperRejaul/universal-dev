@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useToken } from '@hooks/useToken';
 import Items from './Items';
 import { IAccordionProps } from './type';
+
 const ACTIVE_COLOR = useToken('colors','amber400');
 const ICON_SIZE = useToken('size', '5');
 const ICON_COLOR = useToken('colors','coolGray700');
