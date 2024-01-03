@@ -37,10 +37,10 @@ export default function Accordion(props: IAccordionProps) {
     <>
       <Pressable onPress={()=>props.onPressItem?.(props.id)} className='bg-rose50 items-center justify-between my-1 flex-row'>
         <View className='border-y-2 border-rose200 w-[85%] h-10 justify-center pl-5 group'>
-          <Text className='transition duration-500 web:group-hover:text-amber400'>{props.title}</Text>
+          <Text className='web:transition web:duration-500 web:group-hover:text-amber400'>{props.title}</Text>
         </View>
         <Pressable
-          className='transition duration-500 web:hover:bg-amber400'
+          className='web:transition web:duration-500 web:hover:bg-amber400'
           onPress={()=>{toggle((p)=>!p);}} 
           style={[styles.buttonBody,{backgroundColor:isOpen&&ACTIVE_COLOR}]}
         >
@@ -48,7 +48,8 @@ export default function Accordion(props: IAccordionProps) {
             <Ionicons name='chevron-back' size={ICON_SIZE} color={ICON_COLOR} />
           </Animated.View>
         </Pressable>
-      </Pressable>
+      </Pressable> 
+      
       <Animated.View style={[animateHeight,{backgroundColor:BG, overflow:'hidden'}]}>
         {props.items.map(({id,label})=> (<Items onPress={(id)=>props?.onPressItem(id)} id={id} label={label} key={id} />))}
       </Animated.View>
