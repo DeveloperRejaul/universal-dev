@@ -3,7 +3,6 @@ import SimpleCarousal from './carousal/SimpleCarousal';
 import Button from './button/button';
 import ShapingCard from './ShapingCard/ShapingCard';
 import AnimatedButton from './button/AnimatedButton';
-import Overly from './overly/overly';
 import Header from './header/header';
 import CheckBox from './checkBox/CheckBox';
 import HStack from './HStack/HStack';
@@ -19,7 +18,8 @@ import Select from './select/Select';
 import Dialog from './dialog/Dialog';
 import Slider from './slider/Slider';
 import Switch from './Switch/Switch';
-import * as Radio from './radio/Radio';
+import * as Radio from './radio/index';
+import Accordion from './accordion/Accordion';
 
 
 export { 
@@ -37,7 +37,6 @@ export {
   Button,
   ShapingCard,
   AnimatedButton,
-  Overly,
   Header,
   CheckBox,
   Progress,
@@ -46,4 +45,5 @@ export {
   Slider,
   Switch,
   Radio,
-}
+  Accordion,
+};

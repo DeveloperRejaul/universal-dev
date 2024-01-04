@@ -1,4 +1,4 @@
-import { Dimensions} from "react-native";
+import { useWindowDimensions} from "react-native";
 
 const percentageCalculation = (max: number, val: number) => max * (val / 100);
 
@@ -13,18 +13,16 @@ const fontCalculation = (height: number, width: number, val: number) => {
   );
 }
 export const rh = (h: number) => {
-  const { height } = Dimensions.get("window");
+ const {height} = useWindowDimensions()
   return percentageCalculation(height, h);
 };
 
 export const rw = (w: number) => {
-  const { width } = Dimensions.get("window");
+  const { width } = useWindowDimensions();
   return percentageCalculation(width, w);
 };
 
 export const rf = (f: number) => {
-  const { height, width } = Dimensions.get("window");
+  const { height, width } = useWindowDimensions();
   return fontCalculation(height, width, f);
 };
-
-export const { width, fontScale, height, scale } = Dimensions.get('window');

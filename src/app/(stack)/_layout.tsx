@@ -1,6 +1,4 @@
-import { Stack } from 'expo-router'
-import Components from './components'
+import { Stack } from 'expo-router';
+import React from 'react';
 
-export default function () {
-  return <Stack screenOptions={{headerShown:false}}/>
-}
+export default ()=> <Stack screenOptions={{headerShown:false}} />;

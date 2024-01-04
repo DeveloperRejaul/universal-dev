@@ -6,11 +6,13 @@ import { useAddNewPasswordMutation } from 'src/features/authentication/api';
 
 export default function () {
   const router = useRouter();
-  const [addNewPassword, { isError, isSuccess, error, isLoading }] =
-    useAddNewPasswordMutation();
+  const [addNewPassword, { isError, isSuccess, isLoading }] = useAddNewPasswordMutation();
   const { token }: { token: string } = useLocalSearchParams();
+
   const handleSend = async (values: { password: string }) => {
-    // router.push('/auth/login')
+    console.log( await values);
+    
+    router.push('/auth/login');
     await addNewPassword({ password: values.password, token });
   };
   useEffect(() => {

@@ -1,9 +1,10 @@
 import React, { useState, forwardRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { rf } from 'src/constants/dimensions';
-import { Pressable, TextInput, TextStyle, ViewStyle } from 'react-native';
+import { NativeSyntheticEvent, Pressable, TextInput, TextStyle, ViewStyle } from 'react-native';
 import { View } from 'react-native';
 import { Text } from 'react-native';
+import { TextInputFocusEventData } from 'react-native';
 
 type appProps = {
   label?: string;
@@ -12,16 +13,19 @@ type appProps = {
   onChangeText?: (value: string) => void;
   type?: 'search' | 'text' | 'password'| 'textarea';
   value?: string;
-  onBlur?: (value: boolean) => void;
+  onBlur?: (value: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   error?: string;
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
   maxLength?: number;
   autoFocus?: boolean;
+  defaultValue?: string
+  className?: string;
 };
 
-export default forwardRef(function (
-  {
+export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) => {
+
+  const {
     label,
     placeholder,
     onChangeText,
@@ -34,17 +38,18 @@ export default forwardRef(function (
     maxLength,
     inputStyle,
     autoFocus,
-  }: appProps,
-  ref: React.ForwardedRef<any>,
-) {
+    defaultValue,
+    className
+  } = props;
+  
   const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
 
   return (
-    <View style={containerStyle}>
+    <View className={className} style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
       <View className='border-rose300 bg-rose100 border-2 rounded-md p-1 w-full flex-row items-center'>
         <TextInput
-          multiline={type === "textarea"}
+          multiline={type === 'textarea'}
           ref={ref}
           autoFocus={autoFocus}
           maxLength={maxLength}
@@ -54,10 +59,11 @@ export default forwardRef(function (
           placeholder={placeholder}
           value={value}
           secureTextEntry={type === 'password' && passwordHidden}
+          defaultValue={defaultValue}
         />
         {type === 'search' ? (
           <Pressable>
-            <Ionicons name='search' size={rf(3)} color={"gray"} />
+            <Ionicons name='search' size={rf(3)} color={'gray'} />
           </Pressable>
         ) : null}
         {type === 'password' ? (
@@ -65,7 +71,7 @@ export default forwardRef(function (
             <Ionicons
               name={passwordHidden ? 'eye-off' : 'eye'}
               size={rf(3)}
-              color={"gray"}
+              color={'gray'}
             />
           </Pressable>
         ) : null}

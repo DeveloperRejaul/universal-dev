@@ -9,9 +9,7 @@ const auth = createSlice({
       state.login = true;
     },
 
-    handleLogout: (state, action) => {
-      state.login = false;
-    },
+    handleLogout: (state) => { state.login = false;}
   },
 });
 

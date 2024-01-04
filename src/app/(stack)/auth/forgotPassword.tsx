@@ -6,7 +6,7 @@ import { View } from 'react-native';
 
 export default function () {
   const router = useRouter();
-  const [forgetPass, { isError, isLoading, isSuccess, error, data }] = useForgetPasswordMutation();
+  const [forgetPass, { isError, isLoading, isSuccess, data }] = useForgetPasswordMutation();
 
   const handleSend = async ({ email }: { email: string }) => {
     // router.push({ pathname: '/(stack)/auth/verification'});
