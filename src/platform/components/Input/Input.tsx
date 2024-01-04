@@ -20,6 +20,7 @@ type appProps = {
   maxLength?: number;
   autoFocus?: boolean;
   defaultValue?: string
+  className?: string;
 };
 
 export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) => {
@@ -37,13 +38,14 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
     maxLength,
     inputStyle,
     autoFocus,
-    defaultValue
+    defaultValue,
+    className
   } = props;
   
   const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
 
   return (
-    <View style={containerStyle}>
+    <View className={className} style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
       <View className='border-rose300 bg-rose100 border-2 rounded-md p-1 w-full flex-row items-center'>
         <TextInput

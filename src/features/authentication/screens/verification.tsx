@@ -73,77 +73,39 @@ export default function Verification({ handleSignUP, handleSend, handleResend, i
 
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]' >
-      <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
+      <View className='gap-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
         <Text className='font-semibold text-coolGray800 text-lg text-center'> Enter Verification Code</Text>
-        <View className='flex-1 justify-center items-center flex-row space-x-3'>
-
-          <Controller name='otp1'
-            render={({onChange})=> (
-              <Input
-                ref={input1}
-                onChangeText={(text: string) => {
-                  onChange(text);
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  if (text.length >= 1 && input2.current) input2.current.focus();
-                }}
-                maxLength={1}
-                containerStyle={{ width: 40 }}
-                inputStyle={{ textAlign: 'center' }}
-              />
-            )}
+        
+        <View className='flex-row justify-center'>
+          <Controller 
+            name='otp1'
+            render={({onChange})=>{
+              return <Input onChangeText={onChange} className='mx-2' containerStyle={{width:40}} maxLength={1} inputStyle={{textAlign:'center'}} />;
+            }}
           />
-          <Controller name='otp2'
-            render={({onChange})=> (
-              <Input
-                ref={input2}
-                onChangeText={(text: string) => {
-                  onChange(text);
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  if (text.length >= 1 && input3.current) input3.current.focus();
-                }}
-                maxLength={1}
-                containerStyle={{ width: 40 }}
-                inputStyle={{ textAlign: 'center' }}
-              />
-            )}
+          <Controller 
+            name='otp2'
+            render={({onChange})=>{
+              return <Input onChangeText={onChange} className='mx-2' containerStyle={{width:40}} maxLength={1} inputStyle={{textAlign:'center'}} />;
+            }}
           />
-          <Controller name='otp3'
-            render={({onChange})=> (
-              <Input
-                ref={input3}
-                onChangeText={(text: string) => {
-                  onChange(text);
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  if (text.length >= 1 && input4.current) input4.current.focus();
-                }}
-                maxLength={1}
-                containerStyle={{ width: 40 }}
-                inputStyle={{ textAlign: 'center' }}
-              />
-            )}
+          <Controller 
+            name='otp3'
+            render={({onChange})=>{
+              return <Input onChangeText={onChange} className='mx-2' containerStyle={{width:40}} maxLength={1} inputStyle={{textAlign:'center'}} />;
+            }}
           />
-
-          <Controller name='otp4'
-            render={({onChange})=> (
-              <Input
-                ref={input3}
-                onChangeText={(text: string) => {
-                  onChange(text);
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  if (text.length >= 1 && input4.current) input4.current.focus();
-                }}
-                maxLength={1}
-                containerStyle={{ width: 40 }}
-                inputStyle={{ textAlign: 'center' }}
-              />
-            )}
+          <Controller 
+            name='otp4'
+            render={({onChange})=>{
+              return <Input onChangeText={onChange} className='mx-2' containerStyle={{width:40}} maxLength={1} inputStyle={{textAlign:'center'}} />;
+            }}
           />
         </View>
-        <View className='justify-center space-x-1'>
+        
+
+
+        <View className='justify-center web:gap-x-1'>
           {/* eslint-disable-next-line react/no-unescaped-entities */}
           <Text className='text-sm font-normal text-coolGray500 text-center'> If you don't resive code </Text>
           <Pressable onPress={handleResendStatus} disabled={resend}>
@@ -167,28 +129,28 @@ export default function Verification({ handleSignUP, handleSend, handleResend, i
           <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
 
-        <View className='flex-row justify-center space-x-7 mt-1'>
+        <View className='flex-row justify-center mt-1'>
           <Pressable
             onPress={()=>{}}
-            className='h-8 w-8 rounded-full border-2 border-red500 justify-center items-center'
+            className='h-8 w-8  rounded-full border-2 border-red500 justify-center items-center mx-2'
           >
             <AntDesign name='google' size={20} color={googleColor} />
           </Pressable>
           <Pressable
             onPress={()=>{}}
-            className='h-8 w-8 rounded-full border-2 border-blue800 justify-center items-center'
+            className='h-8 w-8  rounded-full border-2 border-blue800 justify-center items-center mx-2'
           >
             <FontAwesome name='facebook-f' size={20} color={fbColor} />
           </Pressable>
           <Pressable
             onPress={()=>{}}
-            className='h-8 w-8 rounded-full justify-center items-center border-2'
+            className='h-8 w-8  rounded-full justify-center items-center border-2 mx-2'
           >
             <FontAwesome name='github' size={18} color={gitColor} />
           </Pressable>
         </View>
 
-        <View className='flex-row justify-center pace-x-1'>
+        <View className='flex-row justify-center web:gap-x-1'>
           <Text>Do you have an account?</Text>
           <Pressable onPress={handleSignUP}>
             <Text className='uppercase underline font-medium'> Sing up </Text>

@@ -22,7 +22,9 @@ type appProps = {
   error?: string;
   maxLength?: number;
   autoFocus?: boolean;
-  defaultValue?: string
+  defaultValue?: string;
+  className?: string;
+
 };
 
 const color = useToken('colors', 'gray');
@@ -42,7 +44,8 @@ export default forwardRef((props: appProps,ref: React.ForwardedRef<HTMLInputElem
     maxLength,
     inputStyle,
     autoFocus,
-    defaultValue
+    defaultValue,
+    className
   } = props;
 
 
@@ -51,7 +54,7 @@ export default forwardRef((props: appProps,ref: React.ForwardedRef<HTMLInputElem
 
 
   return (
-    <View style={containerStyle}>
+    <View className={className} style={containerStyle}>
       <Text style={labelStyle}>{label}</Text>
       <View className='border-rose300 bg-rose100 border-2 rounded-md p-1 w-full flex-row items-center'>
         {!textareaType.includes(type) && 

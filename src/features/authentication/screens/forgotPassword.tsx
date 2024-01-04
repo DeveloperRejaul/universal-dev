@@ -40,7 +40,7 @@ export default function ForgotPassword({
 
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
-      <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
+      <View className='gap-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
         <Text className='font-semibold text-coolGray800 text-lg text-center'>
           Enter Email Address
         </Text>
@@ -70,22 +70,22 @@ export default function ForgotPassword({
           </View>
           <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
-        <View className='flex-row justify-center space-x-7 mt-1'>
+        <View className='flex-row justify-center mt-1'>
           <Pressable
             onPress={()=>{}}
-            className='h-8 w-8 rounded-full border-2 border-red500 justify-center items-center'
+            className='h-8 w-8 mx-2 rounded-full border-2 border-red500 justify-center items-center'
           >
             <AntDesign name='google' size={20} color={googleColor} />
           </Pressable>
           <Pressable
             onPress={()=>{}}
-            className='h-8 w-8 rounded-full border-2 border-blue800 justify-center items-center'
+            className='h-8 w-8 mx-2 rounded-full border-2 border-blue800 justify-center items-center'
           >
             <FontAwesome name='facebook-f' size={20} color={fbColor} />
           </Pressable>
           <Pressable
             onPress={()=>{}}
-            className='h-8 w-8 rounded-full justify-center items-center border-2'
+            className='h-8 w-8 mx-2 rounded-full justify-center items-center border-2'
           >
             <FontAwesome name='github' size={18} color={gitColor} />
           </Pressable>

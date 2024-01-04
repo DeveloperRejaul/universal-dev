@@ -35,7 +35,7 @@ export default function ConfirmPassword({
 
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
-      <View className='space-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
+      <View className='gap-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
         
         <Controller 
           name='password'
