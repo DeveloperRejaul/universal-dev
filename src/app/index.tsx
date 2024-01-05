@@ -1,3 +1,3 @@
 import { Redirect } from 'expo-router';
 import React from 'react';
-export default ()=> <Redirect href={'/components'} />;
+export default ()=> <Redirect href={'/(stack)/components'} />;

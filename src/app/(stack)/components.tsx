@@ -7,6 +7,7 @@ import {useToast} from '@hooks/useToast';
 import { useFrom } from 'src/components/form';
 import { string, object } from 'yup';
 
+
 const schema = object({
   name:string().min(10, 'Must be at least 10 characters long'),
   email:string().min(10, 'Must be at least 10 characters long').email('Must be a valid email')
@@ -18,6 +19,7 @@ export default function Components() {
   const {show} = useToast();
   const {Controller, handleSubmit, errors} = useFrom({initialState:{name:'', email:''},schema});
   const onSubmit = async (value)=>{ console.log( await value); };
+  
 
   return (<ScrollView>
     <View style={{zIndex:-1}} className='px-2 space-y-6 pb-36'>
