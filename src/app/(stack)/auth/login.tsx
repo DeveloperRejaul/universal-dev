@@ -1,4 +1,5 @@
 import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useToast } from '@hooks/useToast';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
@@ -15,13 +16,10 @@ type loginParams = {
 export default function index() {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const toast = useToast();
   const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
   
-  const loginReq = async (values: loginParams) => {
-   
-    console.log(await values);
-   
-  };
+  const loginReq = (values: loginParams) => login(values);
 
   useEffect(() => {
     if (isSuccess) {
@@ -30,6 +28,7 @@ export default function index() {
         router.replace('/(drawer)/(tab)/home/main');
       }, 1000);
     }
+    if(isError) toast.show('Invalid user name or password',{type:'warning'});
   }, [isError, isSuccess]);
 
   return (

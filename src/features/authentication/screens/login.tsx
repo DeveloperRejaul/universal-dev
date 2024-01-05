@@ -1,26 +1,17 @@
 import { Input } from '@platform-components';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import * as Yup from 'yup';
 import { Button, CheckBox} from '@components';
-import { Pressable, View } from 'react-native';
-import { Text } from 'react-native';
-import { useToken } from '@hooks/useToken';
+import { Pressable, View,Text } from 'react-native';
 import React from 'react';
 import { useFrom } from '@hooks/useForm';
 import { loginProps } from '../type';
+import OAuth from './OAuth';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Must be a valid email').required('Email is required'),
   password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
   isRemember: Yup.boolean(),
 });
-
-
-
-const googleColor = useToken('colors', 'red500');
-const fbColor = useToken('colors', 'blue800');
-const gitColor = useToken('colors', 'black');
-
 
 export default function SimpleLogin(props: loginProps) {
  
@@ -34,9 +25,6 @@ export default function SimpleLogin(props: loginProps) {
     handleForgotPassword,
     handleLogin,
     isLoading,
-    handleFacebookLogin,
-    handleGithubLogin,
-    handleGoogleLogin,
   } = props;
 
   const {Controller,errors,handleSubmit,setState} = useFrom({initialState:{email: '', password: '', isRemember: false}, schema:validationSchema});
@@ -97,30 +85,11 @@ export default function SimpleLogin(props: loginProps) {
           <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
 
-        <View className='flex-row justify-center mt-1'>
-          <Pressable
-            onPress={handleGoogleLogin}
-            className='h-8 w-8 mx-2sss rounded-full border-2 border-red500 justify-center items-center'
-          >
-            <AntDesign name='google' size={20} color={googleColor} />
-          </Pressable>
-          <Pressable
-            onPress={handleFacebookLogin}
-            className='h-8 w-8 mx-2sss rounded-full border-2 border-blue800 justify-center items-center'
-          >
-            <FontAwesome name='facebook-f' size={20} color={fbColor} />
-          </Pressable>
-          <Pressable
-            onPress={handleGithubLogin}
-            className='h-8 w-8 mx-2sss rounded-full justify-center items-center border-2'
-          >
-            <FontAwesome name='github' size={18} color={gitColor} />
-          </Pressable>
-        </View>
-        <View className='flex-row justify-center space-x-1'>
+        <OAuth />
+        <View className='flex-row justify-center'>
           <Text>Need an account?</Text>
           <Pressable onPress={handleSignUP}>
-            <Text className='uppercase underline font-medium'>
+            <Text className='uppercase underline font-medium ml-2'>
               Sign up
             </Text>
           </Pressable>

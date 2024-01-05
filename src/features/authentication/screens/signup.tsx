@@ -1,12 +1,11 @@
 import { Input } from '@platform-components';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import * as Yup from 'yup';
 import { Button} from '@components';
 import { Pressable, Text, View } from 'react-native';
-import { useToken } from '@hooks/useToken';
 import React from 'react';
 import { useFrom } from '@hooks/useForm';
 import { signUpProps } from '../type';
+import OAuth from './OAuth';
 
 
 
@@ -18,12 +17,6 @@ const validationSchema = Yup.object().shape({
   //@ts-ignore
   confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
 });
-
-
-const googleColor = useToken('colors', 'red500');
-const fbColor = useToken('colors', 'blue800');
-const gitColor = useToken('colors', 'black');
-
 
 export default function SimpleSignUp(props: signUpProps) {
 
@@ -106,27 +99,7 @@ export default function SimpleSignUp(props: signUpProps) {
           </View>
           <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
-
-        <View className='flex-row justify-center mt-1'>
-          <Pressable
-            onPress={()=>{}}
-            className='h-8 w-8 mx-2 rounded-full border-2 border-red500 justify-center items-center'
-          >
-            <AntDesign name='google' size={20} color={googleColor} />
-          </Pressable>
-          <Pressable
-            onPress={()=>{}}
-            className='h-8 w-8 mx-2 rounded-full border-2 border-blue800 justify-center items-center'
-          >
-            <FontAwesome name='facebook-f' size={20} color={fbColor} />
-          </Pressable>
-          <Pressable
-            onPress={()=>{}}
-            className='h-8 w-8 mx-2 rounded-full justify-center items-center border-2'
-          >
-            <FontAwesome name='github' size={18} color={gitColor} />
-          </Pressable>
-        </View>
+        <OAuth />
 
         <View className='flex-row justify-center pace-x-1'>
           <Text>Need an account?</Text>

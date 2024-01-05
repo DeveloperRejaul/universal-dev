@@ -28,10 +28,10 @@ export const useFrom = ({initialState,schema}: IFormParams)=>{
 
 
 
-  const handleSubmit = async () => {
-    const err = await yupValidate(schema, updatedState);
-    if(err){setErrors(err); return {}; }
-      
+  const handleSubmit = () => {
+    yupValidate(schema, updatedState).then().catch(err=>{
+      if(err){setErrors(err); return null; }
+    });
     setStates(updatedState); 
     setErrors({}); 
     return updatedState;

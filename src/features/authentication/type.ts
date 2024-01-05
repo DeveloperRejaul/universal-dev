@@ -23,8 +23,12 @@ export type loginParams = {
 };
   
 
-
-export type loginProps = {
+export interface IOauthProps {
+  handleGoogleLogin?: () => void;
+  handleFacebookLogin?: () => void;
+  handleGithubLogin?: () => void;
+}
+export interface loginProps extends IOauthProps{
   title?: string;
   emailLabel?: string;
   passwordLabel?: string;
@@ -33,21 +37,20 @@ export type loginProps = {
   handleSignUP?: () => void;
   handleLogin?: (val: loginParams) => object;
   handleForgotPassword?: () => void;
-  handleGoogleLogin?: () => void;
-  handleFacebookLogin?: () => void;
-  handleGithubLogin?: () => void;
   isLoading?: boolean;
-};
+}
 
 
-export type signUpParams = {
+
+
+export interface signUpParams {
   name: string;
   password: string;
   email: string;
-};
+}
   
   
-export type signUpProps = {
+export interface signUpProps extends IOauthProps {
   handleLogin?: () => void;
   title?: string;
   emailLabel?: string;
@@ -61,7 +64,7 @@ export type signUpProps = {
   onChange?: (value: boolean) => void;
   handleSignUP?: (val: signUpParams) => void;
   isLoading?: boolean;
-};
+}
 
 
 export type codeType = {
