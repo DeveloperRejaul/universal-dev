@@ -1,5 +1,5 @@
 import { Input } from '@platform-components';
-import * as Yup from 'yup';
+import{string, object, ref} from 'yup';
 import { Button} from '@components';
 import { Pressable, Text, View } from 'react-native';
 import React from 'react';
@@ -7,15 +7,13 @@ import { useFrom } from '@hooks/useForm';
 import { signUpProps } from '../type';
 import OAuth from './OAuth';
 
-
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
-  email: Yup.string().email('Must be a valid email').required('Email is required'),
-  password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
+const validationSchema = object({
+  name: string().required('Name is required'),
+  email: string().email('Must be a valid email').required('Email is required'),
+  password: string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
-  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
+  confirmPassword: string().oneOf([ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
 });
 
 export default function SimpleSignUp(props: signUpProps) {

@@ -1,5 +1,5 @@
 import { Input } from '@platform-components';
-import * as Yup from 'yup';
+import {object,string }from 'yup';
 import { Button } from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
@@ -8,18 +8,12 @@ import { useFrom } from '@hooks/useForm';
 import { forgotPassProps } from '../type';
 import OAuth from './OAuth';
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Must be a valid email')
-    .required('Email is required'),
-});
-
-
+const schema = object({ email:string().email('Must be a valid email').required('Email is required'),});
 
 export default function ForgotPassword(props: forgotPassProps) {
   const { isLoading,emailPlaceholder, handleLogin, handleSignUP, handleSend} = props;
 
-  const {Controller,errors,handleSubmit} = useFrom({initialState:{ email: '' },schema:validationSchema});
+  const {Controller,errors,handleSubmit} = useFrom({initialState:{ email: '' },schema});
 
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
@@ -57,7 +51,7 @@ export default function ForgotPassword(props: forgotPassProps) {
         <View className='flex-row justify-center pace-x-1'>
           <Text>Do you have an account?</Text>
           <Pressable onPress={handleSignUP}>
-            <Text className='uppercase underline font-medium'>
+            <Text className='uppercase underline font-medium ml-2'>
               Sing up
             </Text>
           </Pressable>

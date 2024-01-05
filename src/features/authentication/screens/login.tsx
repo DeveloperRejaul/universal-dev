@@ -1,5 +1,5 @@
 import { Input } from '@platform-components';
-import * as Yup from 'yup';
+import {boolean, object, string} from 'yup';
 import { Button, CheckBox} from '@components';
 import { Pressable, View,Text } from 'react-native';
 import React from 'react';
@@ -7,10 +7,10 @@ import { useFrom } from '@hooks/useForm';
 import { loginProps } from '../type';
 import OAuth from './OAuth';
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Must be a valid email').required('Email is required'),
-  password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
-  isRemember: Yup.boolean(),
+const validationSchema = object({
+  email: string().email('Must be a valid email').required('Email is required'),
+  password: string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
+  isRemember: boolean(),
 });
 
 export default function SimpleLogin(props: loginProps) {

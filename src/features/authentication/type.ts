@@ -21,8 +21,14 @@ export type loginParams = {
   password: string;
   isRemember: boolean;
 };
-  
 
+export type paramsType = {
+  token: string;
+};
+
+export interface IForgotPassParams {
+  email: string;
+}
 export interface IOauthProps {
   handleGoogleLogin?: () => void;
   handleFacebookLogin?: () => void;

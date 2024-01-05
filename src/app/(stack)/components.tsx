@@ -18,7 +18,7 @@ export default function Components() {
 
   const {show} = useToast();
   const {Controller, handleSubmit, errors} = useFrom({initialState:{name:'', email:''},schema});
-  const onSubmit = async (value)=>{ console.log( await value); };
+  const onSubmit = async (value)=>{ console.log( value); };
   
 
   return (<ScrollView>
