@@ -8,8 +8,8 @@ import { useFrom } from 'src/components/form';
 import { string, object } from 'yup';
 
 const schema = object({
-  name:string().min(10, 'must be at least 10 characters long'),
-  email:string().min(10, 'must be at least 10 characters long').email('must be a valid email')
+  name:string().min(10, 'Must be at least 10 characters long'),
+  email:string().min(10, 'Must be at least 10 characters long').email('Must be a valid email')
 });
 
 
@@ -29,15 +29,12 @@ export default function Components() {
         <Component.H3 className='text-center'> Hook From  components </Component.H3> 
         <Controller
           name='name'
-          render={({onChange})=><PComponent.Input placeholder='Name' onChangeText={onChange} />}
+          render={({onChange})=><PComponent.Input placeholder='Name' onChangeText={onChange} error={errors.name && errors.name } />}
         />
-        {errors.name && <Text>{ errors.name }</Text>}
-
         <Controller
           name='email'
-          render={({onChange})=><PComponent.Input placeholder='Email' onChangeText={onChange} />}
+          render={({onChange})=><PComponent.Input placeholder='Email' onChangeText={onChange} error={errors.email && errors.email } />}
         />
-        {errors.email && <Text> {errors.email} </Text>}
         <Text onPress={()=>onSubmit(handleSubmit())}>Click Me</Text>
       </View>
 
