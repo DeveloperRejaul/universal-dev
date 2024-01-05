@@ -1,6 +1,6 @@
 
 import { View, Text,ScrollView} from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import * as Component from '@components';
 import * as PComponent from '@platform-components';
 import {useToast} from '@hooks/useToast';
@@ -14,13 +14,10 @@ const schema = object({
 
 
 export default function Components() {
+
   const {show} = useToast();
   const {Controller, handleSubmit, errors} = useFrom({initialState:{name:'', email:''},schema});
-
-  const onSubmit = async (value)=>{
-    console.log( await value);
-  };
-
+  const onSubmit = async (value)=>{ console.log( await value); };
 
   return (<ScrollView>
     <View style={{zIndex:-1}} className='px-2 space-y-6 pb-36'>
@@ -42,10 +39,23 @@ export default function Components() {
         {/* Radio components */}
         <Component.H3 className='text-center'> Radio components </Component.H3> 
         <Component.Radio.RadioGroup initialSelect={'apple'} handleSelectValue={(val)=>{console.log(val);}}> 
-          <Component.Radio.Item value={'apple'} />
-          <Component.Radio.Item value={'samsung'} />
-          <Component.Radio.Item value={'Realme'} />
-          <Component.Radio.Item value={'Asus'} />
+          <View className='flex-row'>
+            <Component.Radio.Item value={'apple'} />
+            <Text className='ml-2'>Apple</Text>
+          </View>
+
+          <View className='flex-row'>
+            <Component.Radio.Item value={'samsung'} />
+            <Text className='ml-2'>Samsung</Text>
+          </View>
+          <View className='flex-row'>
+            <Component.Radio.Item value={'Realme'} />
+            <Text className='ml-2'>Realme</Text>
+          </View>
+          <View className='flex-row'>
+            <Component.Radio.Item value={'Asus'} />
+            <Text className='ml-2'>Asus</Text>
+          </View>
         </Component.Radio.RadioGroup>
       </View>
       {/* Display Switch components   */}
@@ -57,7 +67,7 @@ export default function Components() {
       {/* Display Slider components   */}
       <View style={{rowGap:5}}>
         <Component.H3 className='text-center'> Slider components </Component.H3> 
-        <Component.Slider handlePresents={(p)=>{console.log(p);}} />
+        <Slider />
       </View>
 
       {/* Display Toast message  */}
@@ -128,3 +138,15 @@ export default function Components() {
     </View>
   </ScrollView>);
 }
+
+function Slider(){
+  const [slideValue, setSliderValue] = useState(0);
+  return (
+    <>  
+      <Text className='text-center'>{slideValue}</Text>
+      <Component.Slider handlePresents={(v)=>setSliderValue(v)} />
+    </>
+  );
+}
+
+

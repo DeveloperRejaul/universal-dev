@@ -6,30 +6,9 @@ import { Pressable, Text, View } from 'react-native';
 import { useToken } from '@hooks/useToken';
 import React from 'react';
 import { useFrom } from '@hooks/useForm';
+import { signUpProps } from '../type';
 
 
-type signUpParams = {
-  name: string;
-  password: string;
-  email: string;
-};
-
-
-type appProps = {
-  handleLogin?: () => void;
-  title?: string;
-  emailLabel?: string;
-  emailPlaceholder?: string;
-  passwordLabel?: string;
-  passwordPlaceholder?: string;
-  confirmPasswordLabel?: string;
-  confirmPasswordPlaceholder?: string;
-  nameLabel?: string;
-  namePlaceholder?: string;
-  onChange?: (value: boolean) => void;
-  handleSignUP?: (val: signUpParams) => void;
-  isLoading?: boolean;
-};
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
@@ -46,7 +25,7 @@ const fbColor = useToken('colors', 'blue800');
 const gitColor = useToken('colors', 'black');
 
 
-export default function SimpleSignUp(props: appProps) {
+export default function SimpleSignUp(props: signUpProps) {
 
   const {
     handleLogin,

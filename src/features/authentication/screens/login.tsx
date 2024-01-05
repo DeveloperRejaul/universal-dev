@@ -7,6 +7,7 @@ import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';
 import React from 'react';
 import { useFrom } from '@hooks/useForm';
+import { loginProps } from '../type';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('Must be a valid email').required('Email is required'),
@@ -14,47 +15,29 @@ const validationSchema = Yup.object().shape({
   isRemember: Yup.boolean(),
 });
 
-type loginParams = {
-  email: string;
-  password: string;
-  isRemember: boolean;
-};
 
-type appProps = {
-  title?: string;
-  emailLabel?: string;
-  passwordLabel?: string;
-  emailPlaceholder?: string;
-  passwordPlaceholder?: string;
-  handleSignUP?: () => void;
-  handleLogin?: (val: loginParams) => object;
-  handleForgotPassword?: () => void;
-  handleGoogleLogin?: () => void;
-  handleFacebookLogin?: () => void;
-  handleGithubLogin?: () => void;
-  isLoading?: boolean;
-};
 
 const googleColor = useToken('colors', 'red500');
 const fbColor = useToken('colors', 'blue800');
 const gitColor = useToken('colors', 'black');
 
 
-export default function SimpleLogin({
-  title,
-  emailLabel,
-  passwordLabel,
-  emailPlaceholder,
-  passwordPlaceholder,
-  handleSignUP,
-  handleForgotPassword,
-  handleLogin,
-  isLoading,
-  handleFacebookLogin,
-  handleGithubLogin,
-  handleGoogleLogin,
-}: appProps) {
+export default function SimpleLogin(props: loginProps) {
  
+  const {
+    title,
+    emailLabel,
+    passwordLabel,
+    emailPlaceholder,
+    passwordPlaceholder,
+    handleSignUP,
+    handleForgotPassword,
+    handleLogin,
+    isLoading,
+    handleFacebookLogin,
+    handleGithubLogin,
+    handleGoogleLogin,
+  } = props;
 
   const {Controller,errors,handleSubmit,setState} = useFrom({initialState:{email: '', password: '', isRemember: false}, schema:validationSchema});
 

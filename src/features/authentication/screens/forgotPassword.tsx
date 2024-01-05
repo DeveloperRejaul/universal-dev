@@ -7,15 +7,7 @@ import { Text } from 'react-native';
 import { useToken } from '@hooks/useToken';
 import React from 'react';
 import { useFrom } from '@hooks/useForm';
-
-type appProps = {
-  emailPlaceholder?: string;
-  setEmail?: (value: string) => void;
-  handleLogin?: () => void;
-  handleSignUP?: () => void;
-  handleSend?: ({ email }: { email: string }) => void;
-  isLoading?: boolean;
-};
+import { forgotPassProps } from '../type';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -29,13 +21,9 @@ const fbColor = useToken('colors', 'blue800');
 const gitColor = useToken('colors', 'black');
 
 
-export default function ForgotPassword({
-  isLoading,
-  emailPlaceholder,
-  handleLogin,
-  handleSignUP,
-  handleSend,
-}: appProps) {
+export default function ForgotPassword(props: forgotPassProps) {
+  const { isLoading,emailPlaceholder, handleLogin, handleSignUP, handleSend} = props;
+
   const {Controller,errors,handleSubmit} = useFrom({initialState:{ email: '' },schema:validationSchema});
 
   return (
