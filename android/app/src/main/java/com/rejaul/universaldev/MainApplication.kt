@@ -1,4 +1,4 @@
-package com.rejaul_karim.universaldev
+package com.rejaul.universaldev
 
 import android.app.Application
 import android.content.res.Configuration

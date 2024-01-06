@@ -14,7 +14,7 @@
 		96905EF65AED1B983A6B3ABC /* libPods-universaldev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-universaldev.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		32587C99B4B34A4B9DDA92F5 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459211465EE34E3FB7706B83 /* noop-file.swift */; };
+		B23BA7EC476447789ABC0071 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = C851073017484B00A69C3B1F /* noop-file.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +31,8 @@
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-universaldev/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		459211465EE34E3FB7706B83 /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "universaldev/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
-		24A85A25801240F7A8FDC399 /* universaldev-Bridging-Header.h */ = {isa = PBXFileReference; name = "universaldev-Bridging-Header.h"; path = "universaldev/universaldev-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		C851073017484B00A69C3B1F /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "universaldev/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		16AB267EC1754A7D8E11D40F /* universaldev-Bridging-Header.h */ = {isa = PBXFileReference; name = "universaldev-Bridging-Header.h"; path = "universaldev/universaldev-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +57,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				459211465EE34E3FB7706B83 /* noop-file.swift */,
-				24A85A25801240F7A8FDC399 /* universaldev-Bridging-Header.h */,
+				C851073017484B00A69C3B1F /* noop-file.swift */,
+				16AB267EC1754A7D8E11D40F /* universaldev-Bridging-Header.h */,
 			);
 			name = universaldev;
 			sourceTree = "<group>";
@@ -198,7 +198,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				98CD183209C1472797AAC9B3 /* universaldev-Bridging-Header.h in Resources */,
+				F6E08F06CF914993970055F7 /* universaldev-Bridging-Header.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +274,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				32587C99B4B34A4B9DDA92F5 /* noop-file.swift in Sources */,
+				B23BA7EC476447789ABC0071 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,7 +302,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rejaul.universal-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rejaul.universaldev";
 				PRODUCT_NAME = "universaldev";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -329,7 +329,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rejaul.universal-dev";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rejaul.universaldev";
 				PRODUCT_NAME = "universaldev";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
