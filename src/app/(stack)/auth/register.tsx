@@ -12,7 +12,7 @@ export default function register() {
   const [singUp, { isLoading, isError, isSuccess }] = useSignupMutation();
   const {show} = useToast();
 
-  const handleSignUp = async (values: signUpParams) => values && singUp(values);
+  const handleSignUp = async (values: signUpParams) =>{if(await values)singUp(await values);};
 
   useEffect(() => {
     if (isSuccess){

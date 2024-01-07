@@ -11,7 +11,7 @@ export default function () {
   const {show} = useToast();
   const [forgetPass, { isError, isLoading, isSuccess, data }] = useForgetPasswordMutation();
 
-  const handleSend = (value: IForgotPassParams) => value && forgetPass(value);
+  const handleSend = async (value: IForgotPassParams) => { if(await value) forgetPass(await value);};
 
   useEffect(() => {
     if (isSuccess) {

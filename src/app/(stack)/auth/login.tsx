@@ -19,7 +19,12 @@ export default function index() {
   const toast = useToast();
   const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
   
-  const loginReq = (values: loginParams) => login(values);
+
+  
+  
+  const loginReq = async (values: loginParams) => {
+    if(await values) login(await values);
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -34,8 +39,8 @@ export default function index() {
   return (
     <View className='flex-1 justify-center items-center bg-stone-100'>
       <SimpleLogin
-        handleGoogleLogin={() => {}}
-        handleFacebookLogin={() => {}}
+        handleGoogleLogin={()=>{}}
+        handleFacebookLogin={()=>{}}
         handleGithubLogin={() => {}}
         isLoading={isLoading}
         handleLogin={loginReq}

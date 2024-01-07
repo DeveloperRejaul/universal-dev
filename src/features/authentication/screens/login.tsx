@@ -8,15 +8,14 @@ import { loginProps } from '../type';
 import OAuth from './OAuth';
 import { useOAuth } from '@hooks/useOAuth';
 
-
-
 const schema = object({
   email: string().email('Must be a valid email').required('Email is required'),
   password: string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
   isRemember: boolean(),
 });
 export default function SimpleLogin(props: loginProps) {
- 
+  const {googlePromptAsync,googleUserInfo } = useOAuth();
+
   const {
     title,
     emailLabel,
@@ -27,13 +26,14 @@ export default function SimpleLogin(props: loginProps) {
     handleForgotPassword,
     handleLogin,
     isLoading,
+    handleFacebookLogin,
+    handleGithubLogin,
+    handleGoogleLogin
   } = props;
 
   const {Controller,errors,handleSubmit,setState} = useFrom({initialState:{email: '', password: '', isRemember: false}, schema});
-  const {googlePromptAsync,googleUserInfo} = useOAuth();
 
- 
-
+  
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
       <View className='gap-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
@@ -89,7 +89,7 @@ export default function SimpleLogin(props: loginProps) {
           <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
 
-        <OAuth handleGoogleLogin={()=>googlePromptAsync()} />
+        <OAuth handleGoogleLogin={()=>googlePromptAsync()} handleFacebookLogin={handleFacebookLogin} handleGithubLogin={handleGithubLogin} />
         <View className='flex-row justify-center'>
           <Text>Need an account?</Text>
           <Pressable onPress={handleSignUP}>

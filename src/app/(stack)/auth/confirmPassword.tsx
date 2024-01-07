@@ -10,10 +10,8 @@ export default function () {
   const { token }: { token: string } = useLocalSearchParams();
 
   const handleSend = async (values: { password: string }) => {
-    console.log( await values);
-    
     router.push('/auth/login');
-    await addNewPassword({ password: values.password, token });
+    await addNewPassword({ password: await values.password, token });
   };
   useEffect(() => {
 

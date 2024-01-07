@@ -3,9 +3,9 @@ import React, { useState, forwardRef, FocusEvent } from 'react';
 import './style.css';
 import { Pressable, View, ViewStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { rf } from 'src/constants/dimensions';
 import { useToken } from '@hooks/useToken';
 import { Text } from 'react-native';
+import { ICON_SIZE } from './constants';
 
 const textareaType = ['textarea'];
 
@@ -93,14 +93,14 @@ export default forwardRef((props: appProps,ref: React.ForwardedRef<HTMLInputElem
 
         {type === 'search' ? (
           <Pressable>
-            <Ionicons name='search' size={rf(2)} color={color} />
+            <Ionicons name='search' size={ICON_SIZE} color={color} />
           </Pressable>
         ) : null}
         {type === 'password' ? (
           <Pressable onPress={() => setPasswordHidden((pre) => !pre)}>
             <Ionicons
               name={passwordHidden ? 'eye-off' : 'eye'}
-              size={rf(2)}
+              size={ICON_SIZE}
               color={'gray'}
             />
           </Pressable>
