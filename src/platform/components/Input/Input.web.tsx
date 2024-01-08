@@ -24,7 +24,6 @@ type appProps = {
   autoFocus?: boolean;
   defaultValue?: string;
   className?: string;
-
 };
 
 const color = useToken('colors', 'gray');

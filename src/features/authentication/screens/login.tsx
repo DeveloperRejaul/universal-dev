@@ -16,6 +16,7 @@ const schema = object({
 export default function SimpleLogin(props: loginProps) {
   const {googlePromptAsync,googleUserInfo } = useOAuth();
 
+
   const {
     title,
     emailLabel,

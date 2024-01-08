@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface ISaveAsyncData {
-  key: '@googleAuth' | '@facebookAuth' | '@githubAuth';
+  key: '@googleAuth' | '@facebookAuth' | '@githubAuth' | '@authToken';
   data: string
 }
   
 interface IGetAsyncData {
-  key: '@googleAuth' | '@facebookAuth' | '@githubAuth';
+  key: '@googleAuth' | '@facebookAuth' | '@githubAuth'| '@authToken';
 }
   
 interface IObjectStorage {
