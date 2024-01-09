@@ -1,24 +1,45 @@
-import useFonts from '@hooks/useFonts';
 import { useGlobal } from '@hooks/useGlobal';
-import React, { ReactElement, createContext} from 'react';
+import React, { createContext,useCallback,useEffect} from 'react';
+import { Socket } from 'socket.io-client';
+import * as SplashScreen from 'expo-splash-screen';
+import InterBlack from '../../assets/fonts/SpaceMono-Regular.ttf';
+import {useFonts } from 'expo-font';
 import { View } from 'react-native';
 
-type contextType = object
-type AppProps = {
-  children: ReactElement, 
+
+const customFonts = {
+  'Inter-Black': InterBlack,
+};
+
+
+interface IContextType {
+  socket: Socket | null,
 }
 
-export const Context = createContext<contextType>({});
+type AppProps = {
+  children: React.ReactNode
+}
+
+export const Context = createContext({} as IContextType );
 
 
+
+SplashScreen.preventAutoHideAsync();
 export default function AppContext({children}: AppProps) {
-  const {handleOnLayout,isLoaded} = useFonts();
+  const [fontsLoaded] = useFonts(customFonts);
 
-  if (!isLoaded) return null;
+  const handleLayout = useCallback(async()=>{
+    if(fontsLoaded) await SplashScreen.hideAsync();
+  },[fontsLoaded]);
+
+  if(!fontsLoaded) return <></>;
+
   return (
     <Context.Provider value={{...useGlobal()}}>
-      <View onLayout={handleOnLayout} />
-      {children}
+      <View style={{flex:1}} onLayout={handleLayout}>
+        {children}
+      </View>
     </Context.Provider>
   );
 }
+

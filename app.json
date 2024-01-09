@@ -51,7 +51,12 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
-      ]
+      ],
+      "expo-font",{
+        "fonts": [
+          "./src/assets/fonts/Inter-Black.otf"
+        ]
+      }
     ],
     "experiments": {
       "typedRoutes": true,

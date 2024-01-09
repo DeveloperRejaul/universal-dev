@@ -13,9 +13,11 @@ SplashScreen.preventAutoHideAsync();
 export default () => {
   const [isLoaded] = useFonts(customFonts);
 
-  const handleOnLayout = useCallback(async () => {
+  const handleOnLayout = useCallback( async () => {
+    console.log(isLoaded);
+    
     if (isLoaded) await SplashScreen.hideAsync();
-  }, [isLoaded]);
+  },[isLoaded]);
 
   return { handleOnLayout, isLoaded };
 };
