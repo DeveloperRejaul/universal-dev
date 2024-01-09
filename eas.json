@@ -31,12 +31,28 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_BASE_URL": "http://192.168.0.107:4000/api/v-1"
+        "EXPO_PUBLIC_BASE_URL": "http://192.168.0.107:4000/api/v-1",
+        "EXPO_PUBLIC_FIREBASE_API_KEY":"AIzaSyDzBozD8F4RTo-9mL0F1iKCYy4thlbg2SE",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN":"demoapp-eba90.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_DATABASE_URL":"https://demoapp-eba90-default-rtdb.asia-southeast1.firebasedatabase.app",
+        "EXPO_PUBLIC_PROJECT_ID":"demoapp-eba90",
+        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET":"demoapp-eba90.appspot.com",
+        "EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID":"458647144911",
+        "EXPO_PUBLIC_FIREBASE_APP_ID":"1:458647144911:web:20384d2c872fd2be6e6aba",
+        "EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID":"G-YD07Z045G7"
       }
     },
     "test": {
       "env": {
-        "EXPO_PUBLIC_BASE_URL": "http://192.168.0.107:4000/api/v-1"
+        "EXPO_PUBLIC_BASE_URL": "http://192.168.0.107:4000/api/v-1",
+        "EXPO_PUBLIC_FIREBASE_API_KEY":"AIzaSyDzBozD8F4RTo-9mL0F1iKCYy4thlbg2SE",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN":"demoapp-eba90.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_DATABASE_URL":"https://demoapp-eba90-default-rtdb.asia-southeast1.firebasedatabase.app",
+        "EXPO_PUBLIC_PROJECT_ID":"demoapp-eba90",
+        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET":"demoapp-eba90.appspot.com",
+        "EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID":"458647144911",
+        "EXPO_PUBLIC_FIREBASE_APP_ID":"1:458647144911:web:20384d2c872fd2be6e6aba",
+        "EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID":"G-YD07Z045G7"
       }
     }
   },
