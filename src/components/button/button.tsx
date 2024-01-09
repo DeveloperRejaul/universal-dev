@@ -12,6 +12,7 @@ interface IPropsType {
 }
 
 const textColor = useToken('colors', 'gray');
+const ICON_SIZE = useToken('size','6');
 
 export default function button({ onPress ,text,isLoading,textStyle,containerStyle,className}: IPropsType) {
   return (
@@ -22,7 +23,7 @@ export default function button({ onPress ,text,isLoading,textStyle,containerStyl
       onPress={onPress}
     >
       {isLoading ? (
-        <ActivityIndicator color={'#fff'} />
+        <ActivityIndicator size={ICON_SIZE} color={'#fff'} />
       ) : (
         <Text
           style={textStyle}

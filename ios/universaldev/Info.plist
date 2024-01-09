@@ -27,8 +27,8 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>universal-dev</string>
-          <string>com.rejaul.universal-dev</string>
+          <string>universal</string>
+          <string>com.rejaul.universaldev</string>
         </array>
       </dict>
     </array>

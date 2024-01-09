@@ -1,4 +1,5 @@
 import useFonts from '@hooks/useFonts';
+import { useGlobal } from '@hooks/useGlobal';
 import React, { ReactElement, createContext} from 'react';
 import { View } from 'react-native';
 
@@ -15,7 +16,7 @@ export default function AppContext({children}: AppProps) {
 
   if (!isLoaded) return null;
   return (
-    <Context.Provider value={{}}>
+    <Context.Provider value={{...useGlobal()}}>
       <View onLayout={handleOnLayout} />
       {children}
     </Context.Provider>

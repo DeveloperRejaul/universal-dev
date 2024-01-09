@@ -17,7 +17,7 @@ export default function verification() {
 
     router.push('/auth/confirmPassword');
     await checkPasswordValid({
-      code: Number(`${values.otp1}${values.otp2}${values.otp3}${values.otp4}`),
+      code: Number(`${await values.otp1}${await values.otp2}${await values.otp3}${await values.otp4}`),
       token: params.token,
     });
   };
