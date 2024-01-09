@@ -4,15 +4,9 @@ import { Button } from '@components';
 import { View } from 'react-native';
 import React from 'react';
 import { useFrom } from '@hooks/useForm';
+import { confirmPasswordProps } from '../type';
 
-type appProps = {
-  passwordConfirmLabel?: string;
-  passwordLabel?: string;
-  passwordConfirmPlaceholder?: string;
-  passwordPlaceholder?: string;
-  handleSend?: (values: { password: string }) => void;
-  isLoading: boolean;
-};
+
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
@@ -21,14 +15,16 @@ const validationSchema = Yup.object().shape({
   confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
 });
 
-export default function ConfirmPassword({
-  passwordLabel,
-  passwordPlaceholder,
-  handleSend,
-  passwordConfirmLabel,
-  passwordConfirmPlaceholder,
-  isLoading,
-}: appProps) {
+export default function ConfirmPassword(props: confirmPasswordProps) {
+
+  const {
+    passwordLabel,
+    passwordPlaceholder,
+    handleSend,
+    passwordConfirmLabel,
+    passwordConfirmPlaceholder,
+    isLoading,
+  } = props;
 
   const {Controller,errors,handleSubmit} = useFrom({initialState: { password: '', confirmPassword: '' },schema:validationSchema});
     

@@ -46,7 +46,7 @@ export const userApi = api.injectEndpoints({
     forgetPassword: builder.mutation({
       query: (data: forgetPassData) => {
         return {
-          url: '/auth/user/forgot-password',
+          url: '/user/forgot-password',
           method: 'POST',
           body: JSON.stringify(data),
           headers: { 'Content-Type': 'application/json' },

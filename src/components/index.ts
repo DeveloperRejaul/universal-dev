@@ -20,6 +20,7 @@ import Slider from './slider/Slider';
 import Switch from './Switch/Switch';
 import * as Radio from './radio/index';
 import Accordion from './accordion/Accordion';
+import Center from './center/Center';
 
 
 export { 
@@ -46,4 +47,5 @@ export {
   Switch,
   Radio,
   Accordion,
+  Center
 };

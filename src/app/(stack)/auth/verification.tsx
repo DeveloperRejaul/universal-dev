@@ -3,16 +3,8 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import Verification from 'src/features/authentication/screens/verification';
 import { usePasswordVerificationMutation } from 'src/features/authentication/api';
 import { View } from 'react-native';
+import { codeType, paramsType } from 'src/features/authentication/type';
 
-type codeType = {
-  otp1: number;
-  otp2: number;
-  otp3: number;
-  otp4: number;
-};
-type paramsType = {
-  token: string;
-};
 
 export default function verification() {
   const router = useRouter();
