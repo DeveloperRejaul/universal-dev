@@ -1,22 +1,17 @@
 import { useAppContext } from '@hooks/useAppContext';
-import { useAppDispatch } from '@hooks/useAppDispatch';
 import { useToast } from '@hooks/useToast';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useLoginMutation } from 'src/features/authentication/api';
 import SimpleLogin from 'src/features/authentication/screens/login';
-import { handleLogin } from 'src/features/authentication/slice';
 import { storage } from 'src/utils/storage';
+import {type loginParams } from 'src/features/authentication/type';
+import { userRole } from 'src/constants/constants';
 
-type loginParams = {
-  email: string;
-  password: string;
-  isRemember: boolean;
-};
+
 
 export default function index() {
-  const dispatch = useAppDispatch();
   const router = useRouter();
   const toast = useToast();
   const {socket} = useAppContext();
@@ -28,17 +23,21 @@ export default function index() {
 
   useEffect(() => {
     if (isSuccess) {
-      const init = async ()=>{
-        await storage.saveAsyncData({data:data.token, key:'@authToken'});
-        socket?.connect();
-      };
+      const init = async ()=>await storage.saveAsyncData({data:data.token, key:'@authToken'});
       init();
-      dispatch(handleLogin());
+      
+      if(!socket?.connected)socket?.connect();
+      toast.show('Login successful',{type:'success'});
+     
       setTimeout(() => {
-        router.replace('/(drawer)/(tab)/home/main');
+        if(data.role === userRole.USER)router.replace('/(drawer)/(tab)/home/main');
+        if(data.role === userRole.MODERATOR)router.replace('/dashboard/Home');
+        if(data.role === userRole.ADMIN)router.replace('/dashboard/Home');
       }, 1000);
+
     }
     if(isError) toast.show('Invalid user name or password',{type:'warning'});
+
   }, [isError, isSuccess, data]);
 
 

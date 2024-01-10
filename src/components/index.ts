@@ -21,6 +21,8 @@ import Switch from './Switch/Switch';
 import * as Radio from './radio/index';
 import Accordion from './accordion/Accordion';
 import Center from './center/Center';
+import Protected from './protected/protected';
+import Loading from './loading/loading';
 
 
 export { 
@@ -47,5 +49,7 @@ export {
   Switch,
   Radio,
   Accordion,
-  Center
+  Center,
+  Protected,
+  Loading
 };

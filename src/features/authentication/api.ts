@@ -1,24 +1,5 @@
 import { api } from 'src/store/rtk/api';
-
-type loginData = {
-  email: string;
-  password: string;
-  isRemember: boolean;
-};
-
-type forgetPassData = {
-  email: string;
-};
-
-type verificationPassword = {
-  code: number;
-  token: string;
-};
-
-type addNewPassword = {
-  password: string;
-  token: string;
-};
+import { type addNewPassword, forgetPassData, loginData, verificationPassword } from './type';
 
 export const userApi = api.injectEndpoints({
   overrideExisting: true,
@@ -73,6 +54,15 @@ export const userApi = api.injectEndpoints({
         };
       },
     }),
+    checkAuth:builder.mutation({
+      query:(token: string)=>{
+        return {
+          url:'user/check',
+          method:'POST',
+          body:{token: `Barer ${token}`}
+        };
+      }
+    })
   }),
 });
 
@@ -82,4 +72,5 @@ export const {
   useForgetPasswordMutation,
   usePasswordVerificationMutation,
   useAddNewPasswordMutation,
+  useCheckAuthMutation,
 } = userApi;

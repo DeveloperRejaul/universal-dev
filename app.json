@@ -51,12 +51,7 @@
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
-      ],
-      "expo-font",{
-        "fonts": [
-          "./src/assets/fonts/Inter-Black.otf"
-        ]
-      }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
@@ -66,14 +61,7 @@
       "eas": {
         "projectId": "a09fc12b-fecf-4637-81a4-3469ab543409"
       },
-      "router": {
-        "origin": "https://acme.com",
-        "asyncRoutes": {
-          "web": false,
-          "android": false,
-          "default": "development"
-        }
-      }
+      "router": {}
     }
   }
 }

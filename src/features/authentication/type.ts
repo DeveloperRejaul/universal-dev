@@ -86,3 +86,23 @@ export type verificationProps = {
   isLoading?: boolean;
 };
   
+
+export type loginData = {
+  email: string;
+  password: string;
+  isRemember: boolean;
+};
+
+export type forgetPassData = {
+  email: string;
+};
+
+export type verificationPassword = {
+  code: number;
+  token: string;
+};
+
+export type addNewPassword = {
+  password: string;
+  token: string;
+};

@@ -15,6 +15,5 @@ export const useGlobal = () => {
     init();
   },[]);
 
-
   return {socket};
 };

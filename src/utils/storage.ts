@@ -11,7 +11,7 @@ interface IGetAsyncData {
   
 interface IObjectStorage {
   saveAsyncData: ({key, data}: ISaveAsyncData) => Promise<'success'|'error'>;
-  getAsyncData: ({key}: IGetAsyncData) => Promise<string>;
+  getAsyncData: ({key}: IGetAsyncData) => Promise< 'error' | string>;
   deleteAsyncData: ({key}: IGetAsyncData) => Promise<'success'|'error'>;
   updateAsyncData: ({key, data}: ISaveAsyncData) => Promise<'success'|'error'>;
   deleteAllAsyncData: () => Promise<'success'|'error'>;
