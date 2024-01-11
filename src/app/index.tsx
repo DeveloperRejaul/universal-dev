@@ -12,9 +12,9 @@ export default ()=>{
   if(isError) return <Redirect href={'/auth/login'} />;
   if(!haveToken) return <Redirect href={'/auth/login'} />;
   if(isLoading) return <Loading />;
-  if(isSuccess && user.role === USER) return <Redirect href={'/home/main'} />;
-  if(isSuccess && user.role === MODERATOR) return <Redirect href={'/dashboard/Home'} />;
-  if(isSuccess && user.role === ADMIN) return <Redirect href={'/dashboard/Home'} />;
+  if(isSuccess && user.role === USER) return <Redirect href={{pathname:'/home/main'}} />;
+  if(isSuccess && user.role === MODERATOR) return <Redirect href={{ pathname:'/dashboard/Home'}} />;
+  if(isSuccess && user.role === ADMIN) return <Redirect href={{pathname:'/dashboard/Home'}} />;
 
 
 };
