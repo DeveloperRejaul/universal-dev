@@ -6,8 +6,8 @@ import Loading from '../loading/loading';
 import { protectedProps } from './type';
 
 
-export default function Protected({children}: protectedProps) {
-  const [checkAuthUser , {isError, isLoading, isSuccess}] = useCheckAuthMutation();
+export default function Protected({children, role}: protectedProps) {
+  const [checkAuthUser , {isError, isLoading, isSuccess, data}] = useCheckAuthMutation();
   const [isToken, setToken] = useState(true);
 
   useEffect(()=>{
@@ -19,9 +19,7 @@ export default function Protected({children}: protectedProps) {
     init();
   },[]);
 
-
   if(isLoading) return <Loading />;
-  if(isError) return <Redirect href={'/auth/login'} />;
-  if(isSuccess) return children;
-  if(!isToken) return <Redirect href={'/auth/login'} />;
+  if(isError || !isToken || (isSuccess && !role.includes(data.role)) ) return <Redirect href={'/auth/login'} />;
+  if(isSuccess && role.includes(data.role))return children;
 }

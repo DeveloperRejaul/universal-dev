@@ -1,14 +1,13 @@
 import React, { useContext, useEffect } from 'react';
-import { SIDEBAR_WIDTH } from '../../dashboard/constants/constants';
+import { SIDEBAR_ICON_SIZE, SIDEBAR_WIDTH } from '../../constants/constants';
 import Animated, { useSharedValue, withTiming } from 'react-native-reanimated';
 import Icon from '@expo/vector-icons/AntDesign';
-import { ScrollView, View , Pressable, StyleSheet, useWindowDimensions} from 'react-native';
+import { ScrollView, View , StyleSheet, useWindowDimensions, Text} from 'react-native';
 import { useMedia } from '@hooks/useMedia';
 import { useToken } from '@hooks/useToken';
 import { DrawerContext } from 'src/features/dashboard/screens/Index';
 
-const color = useToken('colors', 'white');
-
+const color = useToken('colors', 'black');
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 
@@ -26,16 +25,22 @@ export default function Sidebar() {
   
 
   return (
-    <AnimatedView style={[{transform: [{ translateX }], zIndex:999}]} >
-      <View className={ md ? 'static':'absolute' } style={[styles.container,{height}]}>
+    <AnimatedView style={[{transform: [{ translateX }], zIndex:999,}]} >
+      <View className={ md ? 'static shadow':'absolute' } style={[styles.container,{height}]}>
         <ScrollView>
-          <View style={styles.scrollBody}>
-            <Pressable
-              style={styles.btn}
-              onPress={() => toggle(p=>!p)}
-            >
-              <Icon name='menuunfold' size={20} color={color} />
-            </Pressable>
+          <View >
+
+            {/* Sidebar  top  section */}
+            <View className='flex-row w-[100%]'>
+              <View className ='w-[90%] h-12 justify-center'>
+                <Text > Logo </Text>
+              </View>
+              {md || <View className='w-[10%] h-12  justify-center items-center' >
+                <Icon name='menuunfold' onPress={() => toggle(p=>!p)} size={SIDEBAR_ICON_SIZE-10} color={color} />
+              </View>}
+            </View>
+            {/* button for sidebar open and close  */}
+
           </View>
         </ScrollView>
       </View>
@@ -49,6 +54,4 @@ const styles = StyleSheet.create({
     width:SIDEBAR_WIDTH,
     backgroundColor:'#fff',
   },
-  scrollBody:{flex:1, alignItems:'center', backgroundColor:'red'},
-  btn:{alignSelf:'flex-end', padding:10},
 });

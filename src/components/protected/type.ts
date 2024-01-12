@@ -5,5 +5,6 @@ export type handleProtectedParams = {
 export type protectedProps = {
   children: React.ReactNode;
   handleProtected?: (params: handleProtectedParams) => void
+  role: string[];
 }
   
