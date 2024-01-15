@@ -3,16 +3,8 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import Verification from 'src/features/authentication/screens/verification';
 import { usePasswordVerificationMutation } from 'src/features/authentication/api';
 import { View } from 'react-native';
+import { codeType, paramsType } from 'src/features/authentication/type';
 
-type codeType = {
-  otp1: number;
-  otp2: number;
-  otp3: number;
-  otp4: number;
-};
-type paramsType = {
-  token: string;
-};
 
 export default function verification() {
   const router = useRouter();
@@ -21,11 +13,11 @@ export default function verification() {
   const { isError, isSuccess, isLoading } = response;
 
   const handleSend = async (values: codeType) => {
-
+    const {otp1,otp2,otp3,otp4} = await values;
 
     router.push('/auth/confirmPassword');
     await checkPasswordValid({
-      code: Number(`${values.otp1}${values.otp2}${values.otp3}${values.otp4}`),
+      code: Number(`${otp1}${otp2}${otp3}${otp4}`),
       token: params.token,
     });
   };

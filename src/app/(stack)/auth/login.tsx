@@ -1,42 +1,51 @@
-import { useAppDispatch } from '@hooks/useAppDispatch';
+import { useAppContext } from '@hooks/useAppContext';
+import { useToast } from '@hooks/useToast';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useLoginMutation } from 'src/features/authentication/api';
 import SimpleLogin from 'src/features/authentication/screens/login';
-import { handleLogin } from 'src/features/authentication/slice';
+import { storage } from 'src/utils/storage';
+import {type loginParams } from 'src/features/authentication/type';
+import { userRole } from 'src/constants/constants';
 
-type loginParams = {
-  email: string;
-  password: string;
-  isRemember: boolean;
-};
+
 
 export default function index() {
-  const dispatch = useAppDispatch();
   const router = useRouter();
-  const [login, { isLoading, isSuccess, isError }] = useLoginMutation();
+  const toast = useToast();
+  const {socket} = useAppContext();
+  const [login, { isLoading, isSuccess, isError, data }] = useLoginMutation();
   
   const loginReq = async (values: loginParams) => {
-   
-    console.log(await values);
-   
+    if(await values) login(await values);
   };
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(handleLogin());
+      const init = async ()=>await storage.saveAsyncData({data:data.token, key:'@authToken'});
+      init();
+      
+      if(!socket?.connected)socket?.connect();
+      toast.show('Login successful',{type:'success'});
+     
       setTimeout(() => {
-        router.replace('/(drawer)/(tab)/home/main');
+        if(data.role === userRole.USER)router.replace('/(drawer)/(tab)/home/main');
+        if(data.role === userRole.MODERATOR)router.replace('/dashboard/Home');
+        if(data.role === userRole.ADMIN)router.replace('/dashboard/Home');
       }, 1000);
+
     }
-  }, [isError, isSuccess]);
+    if(isError) toast.show('Invalid user name or password',{type:'warning'});
+
+  }, [isError, isSuccess, data]);
+
 
   return (
     <View className='flex-1 justify-center items-center bg-stone-100'>
       <SimpleLogin
-        handleGoogleLogin={() => {}}
-        handleFacebookLogin={() => {}}
+        handleGoogleLogin={()=>{}}
+        handleFacebookLogin={()=>{}}
         handleGithubLogin={() => {}}
         isLoading={isLoading}
         handleLogin={loginReq}

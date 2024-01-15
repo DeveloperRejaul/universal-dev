@@ -1,64 +1,40 @@
 import { Input } from '@platform-components';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import * as Yup from 'yup';
+import {boolean, object, string} from 'yup';
 import { Button, CheckBox} from '@components';
-import { Pressable, View } from 'react-native';
-import { Text } from 'react-native';
-import { useToken } from '@hooks/useToken';
+import { Pressable, View,Text } from 'react-native';
 import React from 'react';
 import { useFrom } from '@hooks/useForm';
+import { loginProps } from '../type';
+import OAuth from './OAuth';
+import { useOAuth } from '@hooks/useOAuth';
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Must be a valid email').required('Email is required'),
-  password: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
-  isRemember: Yup.boolean(),
+const schema = object({
+  email: string().email('Must be a valid email').required('Email is required'),
+  password: string().min(6, 'Too Short!').max(50, 'Too Long!').required('Password is required'),
+  isRemember: boolean(),
 });
-
-type loginParams = {
-  email: string;
-  password: string;
-  isRemember: boolean;
-};
-
-type appProps = {
-  title?: string;
-  emailLabel?: string;
-  passwordLabel?: string;
-  emailPlaceholder?: string;
-  passwordPlaceholder?: string;
-  handleSignUP?: () => void;
-  handleLogin?: (val: loginParams) => object;
-  handleForgotPassword?: () => void;
-  handleGoogleLogin?: () => void;
-  handleFacebookLogin?: () => void;
-  handleGithubLogin?: () => void;
-  isLoading?: boolean;
-};
-
-const googleColor = useToken('colors', 'red500');
-const fbColor = useToken('colors', 'blue800');
-const gitColor = useToken('colors', 'black');
+export default function SimpleLogin(props: loginProps) {
+  const {googlePromptAsync,googleUserInfo } = useOAuth();
 
 
-export default function SimpleLogin({
-  title,
-  emailLabel,
-  passwordLabel,
-  emailPlaceholder,
-  passwordPlaceholder,
-  handleSignUP,
-  handleForgotPassword,
-  handleLogin,
-  isLoading,
-  handleFacebookLogin,
-  handleGithubLogin,
-  handleGoogleLogin,
-}: appProps) {
- 
+  const {
+    title,
+    emailLabel,
+    passwordLabel,
+    emailPlaceholder,
+    passwordPlaceholder,
+    handleSignUP,
+    handleForgotPassword,
+    handleLogin,
+    isLoading,
+    handleFacebookLogin,
+    handleGithubLogin,
+    handleGoogleLogin
+  } = props;
 
-  const {Controller,errors,handleSubmit,setState} = useFrom({initialState:{email: '', password: '', isRemember: false}, schema:validationSchema});
+  const {Controller,errors,handleSubmit,setState} = useFrom({initialState:{email: '', password: '', isRemember: false}, schema});
 
-
+  
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
       <View className='gap-y-4 base:w-[90%] web:w-[70%] lg:w-[50%]'>
@@ -72,8 +48,8 @@ export default function SimpleLogin({
               label={emailLabel || 'Email'}
               placeholder={emailPlaceholder || 'Enter email'}
               error={errors.email ? errors.email : ''}
-            />) 
-          } 
+            />
+          )} 
         />
 
         <Controller 
@@ -114,30 +90,11 @@ export default function SimpleLogin({
           <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
 
-        <View className='flex-row justify-center mt-1'>
-          <Pressable
-            onPress={handleGoogleLogin}
-            className='h-8 w-8 mx-2sss rounded-full border-2 border-red500 justify-center items-center'
-          >
-            <AntDesign name='google' size={20} color={googleColor} />
-          </Pressable>
-          <Pressable
-            onPress={handleFacebookLogin}
-            className='h-8 w-8 mx-2sss rounded-full border-2 border-blue800 justify-center items-center'
-          >
-            <FontAwesome name='facebook-f' size={20} color={fbColor} />
-          </Pressable>
-          <Pressable
-            onPress={handleGithubLogin}
-            className='h-8 w-8 mx-2sss rounded-full justify-center items-center border-2'
-          >
-            <FontAwesome name='github' size={18} color={gitColor} />
-          </Pressable>
-        </View>
-        <View className='flex-row justify-center space-x-1'>
+        <OAuth handleGoogleLogin={()=>googlePromptAsync()} handleFacebookLogin={handleFacebookLogin} handleGithubLogin={handleGithubLogin} />
+        <View className='flex-row justify-center'>
           <Text>Need an account?</Text>
           <Pressable onPress={handleSignUP}>
-            <Text className='uppercase underline font-medium'>
+            <Text className='uppercase underline font-medium ml-2'>
               Sign up
             </Text>
           </Pressable>

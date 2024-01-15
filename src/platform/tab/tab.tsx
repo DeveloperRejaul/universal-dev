@@ -4,6 +4,8 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { rf } from 'src/constants/dimensions';
+
+
 export default () => {
   const {md} = useMedia();
   return (
@@ -37,12 +39,12 @@ export default () => {
         }}
       />
       <Tabs.Screen
-        name='notification'
+        name='profile'
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={md && styles.icon}>
               <Ionicons
-                name='notifications'
+                name='person'
                 size={rf(2)}
                 color={focused ? '#2196f3' : 'black'}
               />
@@ -50,7 +52,7 @@ export default () => {
           ),
           tabBarLabel: ({ focused }) => (
             <View style={ md && styles.label}>
-              <Text style={{color:focused ? '#2196f3' : 'black', marginTop:3 }}>Notification</Text>
+              <Text style={{color:focused ? '#2196f3' : 'black', marginTop:3 }}>Profile</Text>
             </View>
           ),
         }}

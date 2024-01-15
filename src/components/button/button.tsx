@@ -8,20 +8,22 @@ interface IPropsType {
   isLoading?: boolean;
   textStyle?: TextStyle;
   containerStyle?: ViewStyle;
+  className?: string;
 }
 
 const textColor = useToken('colors', 'gray');
+const ICON_SIZE = useToken('size','6');
 
-export default function button({ onPress ,text,isLoading,textStyle,containerStyle}: IPropsType) {
+export default function button({ onPress ,text,isLoading,textStyle,containerStyle,className}: IPropsType) {
   return (
     <Pressable
       disabled={isLoading}
       style={containerStyle}
-      className='bg-rose500 justify-center items-center rounded-md py-1 hover:bg-rose600'
+      className={`bg-rose500 justify-center items-center rounded-md py-1 hover:bg-rose600 ${className}`}
       onPress={onPress}
     >
       {isLoading ? (
-        <ActivityIndicator color={'#fff'} />
+        <ActivityIndicator size={ICON_SIZE} color={'#fff'} />
       ) : (
         <Text
           style={textStyle}

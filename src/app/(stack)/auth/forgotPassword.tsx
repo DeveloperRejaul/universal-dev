@@ -3,23 +3,25 @@ import { useRouter } from 'expo-router';
 import ForgotPassword from 'src/features/authentication/screens/forgotPassword';
 import { useForgetPasswordMutation } from 'src/features/authentication/api';
 import { View } from 'react-native';
+import { IForgotPassParams } from 'src/features/authentication/type';
+import { useToast } from '@hooks/useToast';
 
 export default function () {
   const router = useRouter();
+  const {show} = useToast();
   const [forgetPass, { isError, isLoading, isSuccess, data }] = useForgetPasswordMutation();
 
-  const handleSend = async ({ email }: { email: string }) => {
-    // router.push({ pathname: '/(stack)/auth/verification'});
-    await forgetPass({ email });
-  };
+  const handleSend = async (value: IForgotPassParams) => { if(await value) forgetPass(await value);};
 
   useEffect(() => {
     if (isSuccess) {
+      show('Mail is exist', {type:'success'});
       setTimeout(() => {
-        router.push({ pathname: '/(stack)/auth/verification', params: data });
+        router.push({ pathname: '/auth/verification', params: data });
       }, 1000);
     }
-  }, [isError, isSuccess]);
+    if(isError) show('Your mail is not exists ', {type:'warning'});
+  }, [isError, isSuccess,data]);
 
 
   return (

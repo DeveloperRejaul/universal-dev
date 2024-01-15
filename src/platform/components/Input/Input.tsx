@@ -1,10 +1,10 @@
 import React, { useState, forwardRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { rf } from 'src/constants/dimensions';
 import { NativeSyntheticEvent, Pressable, TextInput, TextStyle, ViewStyle } from 'react-native';
 import { View } from 'react-native';
 import { Text } from 'react-native';
 import { TextInputFocusEventData } from 'react-native';
+import { ICON_SIZE } from './constants';
 
 type appProps = {
   label?: string;
@@ -63,14 +63,14 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
         />
         {type === 'search' ? (
           <Pressable>
-            <Ionicons name='search' size={rf(3)} color={'gray'} />
+            <Ionicons name='search' size={ICON_SIZE} color={'gray'} />
           </Pressable>
         ) : null}
         {type === 'password' ? (
           <Pressable onPress={() => setPasswordHidden((pre) => !pre)}>
             <Ionicons
               name={passwordHidden ? 'eye-off' : 'eye'}
-              size={rf(3)}
+              size={ICON_SIZE}
               color={'gray'}
             />
           </Pressable>

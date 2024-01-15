@@ -1,4 +1,3 @@
-
 import { CustomDrawer } from '@drawer';
 import { useToken } from '@hooks/useToken';
 import { DrawerActions } from '@react-navigation/native';
@@ -11,8 +10,8 @@ const color = useToken('colors', 'amber400');
 export default function DrawerLayout() {
   const router = useRouter();
   const navigation = useNavigation();
-  
-  return (
+
+  return( 
     <Drawer
       screenOptions={{ headerShown: false }}
       drawerContent={(props) => (

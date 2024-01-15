@@ -16,6 +16,7 @@ export const useFrom = ({initialState,schema}: IFormParams)=>{
 
 
   useEffect(()=>{
+    Object.keys(updatedState).forEach(k=>delete updatedState[k]);
     for (const key in initialState) {
       if (Object.prototype.hasOwnProperty.call(initialState, key)) {
         updatedState[key]= initialState[key];
@@ -30,10 +31,11 @@ export const useFrom = ({initialState,schema}: IFormParams)=>{
 
   const handleSubmit = async () => {
     const err = await yupValidate(schema, updatedState);
-    if(err){setErrors(err); return {}; }
-      
-    setStates(updatedState); 
-    setErrors({}); 
+    if(err) {
+      setErrors(err);
+      return null;
+    }
+    setErrors({});
     return updatedState;
   };
   return {Controller, state,handleSubmit, errors,setError,setErrors,setState , setStates};

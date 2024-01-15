@@ -1,4 +1,4 @@
-import {StyleSheet,View } from 'react-native';
+import {Platform, StyleSheet,View } from 'react-native';
 import React from 'react';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
@@ -58,7 +58,7 @@ export default function SliderAlt({handlePresents, ballColor, storkColor, barCol
     <GestureDetector gesture={pan}>
       <View style={[styles.mainBody]}>
         <View style={[styles.body, {width:SLIDER_WIDTH}]}>
-          <Animated.View className={'web:cursor-pointer'} style={[styles.ball, {backgroundColor: ballColor || 'red', transform:[{translateX}, {scale}]}]} />
+          <Animated.View className={ Platform.OS === 'web'? 'cursor-pointer' :'' } style={[styles.ball, {backgroundColor: ballColor || 'red', transform:[{translateX}, {scale}]}]} />
           <Animated.View style={[styles.bar,{backgroundColor: barColor || 'black', width: SLIDER_WIDTH}]}> 
             <Animated.View style={[styles.stork,animatedStyle, {backgroundColor:storkColor || 'green'}]} />
           </Animated.View>

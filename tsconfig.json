@@ -11,5 +11,5 @@
       "@hooks*": ["src/hooks*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "tailwind.config.js", "nativewind-env.d.js", "src/components/form/rules.ts", "__tests__/src/app/index.test.ts"]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "tailwind.config.js", "nativewind-env.d.js", "src/components/form/rules.ts", "__tests__/src/app/index.test.ts", "src/utils/db.js", "src/app/(stack)/auth/user+api.ts"]
 }

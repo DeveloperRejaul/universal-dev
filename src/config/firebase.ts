@@ -1,11 +1,11 @@
-// import { initializeApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 
 // Optionally import the services that you want to use
-// import {...} from "firebase/auth";
-// import {...} from "firebase/database";
-// import {...} from "firebase/firestore";
-// import {...} from "firebase/functions";
-// import {...} from "firebase/storage";
+// import {getAuth} from 'firebase/auth';
+import {getDatabase} from 'firebase/database';
+import {getFirestore} from 'firebase/firestore';
+// import {} from "firebase/functions";
+// import {getStorage} from "firebase/storage";
 
 // Initialize Firebase
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,8 +20,9 @@ const firebaseConfig = {
   measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// const firebase = initializeApp(firebaseConfig);
-// For more information on how to access Firebase in your project,
-// see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase
+const app = initializeApp(firebaseConfig);
 
-// export default firebase;
+
+export const fireStore = getFirestore(app);  
+export const database = getDatabase(app);
+export default app;

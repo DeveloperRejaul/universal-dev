@@ -1,26 +1,25 @@
 
 import { View, Text,ScrollView} from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import * as Component from '@components';
 import * as PComponent from '@platform-components';
 import {useToast} from '@hooks/useToast';
 import { useFrom } from 'src/components/form';
 import { string, object } from 'yup';
 
+
 const schema = object({
-  name:string().min(10, 'must be at least 10 characters long'),
-  email:string().min(10, 'must be at least 10 characters long').email('must be a valid email')
+  name:string().min(10, 'Must be at least 10 characters long'),
+  email:string().min(10, 'Must be at least 10 characters long').email('Must be a valid email')
 });
 
 
 export default function Components() {
+
   const {show} = useToast();
   const {Controller, handleSubmit, errors} = useFrom({initialState:{name:'', email:''},schema});
-
-  const onSubmit = async (value)=>{
-    console.log( await value);
-  };
-
+  const onSubmit = async (value)=>{ console.log( value); };
+  
 
   return (<ScrollView>
     <View style={{zIndex:-1}} className='px-2 space-y-6 pb-36'>
@@ -29,15 +28,12 @@ export default function Components() {
         <Component.H3 className='text-center'> Hook From  components </Component.H3> 
         <Controller
           name='name'
-          render={({onChange})=><PComponent.Input placeholder='Name' onChangeText={onChange} />}
+          render={({onChange})=><PComponent.Input placeholder='Name' onChangeText={onChange} error={errors.name && errors.name } />}
         />
-        {errors.name && <Text>{ errors.name }</Text>}
-
         <Controller
           name='email'
-          render={({onChange})=><PComponent.Input placeholder='Email' onChangeText={onChange} />}
+          render={({onChange})=><PComponent.Input placeholder='Email' onChangeText={onChange} error={errors.email && errors.email } />}
         />
-        {errors.email && <Text> {errors.email} </Text>}
         <Text onPress={()=>onSubmit(handleSubmit())}>Click Me</Text>
       </View>
 
@@ -45,10 +41,23 @@ export default function Components() {
         {/* Radio components */}
         <Component.H3 className='text-center'> Radio components </Component.H3> 
         <Component.Radio.RadioGroup initialSelect={'apple'} handleSelectValue={(val)=>{console.log(val);}}> 
-          <Component.Radio.Item value={'apple'} />
-          <Component.Radio.Item value={'samsung'} />
-          <Component.Radio.Item value={'Realme'} />
-          <Component.Radio.Item value={'Asus'} />
+          <View className='flex-row'>
+            <Component.Radio.Item value={'apple'} />
+            <Text className='ml-2'>Apple</Text>
+          </View>
+
+          <View className='flex-row'>
+            <Component.Radio.Item value={'samsung'} />
+            <Text className='ml-2'>Samsung</Text>
+          </View>
+          <View className='flex-row'>
+            <Component.Radio.Item value={'Realme'} />
+            <Text className='ml-2'>Realme</Text>
+          </View>
+          <View className='flex-row'>
+            <Component.Radio.Item value={'Asus'} />
+            <Text className='ml-2'>Asus</Text>
+          </View>
         </Component.Radio.RadioGroup>
       </View>
       {/* Display Switch components   */}
@@ -60,7 +69,7 @@ export default function Components() {
       {/* Display Slider components   */}
       <View style={{rowGap:5}}>
         <Component.H3 className='text-center'> Slider components </Component.H3> 
-        <Component.Slider handlePresents={(p)=>{console.log(p);}} />
+        <Slider />
       </View>
 
       {/* Display Toast message  */}
@@ -131,3 +140,15 @@ export default function Components() {
     </View>
   </ScrollView>);
 }
+
+function Slider(){
+  const [slideValue, setSliderValue] = useState(0);
+  return (
+    <>  
+      <Text className='text-center'>{slideValue}</Text>
+      <Component.Slider handlePresents={(v)=>setSliderValue(v)} />
+    </>
+  );
+}
+
+

@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
-    "scheme": "universal-dev",
+    "scheme": "universal",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./src/assets/images/splash.png",
@@ -17,7 +17,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.rejaul_karim.universaldev"
+      "bundleIdentifier": "com.rejaul.universaldev"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,11 +27,11 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.rejaul_karim.universaldev"
+      "package": "com.rejaul.universaldev"
     },
     "web": {
       "bundler": "metro",
-      "output": "server", // static => for web static rendring  // server => for server enable
+      "output": "static",
       "favicon": "./src/assets/images/favicon.png"
     },
     "plugins": [
@@ -59,16 +59,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "af526f09-0930-425e-b99b-647b6a7da6f4"
+        "projectId": "a09fc12b-fecf-4637-81a4-3469ab543409"
       },
-      "router": {
-        "origin": "https://acme.com",
-        "asyncRoutes": {
-          "web": false,
-          "android": false,
-          "default": "development"
-        }
-      }
+      "router": {}
     }
   }
 }

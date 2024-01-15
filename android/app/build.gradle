@@ -83,9 +83,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.rejaul_karim.universaldev'
+    namespace 'com.rejaul.universaldev'
     defaultConfig {
-        applicationId 'com.rejaul_karim.universaldev'
+        applicationId 'com.rejaul.universaldev'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

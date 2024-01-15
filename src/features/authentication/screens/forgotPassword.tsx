@@ -1,42 +1,19 @@
 import { Input } from '@platform-components';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import * as Yup from 'yup';
+import {object,string }from 'yup';
 import { Button } from '@components';
 import { Pressable, View } from 'react-native';
 import { Text } from 'react-native';
-import { useToken } from '@hooks/useToken';
 import React from 'react';
 import { useFrom } from '@hooks/useForm';
+import { forgotPassProps } from '../type';
+import OAuth from './OAuth';
 
-type appProps = {
-  emailPlaceholder?: string;
-  setEmail?: (value: string) => void;
-  handleLogin?: () => void;
-  handleSignUP?: () => void;
-  handleSend?: ({ email }: { email: string }) => void;
-  isLoading?: boolean;
-};
+const schema = object({ email:string().email('Must be a valid email').required('Email is required'),});
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Must be a valid email')
-    .required('Email is required'),
-});
+export default function ForgotPassword(props: forgotPassProps) {
+  const { isLoading,emailPlaceholder, handleLogin, handleSignUP, handleSend} = props;
 
-
-const googleColor = useToken('colors', 'red500');
-const fbColor = useToken('colors', 'blue800');
-const gitColor = useToken('colors', 'black');
-
-
-export default function ForgotPassword({
-  isLoading,
-  emailPlaceholder,
-  handleLogin,
-  handleSignUP,
-  handleSend,
-}: appProps) {
-  const {Controller,errors,handleSubmit} = useFrom({initialState:{ email: '' },schema:validationSchema});
+  const {Controller,errors,handleSubmit} = useFrom({initialState:{ email: '' },schema});
 
   return (
     <View className='bg-light100 shadow-black justify-center items-center base:w-full base:h-full md:w-[60%] md:h-[60%] lg:w-[50%] lg:h-[80%]'>
@@ -70,31 +47,11 @@ export default function ForgotPassword({
           </View>
           <View className='w-[45%] h-1 bg-coolGray200' />
         </View>
-        <View className='flex-row justify-center mt-1'>
-          <Pressable
-            onPress={()=>{}}
-            className='h-8 w-8 mx-2 rounded-full border-2 border-red500 justify-center items-center'
-          >
-            <AntDesign name='google' size={20} color={googleColor} />
-          </Pressable>
-          <Pressable
-            onPress={()=>{}}
-            className='h-8 w-8 mx-2 rounded-full border-2 border-blue800 justify-center items-center'
-          >
-            <FontAwesome name='facebook-f' size={20} color={fbColor} />
-          </Pressable>
-          <Pressable
-            onPress={()=>{}}
-            className='h-8 w-8 mx-2 rounded-full justify-center items-center border-2'
-          >
-            <FontAwesome name='github' size={18} color={gitColor} />
-          </Pressable>
-        </View>
-
+        <OAuth />
         <View className='flex-row justify-center pace-x-1'>
           <Text>Do you have an account?</Text>
           <Pressable onPress={handleSignUP}>
-            <Text className='uppercase underline font-medium'>
+            <Text className='uppercase underline font-medium ml-2'>
               Sing up
             </Text>
           </Pressable>

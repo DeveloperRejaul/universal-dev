@@ -9,6 +9,7 @@ const { withNativeWind } = require('nativewind/metro');
 // For linux: web and mobile 
 // For windows : Mobile
 const config = getDefaultConfig(__dirname,{ isCSSEnabled: true });
+config.resolver.sourceExts.push('cjs');
 module.exports = withNativeWind(config, {input: './src/config/app.css'});
 
 
