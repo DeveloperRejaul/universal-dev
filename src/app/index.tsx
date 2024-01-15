@@ -1,6 +1,6 @@
 
 import { Loading } from '@components';
-import { useProtected } from '@hooks/useProtacted';
+import { useProtected } from '@hooks/useProtected';
 import { Redirect } from 'expo-router';
 import React from 'react';
 import { userRole } from 'src/constants/constants';
@@ -15,6 +15,4 @@ export default ()=>{
   if(isSuccess && user.role === USER) return <Redirect href={'/home/main'} />;
   if(isSuccess && user.role === MODERATOR) return <Redirect href={'/dashboard/Home'} />;
   if(isSuccess && user.role === ADMIN) return <Redirect href={'/dashboard/Home'} />;
-
-
 };
