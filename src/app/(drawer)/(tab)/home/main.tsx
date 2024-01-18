@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {Input } from '@platform-components';
-import { Header, SimpleCarousal } from '@components';
+import { Header } from '@components';
 import { ScrollView, View } from 'react-native';
 import { useAppContext } from '@hooks/useAppContext';
 
@@ -26,9 +26,6 @@ export default function Home() {
             onChangeText={(text) => { console.log(text);}}
           />
         </View>
-
-        {/* slider part  */}
-        <SimpleCarousal />
       </View>
     </ScrollView>
   );

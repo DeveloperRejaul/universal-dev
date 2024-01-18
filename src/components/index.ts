@@ -1,7 +1,4 @@
-
-import SimpleCarousal from './carousal/SimpleCarousal';
 import Button from './button/button';
-import ShapingCard from './ShapingCard/ShapingCard';
 import AnimatedButton from './button/AnimatedButton';
 import Header from './header/header';
 import CheckBox from './checkBox/CheckBox';
@@ -23,7 +20,7 @@ import Accordion from './accordion/Accordion';
 import Center from './center/Center';
 import Protected from './protected/protected';
 import Loading from './loading/loading';
-
+import Card from './card/card';
 
 export { 
 
@@ -35,10 +32,9 @@ export {
   H1,H2, H3, H4, H5, H6,
 
 
-  // other components
-  SimpleCarousal,
+  
   Button,
-  ShapingCard,
+  Card,
   AnimatedButton,
   Header,
   CheckBox,
