@@ -2,13 +2,19 @@ import { useGlobal } from '@hooks/useGlobal';
 import React, { createContext,useCallback} from 'react';
 import { Socket } from 'socket.io-client';
 import * as SplashScreen from 'expo-splash-screen';
-import InterBlack from '../../assets/fonts/SpaceMono-Regular.ttf';
+import ManropeBold from '../../assets/fonts/Manrope-Bold.ttf';
+import ManropeSemiBold from '../../assets/fonts/Manrope-SemiBold.ttf';
+import ManropeMedium from '../../assets/fonts/Manrope-Medium.ttf';
+import ManropeRegular from '../../assets/fonts/Manrope-Regular.ttf';
 import {useFonts } from 'expo-font';
 import { View } from 'react-native';
 
 
 const customFonts = {
-  'Inter-Black': InterBlack,
+  'manrope-medium': ManropeMedium,
+  'manrope-regular':ManropeRegular,
+  'manrope-semiBold': ManropeSemiBold,
+  'manrope-bold':ManropeBold,
 };
 
 

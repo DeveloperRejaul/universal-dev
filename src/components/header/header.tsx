@@ -1,10 +1,10 @@
-import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from 'expo-router';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { Text, View } from 'react-native';
-import { Pressable } from 'react-native';
-import { rf } from 'src/constants/dimensions';
 import React from 'react';
+import MenuIcon from 'src/assets/icon/MenuIcon';
+import { useToken } from '@hooks/useToken';
+import { rf } from 'src/constants/dimensions';
 
 type RootStackParamList = {
   Drawer: undefined;
@@ -16,24 +16,19 @@ RootStackParamList,
 'Drawer'
 >;
 
-export default function () {
+interface IHeaderProps {
+  title: string
+}
+const MENU_COLOR = useToken('colors', 'primary');
+
+export default function (props: IHeaderProps) {
   const navigation = useNavigation<DrawerScreenNavigationProp>();
+
   return (
-    <View className='px-3 py-2 flex-1'>
-      <View className='flex-1 items-center justify-between flex-row'>
-        <View className='space-x-2 items-center'>
-          <Pressable onPress={() => navigation.toggleDrawer()}>
-            <Ionicons name='menu' size={rf(4)} />
-          </Pressable>
-          <Text className='text-black font-semibold'>
-            Menu
-          </Text>
-        </View>
-        <Text> Logo </Text>
-        <Pressable>
-          <AntDesign name='shoppingcart' size={rf(3)} color='black' />
-        </Pressable>
-      </View>
+    <View className='flex-row px-3 py-2 bg-white justify-between'>
+      <MenuIcon size={rf(4)} color={MENU_COLOR} onPress={()=> navigation.toggleDrawer()} />
+      <Text className='ml-5 font-bold text-2xl text-headline'>{props.title}</Text>
+      <View />
     </View>
   );
 }

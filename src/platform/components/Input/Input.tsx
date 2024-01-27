@@ -1,10 +1,11 @@
 import React, { useState, forwardRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { NativeSyntheticEvent, Pressable, TextInput, TextStyle, ViewStyle } from 'react-native';
+import { TextInput, TextStyle, ViewStyle } from 'react-native';
 import { View } from 'react-native';
 import { Text } from 'react-native';
-import { TextInputFocusEventData } from 'react-native';
-import { ICON_SIZE } from './constants';
+import { useToken } from '@hooks/useToken';
+
+const ICON_SIZE = useToken('size','5');
 
 type appProps = {
   label?: string;
@@ -13,7 +14,7 @@ type appProps = {
   onChangeText?: (value: string) => void;
   type?: 'search' | 'text' | 'password'| 'textarea';
   value?: string;
-  onBlur?: (value: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onBlur?: () => void;
   error?: string;
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
@@ -21,6 +22,8 @@ type appProps = {
   autoFocus?: boolean;
   defaultValue?: string
   className?: string;
+  keyboardType?: 'numeric'|'ascii-capable' | 'default'|'decimal-pad'| 'email-address'| 'name-phone-pad'| 'number-pad'| 'numbers-and-punctuation'|'phone-pad'|'twitter'|'url'| 'visible-password'|'web-search';
+  rightIcon?: React.ReactNode
 };
 
 export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) => {
@@ -39,45 +42,46 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
     inputStyle,
     autoFocus,
     defaultValue,
-    className
+    className,
+    keyboardType = 'default',
+    rightIcon
   } = props;
   
   const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
+  const [focus, setFocus] = useState<boolean>(false);
 
   return (
     <View className={className} style={containerStyle}>
-      <Text style={labelStyle}>{label}</Text>
-      <View className='border-rose300 bg-rose100 border-2 rounded-md p-1 w-full flex-row items-center'>
+      {label && <Text className='text-black text-lg ml-1 font-poppinsRegular' style={labelStyle}>{label?.replace('*','')} {label?.includes('*') ? <Text className='text-error'>*</Text> : ''} </Text>}
+      <View className={`rounded-md p-1 w-full flex-row items-center bg-white px-3 py-2  ${focus? 'border border-primary2/50': error ? 'border border-error': type ==='search' ?'border border-border' : 'border border-white'} `}>
         <TextInput
+          onFocus={()=> setFocus(true)}
+          className='py-1'
           multiline={type === 'textarea'}
           ref={ref}
           autoFocus={autoFocus}
           maxLength={maxLength}
-          onBlur={onBlur}
+          onBlur={()=> {onBlur?.(); setFocus(false);}}
           style={{ flex: 1, ...inputStyle }}
           onChangeText={onChangeText}
           placeholder={placeholder}
+          placeholderTextColor={useToken('colors', 'text2')}
           value={value}
           secureTextEntry={type === 'password' && passwordHidden}
           defaultValue={defaultValue}
+          keyboardType={keyboardType}
         />
-        {type === 'search' ? (
-          <Pressable>
-            <Ionicons name='search' size={ICON_SIZE} color={'gray'} />
-          </Pressable>
-        ) : null}
-        {type === 'password' ? (
-          <Pressable onPress={() => setPasswordHidden((pre) => !pre)}>
-            <Ionicons
-              name={passwordHidden ? 'eye-off' : 'eye'}
-              size={ICON_SIZE}
-              color={'gray'}
-            />
-          </Pressable>
-        ) : null}
+        {/* right icon  */}
+        {rightIcon ? 
+          rightIcon :
+          <>
+            {type === 'search' && <Ionicons name='search' size={ICON_SIZE} color={'gray'} />}
+            {type === 'password' && <Ionicons onPress={() => setPasswordHidden((pre) => !pre)} name={passwordHidden ? 'eye-off' : 'eye'} size={ICON_SIZE} color={'gray'} />}
+          </>
+        }
       </View>
       {error && (
-        <Text className='text-sm text-gray'>
+        <Text className='text-sm text-error font-poppinsMedium pt-1.5'>
           {error}
         </Text>
       )}

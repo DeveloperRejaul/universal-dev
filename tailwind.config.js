@@ -403,9 +403,22 @@ const config = {
       backgroundDarkMuted: '#252526',
       white: '#FFFFFF',
       black: '#000000',
-  
       // custom color 
+      primary: '#C89963',
+      secondary: '#FFECD6',
+      headline: '#2C4364',
+      paragraph: '#939393',
+      light: '#F1F1F1',
+      gray: '#838FA0',
+      border: '#EAECF0',
+      dark:'#D6D9DF'
      
+    },
+    fontFamily:{
+      manropeMedium:['manrope-medium'],
+      manropeRegular:['manrope-regular'],
+      manropeSemiBold:['manrope-semiBold'],
+      manropeBold:['manrope-bold']
     },
     screens:{
       'base': `${BASE}px`,

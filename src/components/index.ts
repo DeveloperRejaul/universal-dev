@@ -21,6 +21,7 @@ import Center from './center/Center';
 import Protected from './protected/protected';
 import Loading from './loading/loading';
 import Card from './card/card';
+import Avatar from './avatar/Avatar';
 
 export { 
 
@@ -47,5 +48,6 @@ export {
   Accordion,
   Center,
   Protected,
-  Loading
+  Loading,
+  Avatar  
 };
