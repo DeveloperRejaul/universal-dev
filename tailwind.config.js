@@ -411,7 +411,8 @@ const config = {
       light: '#F1F1F1',
       gray: '#838FA0',
       border: '#EAECF0',
-      dark:'#D6D9DF'
+      dark:'#D6D9DF',
+      headline2:'#27364E'
      
     },
     fontFamily:{

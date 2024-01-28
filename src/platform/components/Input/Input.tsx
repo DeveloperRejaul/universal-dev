@@ -24,6 +24,7 @@ type appProps = {
   className?: string;
   keyboardType?: 'numeric'|'ascii-capable' | 'default'|'decimal-pad'| 'email-address'| 'name-phone-pad'| 'number-pad'| 'numbers-and-punctuation'|'phone-pad'|'twitter'|'url'| 'visible-password'|'web-search';
   rightIcon?: React.ReactNode
+  leftIcon?: React.ReactNode
 };
 
 export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) => {
@@ -44,7 +45,8 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
     defaultValue,
     className,
     keyboardType = 'default',
-    rightIcon
+    rightIcon,
+    leftIcon
   } = props;
   
   const [passwordHidden, setPasswordHidden] = useState<boolean>(true);
@@ -54,6 +56,10 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
     <View className={className} style={containerStyle}>
       {label && <Text className='text-black text-lg ml-1 font-poppinsRegular' style={labelStyle}>{label?.replace('*','')} {label?.includes('*') ? <Text className='text-error'>*</Text> : ''} </Text>}
       <View className={`rounded-md p-1 w-full flex-row items-center bg-white px-3 py-2  ${focus? 'border border-primary2/50': error ? 'border border-error': type ==='search' ?'border border-border' : 'border border-white'} `}>
+        {/* Left Icon  */}
+        <View className='pr-2'>  
+          {leftIcon && leftIcon }
+        </View>
         <TextInput
           onFocus={()=> setFocus(true)}
           className='py-1'
@@ -72,13 +78,8 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
           keyboardType={keyboardType}
         />
         {/* right icon  */}
-        {rightIcon ? 
-          rightIcon :
-          <>
-            {type === 'search' && <Ionicons name='search' size={ICON_SIZE} color={'gray'} />}
-            {type === 'password' && <Ionicons onPress={() => setPasswordHidden((pre) => !pre)} name={passwordHidden ? 'eye-off' : 'eye'} size={ICON_SIZE} color={'gray'} />}
-          </>
-        }
+        {rightIcon && rightIcon }
+        {rightIcon && type === 'password' && <Ionicons onPress={() => setPasswordHidden((pre) => !pre)} name={passwordHidden ? 'eye-off' : 'eye'} size={ICON_SIZE} color={'gray'} />}
       </View>
       {error && (
         <Text className='text-sm text-error font-poppinsMedium pt-1.5'>
