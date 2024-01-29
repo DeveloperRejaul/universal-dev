@@ -1,19 +1,23 @@
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-import { View , Image ,Text, ScrollView, FlatList, NativeSyntheticEvent, NativeScrollEvent, StyleSheet} from 'react-native';
+import { View , Image ,Text, ScrollView, FlatList, NativeSyntheticEvent, NativeScrollEvent, StyleSheet, Pressable} from 'react-native';
 import React, { useCallback, useRef, useState } from 'react';
 import { Input } from '@platform-components';
 import SearchIcon from 'src/assets/icon/SearchIcon';
 import Header from 'src/components/header/header';
-import { Button } from '@components';
+import { Button, Container } from '@components';
 import { useToken } from '@hooks/useToken';
 import PlayIcon from 'src/assets/icon/PlayIcon';
 import { rf, rw } from 'src/constants/dimensions';
 import { randomId } from 'src/utils/random';
+import ArrowRightIcon from 'src/assets/icon/ArrowRightIcon';
+import { useRouter } from 'expo-router';
 
 const uri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4EhjRIvCnim1TgoLuLwTOd13NV194PSuHc6xgTgot0yN6B-MuGpqyh5Hore35f_k2Q2k&usqp=CAU';
 const isSubscribe = true;
+const BTN_SUBSCRIBE_BG = useToken('colors', 'primary', 20);
+const BTN_UNSUBSCRIBE_BG = useToken('colors', 'primary');
 
 const data =[uri,uri,uri];
 interface RenderItemsProps {
@@ -22,6 +26,7 @@ interface RenderItemsProps {
 
 export default function Index() {
   const [activeIndex, setIndex] = useState(0);
+  const router = useRouter();
 
   const slider = useRef<FlatList>(null);
   
@@ -35,7 +40,7 @@ export default function Index() {
 
 
   return (
-    <View className='flex-1'>
+    <View className='flex-1 pt-12 bg-white'>
       <Header title='Webinars' />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className='flex-1 bg-white px-3 pt-5 gap-y-5 pb-20'>
@@ -90,7 +95,12 @@ export default function Index() {
                 <Text className='text-headline2 text-xl font-manropeSemiBold'> Lorem Ipsum </Text>
                 <View className='flex-row justify-between items-center'>
                   <Text className='text-headline2 text-xl font-manropeSemiBold'> Lorem Ipsum </Text>
-                  <Button textStyle={{color: isSubscribe ? useToken('colors', 'primary') : useToken('colors', 'white')}} text='Subscribe' className={` ${isSubscribe ? 'bg-primary/20' : 'bg-primary'} px-5`} />
+                  <Button 
+                    className='px-4 py-1'
+                    containerStyle={{ backgroundColor:isSubscribe ? BTN_SUBSCRIBE_BG:BTN_UNSUBSCRIBE_BG}}
+                    textStyle={{color: isSubscribe ? useToken('colors', 'primary') : useToken('colors', 'white')}} 
+                    text='Subscribe'
+                  />
                 </View>
               </View>
               <View className='flex-row w-[50%] justify-between'>
@@ -100,7 +110,7 @@ export default function Index() {
               </View>
             </View>
 
-            {/* Card2 part  */}
+            {/* Card2 part speaker part  */}
             <View className='w-full gap-y-3'>
               <Text className='text-headline2 text-xl font-manropeSemiBold'>Lorem Ipsum</Text>
               <Text className='text-paragraph text-sm font-manropeRegular'>Speaker Name</Text>
@@ -115,15 +125,56 @@ export default function Index() {
                   keyExtractor={()=>randomId()}
                   horizontal
                   data={data}
-                  renderItem={({item})=> <RenderItems {...{item}} /> }
+                  renderItem={({item})=> (
+                    <Pressable onPress={()=>router.push('/(drawer)/(tab)/webinar/speaker-details')}>
+                      <RenderItems {...{item}} />
+                    </Pressable>
+                  ) }
                 />
                 <View className='absolute flex-row bottom-2 right-3'>
                   {data.map((ind, i)=> <View key={i} style={[styles.indicator,{backgroundColor:activeIndex === i ? '#fff': '#ffffffad'}]} />)}
                 </View>
-                <Button leftIcon={<PlayIcon size={rf(2)} />} textStyle={{color:useToken('colors','white' ), marginLeft:4}} text='Subscribe' className='absolute bg-primary px-3 py-1 bottom-3 left-4' />
+                <Button containerStyle={{backgroundColor:BTN_UNSUBSCRIBE_BG}} leftIcon={<PlayIcon size={rf(2)} />} textStyle={{color:useToken('colors','white' ), marginLeft:4}} text='Subscribe' className='absolute px-3 py-1 bottom-3 left-4' />
               </View>
             </View>
 
+            {/* Video Card webinar part */}
+            <View>
+              <View className='flex-row justify-between items-center mb-2 mt-4'>
+                <Text className='text-center text-headline2 font-manropeBold text-2xl'>Webinars</Text>
+                <Text className='text-primary text-lg font-manropeBold'>View All</Text>
+              </View>
+              
+              <FlatList 
+                showsHorizontalScrollIndicator={false}
+                horizontal
+                data={[1,2,3,4,5,6]}
+                keyExtractor={(item, index)=> index.toString()}
+                renderItem={()=>(
+                  <View style={{width:rw(60)}} className='border border-border rounded-2xl overflow-hidden mx-3'>
+                    <View className='w-full'>
+                      <Image source={{uri}} style={{height:200, width:'100%', borderBottomRightRadius:15, borderBottomLeftRadius:15}} />
+                      {/* Play Icon */}
+                      <View className='absolute left-[40%] top-[40%] h-16 w-16 border-2 border-white rounded-full justify-center items-center'>
+                        <PlayIcon />
+                      </View>
+                    </View>
+                    <View className='flex-row justify-between px-2 py-2'>
+                      <Text className='text-headline2 text-xl font-manropeSemiBold'> Lorem Ipsum </Text>
+                      <Text className='text-paragraph text-sm font-manropeRegular'>25:00</Text>
+                    </View>
+                    <View className='flex-row justify-between px-2 pb-2'>
+                      <Text className='text-headline2 text-xl font-manropeSemiBold'> Lorem Ipsum </Text>
+                      <View />
+                    </View> 
+                    <View className='flex-row justify-between px-2 pb-2'>
+                      <Text className='text-paragraph text-sm font-manropeRegular'>Speaker Name</Text>
+                      <ArrowRightIcon color={BTN_UNSUBSCRIBE_BG} onPress={()=>router.push('/(drawer)/(tab)/webinar/webinar-details')} />
+                    </View>
+                  </View>
+                ) }
+              />
+            </View>
           </View>
         </View>
       </ScrollView>

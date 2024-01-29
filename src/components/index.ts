@@ -22,6 +22,7 @@ import Protected from './protected/protected';
 import Loading from './loading/loading';
 import Card from './card/card';
 import Avatar from './avatar/Avatar';
+import Container from './container/Container';
 
 export { 
 
@@ -49,5 +50,6 @@ export {
   Center,
   Protected,
   Loading,
-  Avatar  
+  Avatar ,
+  Container
 };
