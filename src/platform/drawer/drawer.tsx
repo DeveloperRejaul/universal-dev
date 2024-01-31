@@ -21,18 +21,19 @@ import CommunityIcon from 'src/assets/icon/CommunityIcon';
 const ICON_COLOR = useToken('colors', 'primary');
 const textClass = 'text-headline font-manropeMedium ml-5 text-xl';
 const bodyClass = 'flex-row items-center py-2 px-3 my-3';
+const uri = 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80';
 
 export default function CustomDrawer (props: CustomDrawerProps) {
   const {navigation} = props;
 
   return (
     <View className='flex-1'>
-      <View className='px-4 gap-y-5'>
+      <View className='px-4 gap-y-5 pt-16'>
         <CloseIcon color={ICON_COLOR} size={rf(3)} onPress={()=>navigation.closeDrawer()} />
         {/* Profile part  */}
         <View className='flex-row justify-between items-center py-2 px-3 border border-border rounded-xl'>
           <View className='flex-row items-center'>
-            <Avatar uri='https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80' />
+            <Avatar uri={uri} />
             <View className='ml-2'>
               <Text className='text-headline text-lg font-manropeBold'>Karna</Text>
               <Text className='text-paragraph text-sm font-manropeRegular' >+91 98765 43210</Text>

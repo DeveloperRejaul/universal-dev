@@ -6,7 +6,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Input } from '@platform-components';
 import SearchIcon from 'src/assets/icon/SearchIcon';
 import Header from 'src/components/header/header';
-import { Button, Container } from '@components';
+import { Button } from '@components';
 import { useToken } from '@hooks/useToken';
 import PlayIcon from 'src/assets/icon/PlayIcon';
 import { rf, rw } from 'src/constants/dimensions';

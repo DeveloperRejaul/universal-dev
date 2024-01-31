@@ -12,7 +12,7 @@ interface IPropsType {
   leftIcon?: React.ReactNode 
 }
 
-const textColor = useToken('colors', 'gray');
+
 const ICON_SIZE = useToken('size','6');
 
 export default function button({ onPress ,text,isLoading,textStyle,containerStyle,className, leftIcon}: IPropsType) {
@@ -20,7 +20,7 @@ export default function button({ onPress ,text,isLoading,textStyle,containerStyl
     <Pressable
       disabled={isLoading}
       style={containerStyle}
-      className={`bg-rose500 justify-center items-center rounded-md flex-row py-1 hover:bg-rose600 ${className}`}
+      className={`bg-primary justify-center items-center rounded-md flex-row py-1 hover:bg-rose600 ${className}`}
       onPress={onPress}
     >
       {leftIcon && leftIcon}
@@ -29,7 +29,7 @@ export default function button({ onPress ,text,isLoading,textStyle,containerStyl
       ) : (
         <Text
           style={textStyle}
-          className={`text-[${textColor}] android:font-semibold ios:font-semibold text-lg web:font-bold`}
+          className={'text-white android:font-semibold ios:font-semibold text-lg web:font-bold'}
         >
           {text || 'Click Me'}
         </Text>

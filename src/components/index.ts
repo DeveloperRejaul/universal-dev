@@ -23,6 +23,7 @@ import Loading from './loading/loading';
 import Card from './card/card';
 import Avatar from './avatar/Avatar';
 import Container from './container/Container';
+import Ratting from './card/Ratting';
 
 export { 
 
@@ -51,5 +52,8 @@ export {
   Protected,
   Loading,
   Avatar ,
-  Container
+  Container,
+
+  //  main components 
+  Ratting
 };
