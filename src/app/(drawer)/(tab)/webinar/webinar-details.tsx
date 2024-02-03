@@ -46,6 +46,7 @@ export default function webinar() {
         <View className='px-4 py-2'> 
           <Ratting rating={4.40} />  
         </View>
+        {/* Vertical Slide part */}
         <VerticalSlide heading='More by the Speaker' headStyle={{paddingHorizontal:15}} />
       </View>
     </ScrollView>

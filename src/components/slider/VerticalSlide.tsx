@@ -18,7 +18,6 @@ interface IVerticalSlideProps {
 }
 
 
-
 export default function VerticalSlide(props: IVerticalSlideProps) {
   return (
     <View style={props.containerStyle}>
@@ -33,7 +32,7 @@ export default function VerticalSlide(props: IVerticalSlideProps) {
         data={[1,2,3,4,5,6]}
         keyExtractor={(item, index)=> index.toString()}
         renderItem={()=>(
-          <View style={{width:rw(60)}} className='border border-border rounded-2xl overflow-hidden mx-3'>
+          <View style={{width:rw(60)}} className='border border-border rounded-2xl overflow-hidden mr-3'>
             <View className='w-full'>
               <Image source={{uri}} style={{height:200, width:'100%', borderBottomRightRadius:15, borderBottomLeftRadius:15}} />
               {/* Play Icon */}

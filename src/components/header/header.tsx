@@ -17,7 +17,9 @@ RootStackParamList,
 >;
 
 interface IHeaderProps {
-  title: string
+  title: string;
+  headerLeft?: React.ReactNode;
+  headerRight?: React.ReactNode
 }
 const MENU_COLOR = useToken('colors', 'primary');
 
@@ -26,9 +28,9 @@ export default function (props: IHeaderProps) {
 
   return (
     <View className='flex-row px-3 py-2 bg-white justify-between'>
-      <MenuIcon size={rf(4)} color={MENU_COLOR} onPress={()=> navigation.toggleDrawer()} />
+      {props.headerLeft ? props.headerLeft : <MenuIcon size={rf(4)} color={MENU_COLOR} onPress={()=> navigation.toggleDrawer()} />}
       <Text className='ml-5 font-bold text-2xl text-headline'>{props.title}</Text>
-      <View />
+      {props.headerRight ? props.headerRight : <View /> }
     </View>
   );
 }

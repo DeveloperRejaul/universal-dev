@@ -55,14 +55,14 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
   return (
     <View className={className} style={containerStyle}>
       {label && <Text className='text-black text-lg ml-1 font-poppinsRegular' style={labelStyle}>{label?.replace('*','')} {label?.includes('*') ? <Text className='text-error'>*</Text> : ''} </Text>}
-      <View className={`rounded-md p-1 w-full flex-row items-center bg-white px-3 py-2  ${focus? 'border border-primary2/50': error ? 'border border-error': type ==='search' ?'border border-border' : 'border border-white'} `}>
+      <View className={'rounded-md p-1 w-full flex-row items-center bg-white px-3 py-2  border border-gray/20 '}>
         {/* Left Icon  */}
         <View className='pr-2'>  
           {leftIcon && leftIcon }
         </View>
         <TextInput
           onFocus={()=> setFocus(true)}
-          className='py-1'
+          className='py-1 text-xl'
           multiline={type === 'textarea'}
           ref={ref}
           autoFocus={autoFocus}
@@ -71,7 +71,7 @@ export default forwardRef(( props: appProps,ref: React.ForwardedRef<TextInput>) 
           style={{ flex: 1, ...inputStyle }}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          placeholderTextColor={useToken('colors', 'text2')}
+          placeholderTextColor={useToken('colors', 'gray')}
           value={value}
           secureTextEntry={type === 'password' && passwordHidden}
           defaultValue={defaultValue}
