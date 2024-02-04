@@ -412,8 +412,8 @@ const config = {
       gray: '#838FA0',
       border: '#EAECF0',
       dark:'#D6D9DF',
-      headline2:'#27364E'
-     
+      headline2:'#27364E',
+      orang:'#FFECD6'
     },
     fontFamily:{
       manropeMedium:['manrope-medium'],

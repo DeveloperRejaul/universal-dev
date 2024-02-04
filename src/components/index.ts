@@ -26,6 +26,7 @@ import Container from './container/Container';
 import Ratting from './card/Ratting';
 import WebinarTime from './webinarTime/WebinarTime';
 import CardSlide from './slider/CardSlide';
+import SwitchButton from './button/SwitchButton';
 
 export { 
 
@@ -59,5 +60,6 @@ export {
   //  main components 
   Ratting,
   WebinarTime,
-  CardSlide
+  CardSlide,
+  SwitchButton
 };
