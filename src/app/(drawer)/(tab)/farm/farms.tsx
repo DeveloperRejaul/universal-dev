@@ -30,7 +30,7 @@ export default function farms() {
           </View> 
           <View className='flex-row justify-between px-2 pb-2'>
             <Text className='text-paragraph text-lg font-manropeRegular'>Location</Text>
-            <ArrowRightIcon color={BTN_UNSUBSCRIBE_BG} onPress={()=>router.push('/(drawer)/(tab)/webinar/webinar-details')} />
+            <ArrowRightIcon color={BTN_UNSUBSCRIBE_BG} onPress={()=>router.push('/farm/details')} /> 
           </View>
         </View>
 

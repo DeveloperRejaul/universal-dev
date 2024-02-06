@@ -12,7 +12,7 @@ interface ISwitchButtonProps {
 }
 
 export default function SwitchButton (props: ISwitchButtonProps) {
-  const [active, setActive] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(true);
 
   
   useEffect(()=>{props.onPress(active);},[active]);
@@ -23,13 +23,13 @@ export default function SwitchButton (props: ISwitchButtonProps) {
         onPress={()=>setActive(true)}
         className={`justify-center items-center flex-1 py-2 rounded-lg ${active ? activeView :'' }`}
       >
-        <Text className={active ? activeText :''}>Yes</Text>
+        <Text className={active ? activeText :''}>{ props.leftBtnText || 'Yes'}</Text>
       </Pressable>
       <Pressable
         onPress={()=>setActive(false)}
         className={`justify-center items-center flex-1 py-2 rounded-lg ${!active? activeView :'' }`}
       >
-        <Text className={!active ? activeText :''}>No</Text>
+        <Text className={!active ? activeText :''}>{props.rightBtnText || 'No'}</Text>
       </Pressable>
     </View>
   );

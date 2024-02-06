@@ -27,6 +27,8 @@ import Ratting from './card/Ratting';
 import WebinarTime from './webinarTime/WebinarTime';
 import CardSlide from './slider/CardSlide';
 import SwitchButton from './button/SwitchButton';
+import CropItem from './cropItem/CropItem';
+import VerticalSlide from './slider/VerticalSlide';
 
 export { 
 
@@ -61,5 +63,7 @@ export {
   Ratting,
   WebinarTime,
   CardSlide,
-  SwitchButton
+  SwitchButton,
+  CropItem,
+  VerticalSlide
 };
