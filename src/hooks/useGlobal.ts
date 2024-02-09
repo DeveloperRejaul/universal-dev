@@ -9,7 +9,7 @@ export const useGlobal = () => {
     const init = async ()=>{
       const token = await storage.getAsyncData({key:'@authToken'});
       if(token === 'error' && socket !== null)return;
-      const socketIo: Socket = io(process.env.EXPO_PUBLIC_SOCKET_URL, { extraHeaders: { token: `Bearer ${token}`},autoConnect:false});
+      const socketIo: Socket = io('process.env.EXPO_PUBLIC_SOCKET_URL', { extraHeaders: { token: `Bearer ${token}`},autoConnect:false});
       setSocket(socketIo);
     };
     init();

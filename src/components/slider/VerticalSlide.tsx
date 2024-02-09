@@ -1,11 +1,12 @@
 import { View, Text, FlatList, ViewStyle } from 'react-native';
 import React from 'react';
-import { rw } from 'src/constants/dimensions';
+import { rf, rw } from 'src/constants/dimensions';
 import { useToken } from '@hooks/useToken';
 import { Image } from 'react-native';
 import PlayIcon from 'src/assets/icon/PlayIcon';
 import ArrowRightIcon from 'src/assets/icon/ArrowRightIcon';
 import { router } from 'expo-router';
+import { StyleSheet } from 'react-native';
 
 const uri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4EhjRIvCnim1TgoLuLwTOd13NV194PSuHc6xgTgot0yN6B-MuGpqyh5Hore35f_k2Q2k&usqp=CAU';
 const BTN_UNSUBSCRIBE_BG = useToken('colors', 'primary');
@@ -22,8 +23,8 @@ export default function VerticalSlide(props: IVerticalSlideProps) {
   return (
     <View style={props.containerStyle}>
       <View style={props.headStyle} className='flex-row justify-between items-center mb-2 mt-4'>
-        <Text className='text-center text-headline2 font-manropeBold text-2xl'>{props.heading || 'Webinars'}</Text>
-        <Text className='text-primary text-lg font-manropeBold'>View All</Text>
+        <Text style={styles.headingText} className='font-manropeBold'>{props.heading || 'Webinars'}</Text>
+        <Text style={styles.textLeft} className='text-primary font-manropeBold'>View All</Text>
       </View>
     
       <FlatList 
@@ -58,3 +59,13 @@ export default function VerticalSlide(props: IVerticalSlideProps) {
     </View>
   );
 }
+
+const styles = StyleSheet.create ({
+  textLeft:{
+    fontSize:rf(1.8)
+  },
+  headingText:{
+    fontSize:rf(2.4),
+    color:useToken('colors', 'headline')
+  }
+});

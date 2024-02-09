@@ -22,13 +22,13 @@ export default function farms() {
       <Header title='My Plots' />
       <View className='flex-row justify-between ' style={{marginVertical:15}}>
         {/* farm */}
-        <View style={{width:rw(45),height:220}} className='border border-gray/20 rounded-2xl overflow-hidden mx-3'>
+        <View style={{width:rw(45),height:230}} className='border border-gray/20 rounded-2xl overflow-hidden mx-3'>
           <Image source={{uri}} style={{height:150, width:'100%', borderBottomRightRadius:15, borderBottomLeftRadius:15}} />
           <View className='flex-row justify-between px-2 py-2'>
             <Text className='text-headline2 text-xl font-manropeSemiBold'> Farm Name</Text>
             <View />
           </View> 
-          <View className='flex-row justify-between px-2 pb-2'>
+          <View className='flex-row justify-between px-4'>
             <Text className='text-paragraph text-lg font-manropeRegular'>Location</Text>
             <ArrowRightIcon color={BTN_UNSUBSCRIBE_BG} onPress={()=>router.push('/farm/details')} /> 
           </View>

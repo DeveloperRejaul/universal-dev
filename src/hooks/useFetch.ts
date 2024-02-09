@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const BASE_URL = process.env.EXPO_PUBLIC_BASE_URL;
+const BASE_URL = process.env.LIC_BASE_URL;
 
 
 interface IGetParams {

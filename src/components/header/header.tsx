@@ -5,6 +5,7 @@ import React from 'react';
 import MenuIcon from 'src/assets/icon/MenuIcon';
 import { useToken } from '@hooks/useToken';
 import { rf } from 'src/constants/dimensions';
+import { styles } from 'src/styles/styles';
 
 type RootStackParamList = {
   Drawer: undefined;
@@ -29,7 +30,7 @@ export default function (props: IHeaderProps) {
   return (
     <View className='flex-row px-3 py-2 bg-white justify-between'>
       {props.headerLeft ? props.headerLeft : <MenuIcon size={rf(4)} color={MENU_COLOR} onPress={()=> navigation.toggleDrawer()} />}
-      <Text className='ml-5 font-bold text-2xl text-headline'>{props.title}</Text>
+      <Text style={styles.xl3} className='ml-5 font-bold text-headline'>{props.title}</Text>
       {props.headerRight ? props.headerRight : <View /> }
     </View>
   );

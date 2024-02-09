@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.rejaul.universaldev"
@@ -60,9 +58,16 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a09fc12b-fecf-4637-81a4-3469ab543409"
+        "projectId": "38473e30-43f6-4890-826a-e403a88d5503"
       },
-      "router": {}
+      "router": {
+        "origin": "https://acme.com",
+        "asyncRoutes": {
+          "web": false,
+          "android": false,
+          "default": "development"
+        }
+      }
     }
   }
 }

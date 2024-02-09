@@ -8,9 +8,19 @@ import { Header } from '@components';
 import { useRouter } from 'expo-router';
 const uri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4EhjRIvCnim1TgoLuLwTOd13NV194PSuHc6xgTgot0yN6B-MuGpqyh5Hore35f_k2Q2k&usqp=CAU';
 const imagesData = new Array(7).fill(0).map(i=>i);
+import * as ImagePicker from 'expo-image-picker';
+
 
 export default function gallery() {
   const router = useRouter();
+  const handleImages = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+  };
   return (
     <SafeAreaView className='flex-1 bg-white px-4 '>
       <Header title='Farm Name' headerLeft={<ArrowRightIcon className='rotate-180' onPress={()=> router.back()} />} />
@@ -18,7 +28,7 @@ export default function gallery() {
       <View className='flex-wrap justify-between flex-row gap-y-3 mb-5 py-3 '>
         {imagesData.map(()=> <GalleryImg uri={uri} key={randomId()} />)}
       </View>
-      <Pressable className='border-2 border-gray/20 border-dashed rounded-2xl items-center justify-center' style={{paddingVertical:14}}>
+      <Pressable onPress={handleImages} className='border-2 border-gray/20 border-dashed rounded-2xl items-center justify-center' style={{paddingVertical:14}}>
         <Text className='text-gray text-lg font-manropeSemiBold'>Upload Photos</Text>
       </Pressable>
     </SafeAreaView>

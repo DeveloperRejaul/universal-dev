@@ -16,6 +16,9 @@ import ArrowLeft from 'src/assets/icon/ArrowLeft';
 import GalleryImg from 'src/components/GalleryImg/GalleryImg';
 const uri = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4EhjRIvCnim1TgoLuLwTOd13NV194PSuHc6xgTgot0yN6B-MuGpqyh5Hore35f_k2Q2k&usqp=CAU';
 const imagesData = new Array(7).fill(0).map(i=>i);
+import * as ImagePicker from 'expo-image-picker';
+import { rf } from 'src/constants/dimensions';
+import { styles } from 'src/styles/styles';
 
 export default function details() {
   const router = useRouter();
@@ -28,7 +31,7 @@ export default function details() {
         <View className='px-3'>
           {/* crop input part  */}
           <View className='gap-y-4 mb-4'>
-            <Text className='text-2xl font-manropeBold py-3 text-headline -mb-3'>Main Crop</Text>
+            <Text style={styles.xl3} className='font-manropeBold py-3 text-headline -mb-3'>Main Crop</Text>
             <Input 
               placeholder='Carrot' 
               leftIcon={
@@ -46,8 +49,8 @@ export default function details() {
               }
             />
           </View>
-          <Text className='text-2xl font-manropeBold py-3 text-headline'>Schedule Plot for Buyer</Text>
-          <Text className='text-2xl font-manropeBold py-3 text-headline'>Open Plot</Text>
+          <Text style={styles.xl2} className='font-manropeBold py-3 text-headline'>Schedule Plot for Buyer</Text>
+          <Text style={styles.xl2} className='font-manropeBold py-3 text-headline'>Open Plot</Text>
           <SwitchButton onPress={(value)=> setActive(value)} />
           {active && <OpenPlot />}
         </View>
@@ -57,16 +60,27 @@ export default function details() {
 
 
 function OpenPlot () {
+
+  const handleImages = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+  };
+
+
   return (
     <View className='gap-y-4'>
-      <Text className='text-2xl font-manropeBold py-3 text-headline -mb-3'>Farm Details</Text>
+      <Text style={styles.xl2} className='font-manropeBold py-3 text-headline -mb-3'>Farm Details</Text>
       <Input placeholder='Plot Name' />
       <Input placeholder='Number of Plants' />
       <Input placeholder='Avg. Expected Yield per Plant' />
       <Input placeholder='GPS Location' rightIcon={<LocationIcon />} />
 
-      <Pressable className='border-2 border-gray/20 border-dashed rounded-2xl items-center justify-center' style={{paddingVertical:14}}>
-        <Text className='text-gray text-lg font-manropeSemiBold'>Upload Photos</Text>
+      <Pressable onPress={handleImages} className='border-2 border-gray/20 border-dashed rounded-2xl items-center justify-center' style={{paddingVertical:14}}>
+        <Text style={styles.lg} className='text-gray font-manropeSemiBold'>Upload Photos</Text>
       </Pressable>
 
       <View />
@@ -101,8 +115,8 @@ function OpenPlot () {
       <Text className='text-xl font-manropeBold py-3 text-headline'>Crop Schedule</Text>
       {['March 22nd 2023 to  21st April 2023', 'Feb 19th 2023 to March 21st 2023','Jan 19th 2023 to Feb 18th 2023'].map(d=> (
         <View key={randomId()} className='flex-row justify-between border border-border px-3 py-3 rounded-md'>
-          <Text className='text-headline text-lg font-manropeBold'>{d}</Text>
-          <ArrowLeft />
+          <Text style={styles.xl} className='text-headline font-manropeBold'>{d}</Text>
+          <ArrowLeft size={rf(2.6)} />
         </View>
       ))}
 
@@ -110,35 +124,38 @@ function OpenPlot () {
       <Text className='text-xl font-manropeBold py-3 text-headline'>Advice Asked</Text>
       <View className='border border-border p-5 gap-y-3' >
         <View className='flex-row justify-between'>
-          <Text className='text-headline text-2xl font-manropeBold'>Root related problem</Text>
-          <Text className='text-primary text-lg font-manropeSemiBold'>Active</Text>
+          <Text style={styles.xl2} className='text-headline font-manropeBold'>Root related problem</Text>
+          <Text style={styles.lg} className='text-primary font-manropeSemiBold'>Active</Text>
         </View>
-        <Text className='text-headline text-xl font-manropeBold'>SC20221216133300</Text>
-        <Text className='text-gray text-xl font-manropeRegular'>Last updated on 9 May, 2023  01:33 pm</Text>
+        <Text style={styles.xl} className='text-headline  font-manropeBold'>SC20221216133300</Text>
+        <Text style={styles.xl} className='text-gray font-manropeRegular'>Last updated on 9 May, 2023  01:33 pm</Text>
         <View className='flex-row justify-between'>
           <View className='flex-row justify-between items-center bg-primary/15 px-3 py-2 rounded-lg'>
             <View>
-              <Text className='text-gray text-lg font-manropeRegular'>Plot</Text>
-              <Text className='text-headline  text-xl font-manropeBold'>My Farm 1</Text>
+              <Text style={styles.lg} className='text-gray  font-manropeRegular'>Plot</Text>
+              <Text style={styles.xl} className='text-headline font-manropeBold'>My Farm 1</Text>
             </View>
-            <View className='h-20 w-20 rounded-full overflow-hidden ml-2'>
+            <View className='h-16 w-16 rounded-full overflow-hidden ml-2'>
               <Image source={{uri:uri}} style={{height:'100%', width:'100%'}} />
             </View>
           </View>
           <View className='flex-row justify-between items-center bg-primary/15 px-3 py-2 rounded-lg'>
             <View>
-              <Text className='text-gray text-lg font-manropeRegular'>Crop</Text>
-              <Text className='text-headline  text-xl font-manropeBold'>Carrot</Text>
+              <Text style={styles.lg} className='text-gray font-manropeRegular'>Crop</Text>
+              <Text style={styles.xl} className='text-headline font-manropeBold'>Carrot</Text>
             </View>
-            <View className='h-20 w-20 rounded-full overflow-hidden ml-2'>
+            <View className='h-16 w-16 rounded-full overflow-hidden ml-2'>
               <Image source={{uri:uri}} style={{height:'100%', width:'100%'}} />
             </View>
           </View>
         </View>
         <Button text='Open Ticket' className='py-3' onPress={()=>router.push('/farm/gallery')} />
       </View>
+      {/* Gallery part  */}
+      <View className='flex-wrap justify-between flex-row gap-y-3 mb-5 py-3 '>
+        {imagesData.map(()=> <GalleryImg uri={uri} key={randomId()} />)}
+      </View>
     </View>
   );
 } 
-
 
