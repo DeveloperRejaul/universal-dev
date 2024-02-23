@@ -12,7 +12,7 @@ interface IPropsType {
   leftIcon?: React.ReactNode 
 }
 
-const textColor = useToken('colors', 'gray');
+const textColor = useToken('colors', 'coolGray100');
 const ICON_SIZE = useToken('size','6');
 
 export default function button({ onPress ,text,isLoading,textStyle,containerStyle,className, leftIcon}: IPropsType) {

@@ -402,10 +402,7 @@ const config = {
       backgroundLightMuted: '#F6F6F7',
       backgroundDarkMuted: '#252526',
       white: '#FFFFFF',
-      black: '#000000',
-  
-      // custom color 
-     
+      black: '#000000',     
     },
     screens:{
       'base': `${BASE}px`,
